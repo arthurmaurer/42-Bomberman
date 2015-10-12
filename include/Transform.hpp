@@ -1,0 +1,17 @@
+#pragma once
+
+#include "Vec3.hpp"
+#include "Quaternion.hpp"
+
+class Transform
+{
+public:
+	Vec3		position;
+	Vec3		scale;
+	Quaternion	rotation;
+
+	Transform();
+	Transform(const Transform & src);
+
+	Transform &	operator=(const Transform & rhs);
+};
