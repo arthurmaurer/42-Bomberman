@@ -32,9 +32,6 @@ public:
 	void			loadUniform(const std::string & name, const Matrix4 & value) const;
 	virtual void	getUniformLocations() = 0;
 
-	virtual void	bindAttributes() = 0;
-	void			bindAttribute(GLuint attribId, const std::string & attribName);
-
 	void			enable() const;
 	void			disable() const;
 };

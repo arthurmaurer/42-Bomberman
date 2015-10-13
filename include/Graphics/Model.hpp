@@ -1,16 +1,17 @@
 #pragma once
 
-#include <string>
-#include <tiny_obj_loader.h>
+#include <cstdlib>
 #include <GL/glew.h>
+#include "Graphics/Texture.hpp"
 
 class Model
 {
 public:
-	GLuint		indexCount = 0;
-	GLuint		vboID = 0;
-	GLuint		vaoID = 0;
-	GLuint		iboID = 0;
+	GLuint			indexCount = 0;
+	GLuint			vboID = 0;
+	GLuint			vaoID = 0;
+	GLuint			iboID = 0;
+	const Texture *	texture = NULL;
 	
 	Model();
 	~Model();

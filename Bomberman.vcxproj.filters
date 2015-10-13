@@ -99,6 +99,12 @@
     <ClCompile Include="src\ShaderProgram\DefaultProgram.cpp">
       <Filter>Source Files\ShaderProgram</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\Texture.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\TextureManager.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Vec2.hpp">
@@ -151,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="include\ShaderProgram\DefaultProgram.hpp">
       <Filter>Header Files\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Graphics\Texture.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Graphics\TextureManager.hpp">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

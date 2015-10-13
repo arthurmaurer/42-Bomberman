@@ -114,10 +114,13 @@ void	Graphics::renderEntity(const Entity & entity)
 
 	model.setFromTransform(entity.transform);
 	mvp = projectionMatrix * view * model;
-
 	shaderProgram->loadUniform("mvp", mvp);
 
 	glBindVertexArray(entity.model->vaoID);
 	glBindBuffer(GL_ARRAY_BUFFER, entity.model->vboID);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, entity.model->texture->id);
+
 	glDrawElements(GL_TRIANGLES, entity.model->indexCount, GL_UNSIGNED_INT, (void*)0);
 }

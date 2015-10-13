@@ -1,10 +1,12 @@
 
 #include "Game/TestEntity.hpp"
 #include "Graphics/ModelManager.hpp"
+#include "Graphics/TextureManager.hpp"
 
 TestEntity::TestEntity() :
-	Entity(ModelManager::loadFromOBJ("cube.obj"))
+	Entity(ModelManager::loadFromOBJ("vanquish.obj"))
 {
+	model->texture = &TextureManager::loadTexture("texture.jpg");
 	transform.position.z = -1.5f;
 	transform.scale = Vec3(0.5f, 0.5f, 0.5f);
 }

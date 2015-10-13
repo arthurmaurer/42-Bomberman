@@ -73,11 +73,6 @@ void	ShaderProgram::disable() const
 	glUseProgram(0);
 }
 
-void	ShaderProgram::bindAttribute(GLuint attribId, const std::string & attribName)
-{
-	glBindAttribLocation(id, attribId, attribName.c_str());
-}
-
 void	ShaderProgram::cleanUp()
 {
 	disable();

@@ -8,5 +8,4 @@ public:
 	DefaultProgram();
 
 	void	getUniformLocations();
-	void	bindAttributes();
 };

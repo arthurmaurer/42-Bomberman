@@ -2,8 +2,10 @@
 
 in vec3			position;
 in vec3			color;
+in vec2			uv;
 
 out vec4		_color;
+out vec2		_uv;
 
 uniform mat4	mvp;
 
@@ -12,4 +14,5 @@ void main()
    gl_Position = vec4(position, 1.0) * mvp;
 
    _color = vec4(color, 1.0);
+   _uv = uv;
 }
