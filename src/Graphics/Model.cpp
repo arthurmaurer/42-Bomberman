@@ -9,28 +9,6 @@ Model::~Model()
 	cleanUp();
 }
 
-void	Model::load(const std::string & path)
-{
-	std::string		error;
-	
-	error = tinyobj::LoadObj(shapes, materials, path.c_str());
-
-	if (error.empty() == false)
-		throw std::runtime_error(error);
-
-	vertexCount = getVertexCount();
-}
-
-GLuint	Model::getVertexCount() const
-{
-	GLuint	count = 0;
-
-	for (const auto & shape : shapes)
-		count += shape.mesh.indices.size();
-
-	return count;
-}
-
 void	Model::cleanUp()
 {
 	if (vboID != 0)
@@ -43,5 +21,11 @@ void	Model::cleanUp()
 	{
 		glDeleteVertexArrays(1, &vaoID);
 		vaoID = 0;
+	}
+
+	if (iboID != 0)
+	{
+		glDeleteVertexArrays(1, &iboID);
+		iboID = 0;
 	}
 }

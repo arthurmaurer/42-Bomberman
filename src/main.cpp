@@ -12,6 +12,7 @@ int main()
 	{
 		DefaultProgram	shaderProgram;
 		shaderProgram.enable();
+
 		TestEntity	entity;
 		Graphics::registerEntity(entity);
 
@@ -30,6 +31,7 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				Graphics::stop();
 
+			entity.update();
 			Graphics::render();
 		}
 	}

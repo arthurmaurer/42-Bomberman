@@ -119,5 +119,5 @@ void	Graphics::renderEntity(const Entity & entity)
 
 	glBindVertexArray(entity.model->vaoID);
 	glBindBuffer(GL_ARRAY_BUFFER, entity.model->vboID);
-	glDrawArrays(GL_TRIANGLES, 0, entity.model->vertexCount);
+	glDrawElements(GL_TRIANGLES, entity.model->indexCount, GL_UNSIGNED_INT, (void*)0);
 }
