@@ -4,7 +4,7 @@
 #include "Graphics/TextureManager.hpp"
 
 TestEntity::TestEntity() :
-	Entity(ModelManager::loadFromOBJ("vanquish.obj"))
+	Entity(ModelManager::loadFromOBJ("cube.obj"))
 {
 	model->texture = &TextureManager::loadTexture("texture.jpg");
 	transform.position.z = -1.5f;

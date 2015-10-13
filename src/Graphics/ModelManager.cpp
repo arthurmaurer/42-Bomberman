@@ -5,17 +5,18 @@
 #include <tiny_obj_loader.h>
 #include "Utils/MathUtil.hpp"
 
-void	ModelManager::getModelData(std::vector<Vec3> & positions, std::vector<Vec3> & diffuseColors, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials)
+void	ModelManager::getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials)
 {
 	std::vector<Vec3>::const_iterator	it;
 	Vec3								position;
-	Vec3								diffuseColor;
 	Vec2								uv;
 
 	for (const auto & shape : shapes)
 	{
 		for (GLuint indice : shape.mesh.indices)
 		{
+			uv = Vec2::zero;
+
 			position.x = shape.mesh.positions[indice * 3];
 			position.y = shape.mesh.positions[indice * 3 + 1];
 			position.z = shape.mesh.positions[indice * 3 + 2];
@@ -24,15 +25,13 @@ void	ModelManager::getModelData(std::vector<Vec3> & positions, std::vector<Vec3>
 
 			if (it == positions.cend())
 			{
-				diffuseColor.x = MathUtil::random(0, 1.1f, 0.1f);
-				diffuseColor.y = MathUtil::random(0, 1.1f, 0.1f);
-				diffuseColor.z = MathUtil::random(0, 1.1f, 0.1f);
-
-				uv.x = shape.mesh.normals[indice * 3];
-				uv.y = shape.mesh.normals[indice * 3 + 1];
+				if (shape.mesh.normals.size() >= indice * 3 + 1)
+				{
+					uv.x = shape.mesh.normals[indice * 3];
+					uv.y = shape.mesh.normals[indice * 3 + 1];
+				}
 
 				positions.push_back(position);
-				diffuseColors.push_back(diffuseColor);
 				uvs.push_back(uv);
 				indices.push_back(positions.size() - 1);
 			}
@@ -44,10 +43,9 @@ void	ModelManager::getModelData(std::vector<Vec3> & positions, std::vector<Vec3>
 	}
 }
 
-void		ModelManager::fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec3> & diffuseColors, const std::vector<Vec2> & uvs)
+void		ModelManager::fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs)
 {
 	size_t		positionsLength = positions.size();
-	size_t		diffuseColorsLength = diffuseColors.size();
 	size_t		uvsLength = uvs.size();
 
 	for (size_t i = 0; i < positionsLength; i++)
@@ -56,33 +54,20 @@ void		ModelManager::fillVBO(GLfloat * buffer, const std::vector<Vec3> & position
 		buffer[i * VERTEX_DATA_LENGTH + 1] = positions[i].y;
 		buffer[i * VERTEX_DATA_LENGTH + 2] = positions[i].z;
 
-		if (i < diffuseColorsLength)
+		if (i < uvsLength)
 		{
-			buffer[i * VERTEX_DATA_LENGTH + 3] = diffuseColors[i].x;
-			buffer[i * VERTEX_DATA_LENGTH + 4] = diffuseColors[i].y;
-			buffer[i * VERTEX_DATA_LENGTH + 5] = diffuseColors[i].z;
+			buffer[i * VERTEX_DATA_LENGTH + 3] = uvs[i].x;
+			buffer[i * VERTEX_DATA_LENGTH + 4] = uvs[i].y;
 		}
 		else
 		{
 			buffer[i * VERTEX_DATA_LENGTH + 3] = 0;
 			buffer[i * VERTEX_DATA_LENGTH + 4] = 0;
-			buffer[i * VERTEX_DATA_LENGTH + 5] = 0;
-		}
-
-		if (i < uvsLength)
-		{
-			buffer[i * VERTEX_DATA_LENGTH + 6] = uvs[i].x;
-			buffer[i * VERTEX_DATA_LENGTH + 7] = uvs[i].y;
-		}
-		else
-		{
-			buffer[i * VERTEX_DATA_LENGTH + 6] = 0;
-			buffer[i * VERTEX_DATA_LENGTH + 7] = 0;
 		}
 	}
 }
 
-GLuint		ModelManager::loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec3> & diffuseColors, const std::vector<Vec2> & uvs)
+GLuint		ModelManager::loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs)
 {
 	GLuint		vboID = 0;
 	GLuint		programID = 0;
@@ -95,7 +80,7 @@ GLuint		ModelManager::loadVBO(const std::vector<Vec3> & positions, const std::ve
 
 	dataLength = positions.size() * VERTEX_DATA_LENGTH;
 	data = new GLfloat[dataLength];
-	fillVBO(data, positions, diffuseColors, uvs);
+	fillVBO(data, positions, uvs);
 	glBufferData(GL_ARRAY_BUFFER, dataLength * sizeof(GLfloat), data, GL_STATIC_DRAW);
 	delete[] data;
 
@@ -105,13 +90,9 @@ GLuint		ModelManager::loadVBO(const std::vector<Vec3> & positions, const std::ve
 	glEnableVertexAttribArray(attribLocation);
 	glVertexAttribPointer(attribLocation, 3, GL_FLOAT, GL_FALSE, VERTEX_DATA_LENGTH * sizeof(GLfloat), 0);
 
-	attribLocation = glGetAttribLocation(programID, "color");
-	glEnableVertexAttribArray(attribLocation);
-	glVertexAttribPointer(attribLocation, 3, GL_FLOAT, GL_FALSE, VERTEX_DATA_LENGTH * sizeof(GLfloat), (void*)(sizeof(GLfloat) * 3));
-
 	attribLocation = glGetAttribLocation(programID, "uv");
 	glEnableVertexAttribArray(attribLocation);
-	glVertexAttribPointer(attribLocation, 2, GL_FLOAT, GL_FALSE, VERTEX_DATA_LENGTH * sizeof(GLfloat), (void*)(sizeof(GLfloat) * 6));
+	glVertexAttribPointer(attribLocation, 2, GL_FLOAT, GL_FALSE, VERTEX_DATA_LENGTH * sizeof(GLfloat), (void*)(sizeof(GLfloat) * 3));
 
 	return vboID;
 }
@@ -158,14 +139,13 @@ GLuint		ModelManager::loadVAO()
 void		ModelManager::loadBuffer(Model & model, const ShapeList & shapes, const MaterialList & materials)
 {
 	std::vector<Vec3>		positions;
-	std::vector<Vec3>		diffuseColors;
 	std::vector<Vec2>		uvs;
 	std::vector<unsigned>	indices;
 	
-	getModelData(positions, diffuseColors, uvs, indices, shapes, materials);
+	getModelData(positions, uvs, indices, shapes, materials);
 	model.indexCount = indices.size();
 	model.vaoID = loadVAO();
-	model.vboID = loadVBO(positions, diffuseColors, uvs);
+	model.vboID = loadVBO(positions, uvs);
 	model.iboID = loadIBO(indices);
 
 	glBindVertexArray(0);
