@@ -3,6 +3,8 @@
 #include "Graphics/Shader.hpp"
 #include "Game/TestEntity.hpp"
 #include "ShaderProgram/DefaultProgram.hpp"
+#include "Graphics/ModelManager.hpp"
+#include "Graphics/TextureManager.hpp"
 
 int main()
 {
@@ -40,6 +42,9 @@ int main()
 		std::cout << e.what() << std::endl;
 		system("pause");
 	}
+
+	ModelManager::cleanUp();
+	TextureManager::cleanUp();
 
 	return 0;
 }

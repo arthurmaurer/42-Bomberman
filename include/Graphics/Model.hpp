@@ -14,7 +14,4 @@ public:
 	const Texture *	texture = NULL;
 	
 	Model();
-	~Model();
-
-	void		cleanUp();
 };

@@ -14,6 +14,10 @@ typedef std::vector<tinyobj::material_t>	MaterialList;
 
 class ModelManager
 {
+	static std::vector<GLuint>	vbos;
+	static std::vector<GLuint>	vaos;
+	static std::vector<GLuint>	ibos;
+
 	static void		getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials);
 
 	static void		fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs);
@@ -25,6 +29,12 @@ class ModelManager
 	static GLuint	loadVAO();
 	static void		loadBuffer(Model & model, const ShapeList & shapes, const MaterialList & materials);
 
+	static void		unloadVBO(GLuint vboID);
+	static void		unloadVAO(GLuint vaoID);
+	static void		unloadIBO(GLuint iboID);
+
 public:
 	static Model &	loadFromOBJ(const std::string & objPath);
+	static void		unloadModel(Model & model);
+	static void		cleanUp();
 };

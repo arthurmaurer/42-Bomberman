@@ -6,6 +6,10 @@
 #include "Utils/MathUtil.hpp"
 #include "Utils/FileUtil.hpp"
 
+std::vector<GLuint>		ModelManager::vbos;
+std::vector<GLuint>		ModelManager::vaos;
+std::vector<GLuint>		ModelManager::ibos;
+
 void	ModelManager::getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials)
 {
 	std::vector<Vec3>::const_iterator	it;
@@ -169,5 +173,86 @@ Model &		ModelManager::loadFromOBJ(const std::string & objPath)
 	model = new Model();
 	loadBuffer(*model, shapes, materials);
 
+	vbos.push_back(model->vboID);
+	vaos.push_back(model->vaoID);
+	ibos.push_back(model->iboID);
+
 	return *model;
+}
+
+void		ModelManager::unloadVBO(GLuint vboID)
+{
+	std::vector<GLuint>::const_iterator		it;
+
+	std::find(vbos.cbegin(), vbos.cend(), vboID);
+
+	if (it != vbos.cend())
+	{
+		glDeleteBuffers(1, &vboID);
+		vbos.erase(it);
+	}
+}
+
+void		ModelManager::unloadVAO(GLuint vaoID)
+{
+	std::vector<GLuint>::const_iterator		it;
+
+	std::find(vaos.cbegin(), vaos.cend(), vaoID);
+
+	if (it != vaos.cend())
+	{
+		glDeleteBuffers(1, &vaoID);
+		vaos.erase(it);
+	}
+}
+
+void		ModelManager::unloadIBO(GLuint iboID)
+{
+	std::vector<GLuint>::const_iterator		it;
+
+	std::find(ibos.cbegin(), ibos.cend(), iboID);
+
+	if (it != vbos.cend())
+	{
+		glDeleteBuffers(1, &iboID);
+		vbos.erase(it);
+	}
+}
+
+void		ModelManager::unloadModel(Model & model)
+{
+	unloadVBO(model.vboID);
+	model.vboID = 0;
+
+	unloadVAO(model.vaoID);
+	model.vaoID = 0;
+
+	unloadIBO(model.iboID);
+	model.iboID = 0;
+}
+
+void	ModelManager::cleanUp()
+{
+	size_t	size;
+
+	size = vbos.size();
+	if (size > 0)
+	{
+		glDeleteBuffers(size, &vbos[0]);
+		vbos.clear();
+	}
+
+	size = vaos.size();
+	if (size > 0)
+	{
+		glDeleteVertexArrays(size, &vaos[0]);
+		vaos.clear();
+	}
+
+	size = ibos.size();
+	if (size > 0)
+	{
+		glDeleteBuffers(size, &ibos[0]);
+		ibos.clear();
+	}
 }
