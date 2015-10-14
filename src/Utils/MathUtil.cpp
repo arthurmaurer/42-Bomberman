@@ -17,21 +17,15 @@ float	MathUtil::degToRad(float deg)
 
 float		MathUtil::random(float min, float max, float precision)
 {
-	float	r;
-	float	invPrecision = 1.f / precision;
+	float	random;
+	float	diff;
+	float	result;
+	
+	random = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+	diff = max - min;
+	result = random * diff + min;
 
-	if (!randSeedSet)
-	{
-		randSeedSet = true;
-		srand(static_cast<unsigned>(time(NULL)));
-	}
-
-	r = static_cast<float>(rand()) / invPrecision;
-	r = fmodf(r, (max - min));
-	r += min;
-	r = std::trunc(invPrecision * r) / invPrecision;
-
-	return r;
+	return result;
 }
 
 int		MathUtil::random(int min, int max)
