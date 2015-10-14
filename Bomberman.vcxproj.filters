@@ -117,6 +117,9 @@
     <ClCompile Include="src\Utils\MiscUtil.Cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\Window.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Vec2.hpp">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="include\Utils\MiscUtil.hpp">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Graphics\Window.hpp">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

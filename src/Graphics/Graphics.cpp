@@ -6,84 +6,32 @@
 #include "ShaderProgram/DefaultProgram.hpp"
 #include <algorithm>
 
-sf::Window *				Graphics::window = NULL;
-bool						Graphics::running = false;
 std::vector<const Entity *>	Graphics::entities;
-unsigned					Graphics::width = 0;
-unsigned					Graphics::height = 0;
 Matrix4						Graphics::projectionMatrix;
 const ShaderProgram *		Graphics::shaderProgram = NULL;
 Camera						Graphics::camera;
+Window *					Graphics::window = NULL;
 
-Graphics &		Graphics::operator=(const Graphics & rhs)
+Window &	Graphics::createWindow(unsigned width, unsigned height)
 {
-	(void)rhs;
-	return *this;
-}
-
-sf::Window &	Graphics::createWindow(unsigned windowWidth, unsigned windowHeight)
-{
-	sf::ContextSettings	settings;
-
-	settings.depthBits = 24;
-	settings.stencilBits = 8;
-	settings.antialiasingLevel = 4;
-	settings.majorVersion = 3;
-	settings.minorVersion = 0;
-
-	width = windowWidth;
-	height = windowHeight;
-
-	window = new sf::Window(sf::VideoMode(width, height), "Bomberman");
-
-	if (glewInit() != GLEW_OK)
-	{
-		std::cout << "Glew broken" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-
-	glEnable(GL_BLEND);
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glViewport(0, 0, width, height);
-
+	window = new Window(width, height, "Bomberman");
 	projectionMatrix = Matrix4::getPerspective(MathUtil::degToRad(45.f), (float)width / height, 1.0f, 10.f);
-
-	running = true;
 
 	return *window;
 }
 
-void			Graphics::unload()
+void		Graphics::unload()
 {
-	if (running)
-		stop();
-
 	delete window;
 	window = NULL;
 }
 
-void			Graphics::stop()
-{
-	window->close();
-	running = false;
-}
-
-void			Graphics::setTitle(std::string title)
-{
-	window->setTitle(title);
-}
-
-void			Graphics::registerEntity(Entity & entity)
+void		Graphics::registerEntity(Entity & entity)
 {
 	entities.push_back(&entity);
 }
 
-void			Graphics::unregisterEntity(const Entity & entity)
+void		Graphics::unregisterEntity(const Entity & entity)
 {
 	std::vector<const Entity *>::const_iterator	it;
 
@@ -93,7 +41,7 @@ void			Graphics::unregisterEntity(const Entity & entity)
 		entities.erase(it);
 }
 
-void			Graphics::render()
+void		Graphics::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -109,7 +57,7 @@ void			Graphics::render()
 	window->display();
 }
 
-void	Graphics::renderEntity(const Entity & entity)
+void		Graphics::renderEntity(const Entity & entity)
 {
 	Matrix4		model;
 	Matrix4		view;

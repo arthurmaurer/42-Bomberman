@@ -160,6 +160,7 @@
     <ClCompile Include="src\graphics\Shader.cpp" />
     <ClCompile Include="src\Graphics\Texture.cpp" />
     <ClCompile Include="src\Graphics\TextureManager.cpp" />
+    <ClCompile Include="src\Graphics\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Matrix4.cpp" />
     <ClCompile Include="src\Quaternion.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="include\graphics\Shader.hpp" />
     <ClInclude Include="include\Graphics\Texture.hpp" />
     <ClInclude Include="include\Graphics\TextureManager.hpp" />
+    <ClInclude Include="include\Graphics\Window.hpp" />
     <ClInclude Include="include\Matrix4.hpp" />
     <ClInclude Include="include\Quaternion.hpp" />
     <ClInclude Include="include\ShaderProgram\DefaultProgram.hpp" />

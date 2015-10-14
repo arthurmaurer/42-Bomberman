@@ -12,12 +12,12 @@
 #include "Utils/MathUtil.hpp"
 
 #define MOVE_SPEED	0.5f;
-#define LOOK_SPEED	0.1f
+#define LOOK_SPEED	0.5f
 
 static void	handleControls()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		Graphics::stop();
+		Graphics::window->close();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 		Graphics::camera.transform.position.z -= MOVE_SPEED;
@@ -65,7 +65,7 @@ static void	spawnCubes()
 
 int main()
 {
-	sf::Window &	window = Graphics::createWindow(800, 800);
+	Window &	window = Graphics::createWindow(800, 800);
 
 	try
 	{
@@ -73,17 +73,18 @@ int main()
 		shaderProgram.enable();
 
 		spawnCubes();
+
 		TextureManager::clearCache();
 		ModelManager::clearCache();
 
-		while (Graphics::running)
+		while (window.isOpen())
 		{
 			sf::Event event;
 
-			while (window.pollEvent(event))
+			while (window.window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
-					Graphics::stop();
+					Graphics::window->close();
 				else if (event.type == sf::Event::Resized)
 					glViewport(0, 0, event.size.width, event.size.height);
 			}
@@ -101,6 +102,7 @@ int main()
 
 	ModelManager::cleanUp();
 	TextureManager::cleanUp();
+	Graphics::unload();
 
 	return 0;
 }
