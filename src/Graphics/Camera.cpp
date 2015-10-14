@@ -1,5 +1,5 @@
 
-#include "Graphics\Camera.h"
+#include "Graphics\Camera.hpp"
 
 Camera::Camera()
 {}
