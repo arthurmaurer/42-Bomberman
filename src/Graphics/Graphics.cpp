@@ -34,7 +34,7 @@ sf::Window &	Graphics::createWindow(unsigned windowWidth, unsigned windowHeight)
 	width = windowWidth;
 	height = windowHeight;
 
-	window = new sf::Window(sf::VideoMode(width, height), "Bomberman", sf::Style::Default, settings);
+	window = new sf::Window(sf::VideoMode(width, height), "Bomberman");
 
 	if (glewInit() != GLEW_OK)
 	{

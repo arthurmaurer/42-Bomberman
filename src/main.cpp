@@ -1,4 +1,8 @@
 
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
+
 #include "Graphics/Graphics.hpp"
 #include "Graphics/Shader.hpp"
 #include "ShaderProgram/DefaultProgram.hpp"
@@ -45,17 +49,12 @@ static void	spawnCubes()
 	CubeEntity *	cube;
 	float			scale;
 	
-	for (unsigned i = 0; i < 200; i++)
+	for (unsigned i = 0; i < 600; i++)
 	{
 		cube = new CubeEntity();
 		cube->transform.position.x = MathUtil::random(-50.f, 50.f);
 		cube->transform.position.y = MathUtil::random(-50.f, 50.f);
 		cube->transform.position.z = MathUtil::random(-50.f, 50.f);
-
-		scale = MathUtil::random(3.f, 10.f);
-		cube->transform.scale.x = scale;
-		cube->transform.scale.y = scale;
-		cube->transform.scale.z = scale;
 
 		cube->transform.rotation.rotateX(MathUtil::random(0.f, 90.f));
 		cube->transform.rotation.rotateY(MathUtil::random(0.f, 90.f));
@@ -68,13 +67,15 @@ static void	spawnCubes()
 int main()
 {
 	sf::Window &	window = Graphics::createWindow(800, 800);
-	
+
 	try
 	{
 		DefaultProgram	shaderProgram;
 		shaderProgram.enable();
 
 		spawnCubes();
+		TextureManager::clearCache();
+		ModelManager::clearCache();
 
 		while (Graphics::running)
 		{

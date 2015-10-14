@@ -51,6 +51,6 @@ class ModelManager
 public:
 	static Model &	loadFromOBJ(const std::string & objPath);
 	static void		unloadModel(Model & model);
-	static void		deleteCache();
+	static void		clearCache();
 	static void		cleanUp();
 };

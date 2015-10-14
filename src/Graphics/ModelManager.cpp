@@ -237,10 +237,10 @@ void		ModelManager::_unloadIBO(GLuint iboID)
 	}
 }
 
-void		ModelManager::deleteCache()
+void		ModelManager::clearCache()
 {
 	for (std::pair<std::string, obj_t *> obj : _cachedOBJs)
-		free(obj.second);
+		delete obj.second;
 
 	_cachedOBJs.clear();
 }
@@ -298,5 +298,5 @@ void	ModelManager::cleanUp()
 	_unloadVBOs();
 	_unloadVAOs();
 	_unloadIBOs();
-	deleteCache();
+	clearCache();
 }

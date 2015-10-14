@@ -111,6 +111,9 @@
     <ClCompile Include="src\Game\CubeEntity.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\ImageBuffer.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Vec2.hpp">
@@ -133,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="include\Transform.hpp">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\graphics\VertexBuffer.hpp">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\Shader.hpp">
       <Filter>Header Files\Graphics</Filter>
@@ -175,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="include\Game\CubeEntity.hpp">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Graphics\ImageBuffer.hpp">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,41 +4,43 @@
 #include <algorithm>
 #include <memory>
 
-std::vector<GLuint>					TextureManager::_textures;
-std::map<std::string, sf::Image *>	TextureManager::_cachedImages;
+std::vector<GLuint>						TextureManager::_textures;
+std::map<std::string, ImageBuffer *>	TextureManager::_cachedImages;
 
-sf::Image &	TextureManager::_loadImage(const std::string & path)
+ImageBuffer &	TextureManager::_loadImage(const std::string & path)
 {
-	bool						success = false;
-	sf::Image *					image = NULL;
+	bool			success = false;
+	sf::Image		image;
+	ImageBuffer *	buffer = NULL;
+	
+	buffer = _cachedImages[path];
 
-	image = _cachedImages[path];
-
-	if (image == NULL)
+	if (buffer == NULL)
 	{
-		image = new sf::Image();
 		FileUtil::changeWorkingDirectory("resources/");
-		success = image->loadFromFile(path);
+		// TODO: is loadFromImage leaking ?
+		success = image.loadFromFile(path);
 		FileUtil::restoreWorkingDirectory();
 
 		if (!success)
-		{
-			free(image);
 			throw std::runtime_error("Could not load the texture file.");
-		}
 
-		image->flipVertically();
-		_cachedImages[path] = image;
+		image.flipVertically();
+
+		buffer = new ImageBuffer(image.getSize().x, image.getSize().y);
+		memcpy(buffer->data, image.getPixelsPtr(), buffer->size);
+		
+		_cachedImages[path] = buffer;
 	}
 
-	return *image;
+	return *buffer;
 }
 
 Texture &	TextureManager::loadTexture(const std::string & path)
 {
-	GLuint		textureID;
-	Texture *	texture = NULL;
-	sf::Image &	image = _loadImage(path);
+	GLuint			textureID = 0;
+	Texture *		texture = NULL;
+	ImageBuffer &	imageBuffer = _loadImage(path);
 
 	glGenTextures(1, &textureID);
 	glActiveTexture(GL_TEXTURE0);
@@ -48,12 +50,12 @@ Texture &	TextureManager::loadTexture(const std::string & path)
 		GL_TEXTURE_2D,
 		0,
 		GL_RGBA,
-		image.getSize().x,
-		image.getSize().y,
+		imageBuffer.width,
+		imageBuffer.height,
 		0,
 		GL_RGBA,
 		GL_UNSIGNED_BYTE,
-		image.getPixelsPtr()
+		imageBuffer.data
 	);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -63,7 +65,7 @@ Texture &	TextureManager::loadTexture(const std::string & path)
 
 	_textures.push_back(textureID);
 	texture = new Texture(textureID);
-
+	
 	return *texture;
 }
 
@@ -80,10 +82,10 @@ void		TextureManager::unloadTexture(const Texture & texture)
 	}
 }
 
-void		TextureManager::deleteCache()
+void		TextureManager::clearCache()
 {
-	for (std::pair<std::string, sf::Image *> image : _cachedImages)
-		free(image.second);
+	for (std::pair<std::string, ImageBuffer *> image : _cachedImages)
+		delete image.second;
 
 	_cachedImages.clear();
 }
@@ -100,5 +102,5 @@ void		TextureManager::cleanUp()
 		_textures.clear();
 	}
 
-	deleteCache();
+	clearCache();
 }

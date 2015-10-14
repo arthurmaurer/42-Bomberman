@@ -152,6 +152,7 @@
     <ClCompile Include="src\Game\CubeEntity.cpp" />
     <ClCompile Include="src\Graphics\Camera.cpp" />
     <ClCompile Include="src\graphics\Graphics.cpp" />
+    <ClCompile Include="src\Graphics\ImageBuffer.cpp" />
     <ClCompile Include="src\graphics\Model.cpp" />
     <ClCompile Include="src\Graphics\ModelManager.cpp" />
     <ClCompile Include="src\graphics\ShaderProgram.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="include\Game\CubeEntity.hpp" />
     <ClInclude Include="include\Graphics\Camera.h" />
     <ClInclude Include="include\graphics\Graphics.hpp" />
+    <ClInclude Include="include\Graphics\ImageBuffer.hpp" />
     <ClInclude Include="include\graphics\Model.hpp" />
     <ClInclude Include="include\graphics\Entity.hpp" />
     <ClInclude Include="include\Graphics\ModelManager.hpp" />
@@ -182,7 +184,6 @@
     <ClInclude Include="include\graphics\Shader.hpp" />
     <ClInclude Include="include\Graphics\Texture.hpp" />
     <ClInclude Include="include\Graphics\TextureManager.hpp" />
-    <ClInclude Include="include\graphics\VertexBuffer.hpp" />
     <ClInclude Include="include\Matrix4.hpp" />
     <ClInclude Include="include\Quaternion.hpp" />
     <ClInclude Include="include\ShaderProgram\DefaultProgram.hpp" />
