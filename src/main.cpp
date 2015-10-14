@@ -7,7 +7,7 @@
 #include "Game/CubeEntity.hpp"
 #include "Utils/MathUtil.hpp"
 
-#define MOVE_SPEED	0.06f;
+#define MOVE_SPEED	0.5f;
 #define LOOK_SPEED	0.1f
 
 static void	handleControls()
@@ -44,7 +44,7 @@ static void	spawnCubes()
 {
 	CubeEntity *	cube;
 	float			scale;
-
+	
 	for (unsigned i = 0; i < 200; i++)
 	{
 		cube = new CubeEntity();
@@ -52,7 +52,7 @@ static void	spawnCubes()
 		cube->transform.position.y = MathUtil::random(-50.f, 50.f);
 		cube->transform.position.z = MathUtil::random(-50.f, 50.f);
 
-		scale = MathUtil::random(0.5f, 3.f);
+		scale = MathUtil::random(3.f, 10.f);
 		cube->transform.scale.x = scale;
 		cube->transform.scale.y = scale;
 		cube->transform.scale.z = scale;
@@ -63,7 +63,6 @@ static void	spawnCubes()
 
 		Graphics::registerEntity(*cube);
 	}
-
 }
 
 int main()

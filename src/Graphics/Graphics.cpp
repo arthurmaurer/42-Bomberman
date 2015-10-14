@@ -123,8 +123,11 @@ void	Graphics::renderEntity(const Entity & entity)
 	glBindVertexArray(entity.model->vaoID);
 	glBindBuffer(GL_ARRAY_BUFFER, entity.model->vboID);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, entity.model->texture->id);
+	if (entity.model->texture != NULL)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, entity.model->texture->id);
+	}
 
 	glDrawElements(GL_TRIANGLES, entity.model->indexCount, GL_UNSIGNED_INT, (void*)0);
 }

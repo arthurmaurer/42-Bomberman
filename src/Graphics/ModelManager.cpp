@@ -6,11 +6,12 @@
 #include "Utils/MathUtil.hpp"
 #include "Utils/FileUtil.hpp"
 
-std::vector<GLuint>		ModelManager::vbos;
-std::vector<GLuint>		ModelManager::vaos;
-std::vector<GLuint>		ModelManager::ibos;
+std::map<std::string, obj_t *>	ModelManager::_cachedOBJs;
+std::vector<GLuint>				ModelManager::_vbos;
+std::vector<GLuint>				ModelManager::_vaos;
+std::vector<GLuint>				ModelManager::_ibos;
 
-void	ModelManager::getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials)
+void	ModelManager::_getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials)
 {
 	std::vector<Vec3>::const_iterator	it;
 	Vec3								position;
@@ -48,7 +49,7 @@ void	ModelManager::getModelData(std::vector<Vec3> & positions, std::vector<Vec2>
 	}
 }
 
-void		ModelManager::fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs)
+void		ModelManager::_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs)
 {
 	size_t		positionsLength = positions.size();
 	size_t		uvsLength = uvs.size();
@@ -72,7 +73,7 @@ void		ModelManager::fillVBO(GLfloat * buffer, const std::vector<Vec3> & position
 	}
 }
 
-GLuint		ModelManager::loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs)
+GLuint		ModelManager::_loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs)
 {
 	GLuint		vboID = 0;
 	GLuint		programID = 0;
@@ -85,7 +86,7 @@ GLuint		ModelManager::loadVBO(const std::vector<Vec3> & positions, const std::ve
 
 	dataLength = positions.size() * VERTEX_DATA_LENGTH;
 	data = new GLfloat[dataLength];
-	fillVBO(data, positions, uvs);
+	_fillVBO(data, positions, uvs);
 	glBufferData(GL_ARRAY_BUFFER, dataLength * sizeof(GLfloat), data, GL_STATIC_DRAW);
 	delete[] data;
 
@@ -102,7 +103,7 @@ GLuint		ModelManager::loadVBO(const std::vector<Vec3> & positions, const std::ve
 	return vboID;
 }
 
-void		ModelManager::fillIBO(GLuint * buffer, const std::vector<GLuint> & indices)
+void		ModelManager::_fillIBO(GLuint * buffer, const std::vector<GLuint> & indices)
 {
 	unsigned	i = 0;
 
@@ -113,7 +114,7 @@ void		ModelManager::fillIBO(GLuint * buffer, const std::vector<GLuint> & indices
 	}
 }
 
-GLuint		ModelManager::loadIBO(const std::vector<GLuint>& indices)
+GLuint		ModelManager::_loadIBO(const std::vector<GLuint>& indices)
 {
 	GLuint		iboID = 0;
 	GLuint *	data = NULL;
@@ -124,14 +125,14 @@ GLuint		ModelManager::loadIBO(const std::vector<GLuint>& indices)
 
 	dataLength = indices.size();
 	data = new GLuint[dataLength];
-	fillIBO(data, indices);
+	_fillIBO(data, indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataLength * sizeof(GLuint), data, GL_STATIC_DRAW);
 	delete[] data;
 
 	return iboID;
 }
 
-GLuint		ModelManager::loadVAO()
+GLuint		ModelManager::_loadVAO()
 {
 	GLuint	vaoID = 0;
 
@@ -141,19 +142,42 @@ GLuint		ModelManager::loadVAO()
 	return vaoID;
 }
 
-void		ModelManager::loadBuffer(Model & model, const ShapeList & shapes, const MaterialList & materials)
+void		ModelManager::_loadBuffer(Model & model, const ShapeList & shapes, const MaterialList & materials)
 {
 	std::vector<Vec3>		positions;
 	std::vector<Vec2>		uvs;
 	std::vector<unsigned>	indices;
 	
-	getModelData(positions, uvs, indices, shapes, materials);
+	_getModelData(positions, uvs, indices, shapes, materials);
 	model.indexCount = indices.size();
-	model.vaoID = loadVAO();
-	model.vboID = loadVBO(positions, uvs);
-	model.iboID = loadIBO(indices);
+	model.vaoID = _loadVAO();
+	model.vboID = _loadVBO(positions, uvs);
+	model.iboID = _loadIBO(indices);
 
 	glBindVertexArray(0);
+}
+
+obj_t &	ModelManager::_loadOBJ(const std::string & path)
+{
+	obj_t *			obj = NULL;
+	std::string		error;
+
+	obj = _cachedOBJs[path];
+
+	if (obj == NULL)
+	{
+		obj = new obj_t();
+		FileUtil::changeWorkingDirectory("resources/");
+		error = tinyobj::LoadObj(obj->shapes, obj->materials, path.c_str());
+		FileUtil::restoreWorkingDirectory();
+
+		if (error.empty() == false)
+			throw std::runtime_error(error);
+
+		_cachedOBJs[path] = obj;
+	}
+
+	return *obj;
 }
 
 Model &		ModelManager::loadFromOBJ(const std::string & objPath)
@@ -162,97 +186,117 @@ Model &		ModelManager::loadFromOBJ(const std::string & objPath)
 	ShapeList		shapes;
 	MaterialList	materials;
 	Model *			model = NULL;
-
-	FileUtil::changeWorkingDirectory("resources/");
-	error = tinyobj::LoadObj(shapes, materials, objPath.c_str());
-	FileUtil::restoreWorkingDirectory();
-
-	if (error.empty() == false)
-		throw std::runtime_error(error);
-
+	obj_t &			obj = _loadOBJ(objPath);
+	
 	model = new Model();
-	loadBuffer(*model, shapes, materials);
+	_loadBuffer(*model, obj.shapes, obj.materials);
 
-	vbos.push_back(model->vboID);
-	vaos.push_back(model->vaoID);
-	ibos.push_back(model->iboID);
+	_vbos.push_back(model->vboID);
+	_vaos.push_back(model->vaoID);
+	_ibos.push_back(model->iboID);
 
 	return *model;
 }
 
-void		ModelManager::unloadVBO(GLuint vboID)
+void		ModelManager::_unloadVBO(GLuint vboID)
 {
 	std::vector<GLuint>::const_iterator		it;
 
-	std::find(vbos.cbegin(), vbos.cend(), vboID);
+	std::find(_vbos.cbegin(), _vbos.cend(), vboID);
 
-	if (it != vbos.cend())
+	if (it != _vbos.cend())
 	{
 		glDeleteBuffers(1, &vboID);
-		vbos.erase(it);
+		_vbos.erase(it);
 	}
 }
 
-void		ModelManager::unloadVAO(GLuint vaoID)
+void		ModelManager::_unloadVAO(GLuint vaoID)
 {
 	std::vector<GLuint>::const_iterator		it;
 
-	std::find(vaos.cbegin(), vaos.cend(), vaoID);
+	std::find(_vaos.cbegin(), _vaos.cend(), vaoID);
 
-	if (it != vaos.cend())
+	if (it != _vaos.cend())
 	{
 		glDeleteBuffers(1, &vaoID);
-		vaos.erase(it);
+		_vaos.erase(it);
 	}
 }
 
-void		ModelManager::unloadIBO(GLuint iboID)
+void		ModelManager::_unloadIBO(GLuint iboID)
 {
 	std::vector<GLuint>::const_iterator		it;
 
-	std::find(ibos.cbegin(), ibos.cend(), iboID);
+	std::find(_ibos.cbegin(), _ibos.cend(), iboID);
 
-	if (it != vbos.cend())
+	if (it != _vbos.cend())
 	{
 		glDeleteBuffers(1, &iboID);
-		vbos.erase(it);
+		_vbos.erase(it);
 	}
+}
+
+void		ModelManager::deleteCache()
+{
+	for (std::pair<std::string, obj_t *> obj : _cachedOBJs)
+		free(obj.second);
+
+	_cachedOBJs.clear();
 }
 
 void		ModelManager::unloadModel(Model & model)
 {
-	unloadVBO(model.vboID);
+	_unloadVBO(model.vboID);
 	model.vboID = 0;
 
-	unloadVAO(model.vaoID);
+	_unloadVAO(model.vaoID);
 	model.vaoID = 0;
 
-	unloadIBO(model.iboID);
+	_unloadIBO(model.iboID);
 	model.iboID = 0;
+}
+
+void	ModelManager::_unloadVBOs()
+{
+	size_t	size;
+
+	size = _vbos.size();
+	if (size > 0)
+	{
+		glDeleteBuffers(size, &_vbos[0]);
+		_vbos.clear();
+	}
+}
+
+void	ModelManager::_unloadVAOs()
+{
+	size_t	size;
+
+	size = _vaos.size();
+	if (size > 0)
+	{
+		glDeleteBuffers(size, &_vaos[0]);
+		_vaos.clear();
+	}
+}
+
+void	ModelManager::_unloadIBOs()
+{
+	size_t	size;
+
+	size = _ibos.size();
+	if (size > 0)
+	{
+		glDeleteBuffers(size, &_ibos[0]);
+		_ibos.clear();
+	}
 }
 
 void	ModelManager::cleanUp()
 {
-	size_t	size;
-
-	size = vbos.size();
-	if (size > 0)
-	{
-		glDeleteBuffers(size, &vbos[0]);
-		vbos.clear();
-	}
-
-	size = vaos.size();
-	if (size > 0)
-	{
-		glDeleteVertexArrays(size, &vaos[0]);
-		vaos.clear();
-	}
-
-	size = ibos.size();
-	if (size > 0)
-	{
-		glDeleteBuffers(size, &ibos[0]);
-		ibos.clear();
-	}
+	_unloadVBOs();
+	_unloadVAOs();
+	_unloadIBOs();
+	deleteCache();
 }
