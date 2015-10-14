@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <tiny_obj_loader.h>
 #include "Utils/MathUtil.hpp"
+#include "Utils/FileUtil.hpp"
 
 void	ModelManager::getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials)
 {
@@ -25,10 +26,10 @@ void	ModelManager::getModelData(std::vector<Vec3> & positions, std::vector<Vec2>
 
 			if (it == positions.cend())
 			{
-				if (shape.mesh.normals.size() >= indice * 3 + 1)
+				if (indice * 2 + 1 < shape.mesh.texcoords.size())
 				{
-					uv.x = shape.mesh.normals[indice * 3];
-					uv.y = shape.mesh.normals[indice * 3 + 1];
+					uv.x = shape.mesh.texcoords[indice * 2];
+					uv.y = shape.mesh.texcoords[indice * 2 + 1];
 				}
 
 				positions.push_back(position);
@@ -158,7 +159,9 @@ Model &		ModelManager::loadFromOBJ(const std::string & objPath)
 	MaterialList	materials;
 	Model *			model = NULL;
 
+	FileUtil::changeWorkingDirectory("resources/");
 	error = tinyobj::LoadObj(shapes, materials, objPath.c_str());
+	FileUtil::restoreWorkingDirectory();
 
 	if (error.empty() == false)
 		throw std::runtime_error(error);

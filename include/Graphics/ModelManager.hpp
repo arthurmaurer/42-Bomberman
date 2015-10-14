@@ -7,7 +7,7 @@
 #include <vector>
 #include <tiny_obj_loader.h>
 
-#define VERTEX_DATA_LENGTH	6
+#define VERTEX_DATA_LENGTH	5
 
 typedef std::vector<tinyobj::shape_t>		ShapeList;
 typedef std::vector<tinyobj::material_t>	MaterialList;

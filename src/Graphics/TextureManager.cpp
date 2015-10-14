@@ -1,6 +1,7 @@
 
 #include "Graphics/TextureManager.hpp"
 #include <SFML/Graphics.hpp>
+#include "Utils/FileUtil.hpp"
 
 Texture &	TextureManager::loadTexture(const std::string & path)
 {
@@ -8,9 +9,15 @@ Texture &	TextureManager::loadTexture(const std::string & path)
 	Texture *	texture = NULL;
 	sf::Image	image;
 
+
+	FileUtil::changeWorkingDirectory("resources/");
+
 	if (image.loadFromFile(path) == false)
 		throw std::runtime_error("Could not load the texture file.");
 
+	FileUtil::restoreWorkingDirectory();
+
+	image.flipVertically();
 	glGenTextures(1, &textureID);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureID);

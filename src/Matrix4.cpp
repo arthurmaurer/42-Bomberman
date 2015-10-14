@@ -29,24 +29,24 @@ Matrix4 &	Matrix4::operator=(const Matrix4 & rhs)
 
 Matrix4		Matrix4::operator*(const Matrix4 & rhs) const
 {
-	Matrix4		matrix;
+	Matrix4		result;
 	unsigned	i;
 	unsigned	j;
 
 	i = 0;
 	while (i < 16)
 	{
-		matrix.data[i] = 0;
+		result.data[i] = 0;
 		j = 0;
 		while (j < 4)
 		{
-			matrix.data[i] += data[((i / 4) * 4 + j)] * rhs.data[(j * 4 + i % 4)];
+			result.data[i] += data[((i / 4) * 4 + j)] * rhs.data[(j * 4 + i % 4)];
 			j++;
 		}
 		i++;
 	}
 
-	return matrix;
+	return result;
 }
 
 Matrix4 &	Matrix4::operator*=(const Matrix4 & rhs)

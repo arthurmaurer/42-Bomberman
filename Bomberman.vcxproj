@@ -88,7 +88,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\OpenGL\glew-1.13.0.bin\include;C:\Work\tinyobjloader;C:\Work\SFML-2.3.2-x86\include;C:\Work\42-Bomberman\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glm;C:\OpenGL\glew-1.13.0.bin\include;C:\Work\tinyobjloader;C:\Work\SFML-2.3.2-x86\include;C:\Work\42-Bomberman\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,7 +119,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\OpenGL\glew-1.13.0.bin\include;C:\Work\tinyobjloader;C:\Work\SFML-2.3.2-x86\include;C:\Work\42-Bomberman\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glm;C:\OpenGL\glew-1.13.0.bin\include;C:\Work\tinyobjloader;C:\Work\SFML-2.3.2-x86\include;C:\Work\42-Bomberman\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +163,7 @@
     <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\ShaderProgram\DefaultProgram.cpp" />
     <ClCompile Include="src\Transform.cpp" />
+    <ClCompile Include="src\Utils\FileUtil.cpp" />
     <ClCompile Include="src\Utils\MathUtil.cpp" />
     <ClCompile Include="src\Vec2.cpp" />
     <ClCompile Include="src\Vec3.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="include\Quaternion.hpp" />
     <ClInclude Include="include\ShaderProgram\DefaultProgram.hpp" />
     <ClInclude Include="include\Transform.hpp" />
+    <ClInclude Include="include\Utils\FileUtil.hpp" />
     <ClInclude Include="include\Utils\MathUtil.hpp" />
     <ClInclude Include="include\Vec2.hpp" />
     <ClInclude Include="include\Vec3.hpp" />
