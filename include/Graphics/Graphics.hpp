@@ -7,6 +7,7 @@
 #include "Graphics/Entity.hpp"
 #include "Matrix4.hpp"
 #include "Graphics/ShaderProgram.hpp"
+#include "Graphics/Camera.h"
 
 class Graphics
 {
@@ -24,6 +25,7 @@ public:
 	static unsigned						height;
 	static Matrix4						projectionMatrix;
 	static const ShaderProgram *		shaderProgram;
+	static Camera						camera;
 
 	static sf::Window &		createWindow(unsigned windowWidth, unsigned windowHeight);
 	static void				unload();

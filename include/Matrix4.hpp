@@ -34,6 +34,7 @@ public:
 	void		setIdentity();
 	void		setFromQuaternion(const Quaternion & quat);
 	void		setFromTransform(const Transform & trans);
+	void		setFromInversedTransform(const Transform & trans);
 };
 
 std::ostream &	operator<<(std::ostream & os, const Matrix4 & rhs);

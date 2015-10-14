@@ -196,6 +196,23 @@ void	Matrix4::setFromTransform(const Transform & trans)
 	*this *= Matrix4(trans.rotation);
 }
 
+void	Matrix4::setFromInversedTransform(const Transform & trans)
+{
+	Vec3		inversedPosition;
+	Vec3		inversedScale;
+	Quaternion	inversedRotation;
+
+	inversedPosition = trans.position * -1;
+	inversedScale.x = 1.f / trans.scale.x;
+	inversedScale.y = 1.f / trans.scale.y;
+	inversedScale.z = 1.f / trans.scale.z;
+
+	setIdentity();
+	*this = scale(inversedScale);
+	*this = translate(inversedPosition);
+	*this *= Matrix4(trans.rotation.inverse());
+}
+
 std::ostream &	operator<<(std::ostream & os, const Matrix4 & rhs)
 {
 	os

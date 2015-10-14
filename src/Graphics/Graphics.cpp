@@ -13,6 +13,7 @@ unsigned					Graphics::width = 0;
 unsigned					Graphics::height = 0;
 Matrix4						Graphics::projectionMatrix;
 const ShaderProgram *		Graphics::shaderProgram = NULL;
+Camera						Graphics::camera;
 
 Graphics &		Graphics::operator=(const Graphics & rhs)
 {
@@ -113,6 +114,7 @@ void	Graphics::renderEntity(const Entity & entity)
 	Matrix4		mvp;
 
 	model.setFromTransform(entity.transform);
+	view.setFromInversedTransform(camera.transform);
 	mvp = projectionMatrix * view * model;
 	shaderProgram->loadUniform("mvp", mvp);
 
