@@ -167,6 +167,7 @@
     <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\Utils\FileUtil.cpp" />
     <ClCompile Include="src\Utils\MathUtil.cpp" />
+    <ClCompile Include="src\Utils\MiscUtil.Cpp" />
     <ClCompile Include="src\Vec2.cpp" />
     <ClCompile Include="src\Vec3.cpp" />
     <ClCompile Include="src\Vec4.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="include\Transform.hpp" />
     <ClInclude Include="include\Utils\FileUtil.hpp" />
     <ClInclude Include="include\Utils\MathUtil.hpp" />
+    <ClInclude Include="include\Utils\MiscUtil.hpp" />
     <ClInclude Include="include\Vec2.hpp" />
     <ClInclude Include="include\Vec3.hpp" />
     <ClInclude Include="include\Vec4.hpp" />

@@ -114,6 +114,9 @@
     <ClCompile Include="src\Graphics\ImageBuffer.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utils\MiscUtil.Cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Vec2.hpp">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="include\Graphics\ImageBuffer.hpp">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\MiscUtil.hpp">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

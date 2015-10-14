@@ -47,7 +47,6 @@ static void	handleControls()
 static void	spawnCubes()
 {
 	CubeEntity *	cube;
-	float			scale;
 	
 	for (unsigned i = 0; i < 600; i++)
 	{
