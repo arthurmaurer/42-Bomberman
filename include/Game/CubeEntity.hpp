@@ -2,10 +2,10 @@
 
 #include "Graphics/Entity.hpp"
 
-class TestEntity : public Entity
+class CubeEntity : public Entity
 {
 public:
-	TestEntity();
+	CubeEntity();
 
 	void	update();
 };

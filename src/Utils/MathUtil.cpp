@@ -15,7 +15,7 @@ float	MathUtil::degToRad(float deg)
 	return (deg * (static_cast<float>(M_PI) / 180.0f));
 }
 
-float		MathUtil::random(float min, float max, float precision)
+float		MathUtil::random(float min, float max)
 {
 	float	random;
 	float	diff;

@@ -192,7 +192,7 @@ void	Matrix4::setFromTransform(const Transform & trans)
 {
 	setIdentity();
 	*this = scale(trans.scale);
-	*this = translate(trans.position);
+	*this *= translate(trans.position);
 	*this *= Matrix4(trans.rotation);
 }
 
@@ -208,8 +208,8 @@ void	Matrix4::setFromInversedTransform(const Transform & trans)
 	inversedScale.z = 1.f / trans.scale.z;
 
 	setIdentity();
-	*this = scale(inversedScale);
 	*this = translate(inversedPosition);
+	*this *= scale(inversedScale);
 	*this *= Matrix4(trans.rotation.inverse());
 }
 
