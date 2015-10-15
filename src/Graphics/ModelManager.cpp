@@ -1,6 +1,6 @@
 
 #include "Graphics\ModelManager.hpp"
-#include "Graphics/Graphics.hpp"
+#include "Graphics/Renderer.hpp"
 #include <algorithm>
 #include <tiny_obj_loader.h>
 #include "Utils/MathUtil.hpp"
@@ -90,7 +90,7 @@ GLuint		ModelManager::_loadVBO(const std::vector<Vec3> & positions, const std::v
 	glBufferData(GL_ARRAY_BUFFER, dataLength * sizeof(GLfloat), data, GL_STATIC_DRAW);
 	delete[] data;
 
-	programID = Graphics::shaderProgram->id;
+	programID = Renderer::shaderProgram->id;
 
 	attribLocation = glGetAttribLocation(programID, "position");
 	glEnableVertexAttribArray(attribLocation);

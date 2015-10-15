@@ -10,6 +10,7 @@
 #include "Graphics/TextureManager.hpp"
 #include "Game/CubeEntity.hpp"
 #include "Utils/MathUtil.hpp"
+#include "Graphics\Renderer.hpp"
 
 #define MOVE_SPEED	0.5f;
 #define LOOK_SPEED	0.5f
@@ -59,13 +60,13 @@ static void	spawnCubes()
 		cube->transform.rotation.rotateY(MathUtil::random(0.f, 90.f));
 		cube->transform.rotation.rotateZ(MathUtil::random(0.f, 90.f));
 
-		Graphics::registerEntity(*cube);
+		Renderer::registerEntity(*cube);
 	}
 }
 
 int main()
 {
-	Window &	window = Graphics::createWindow(800, 800);
+	Window &	window = Graphics::createWindow(1200, 800);
 
 	try
 	{
@@ -91,7 +92,7 @@ int main()
 
 			handleControls();
 
-			Graphics::render();
+			Renderer::render();
 		}
 	}
 	catch (std::runtime_error & e)

@@ -155,6 +155,7 @@
     <ClCompile Include="src\Graphics\ImageBuffer.cpp" />
     <ClCompile Include="src\graphics\Model.cpp" />
     <ClCompile Include="src\Graphics\ModelManager.cpp" />
+    <ClCompile Include="src\Graphics\Renderer.cpp" />
     <ClCompile Include="src\graphics\ShaderProgram.cpp" />
     <ClCompile Include="src\Graphics\Entity.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
@@ -168,7 +169,7 @@
     <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\Utils\FileUtil.cpp" />
     <ClCompile Include="src\Utils\MathUtil.cpp" />
-    <ClCompile Include="src\Utils\MiscUtil.Cpp" />
+    <ClCompile Include="src\Utils\MiscUtil.cpp" />
     <ClCompile Include="src\Vec2.cpp" />
     <ClCompile Include="src\Vec3.cpp" />
     <ClCompile Include="src\Vec4.cpp" />
@@ -176,12 +177,13 @@
   <ItemGroup>
     <ClInclude Include="include\Core\Updatable.hpp" />
     <ClInclude Include="include\Game\CubeEntity.hpp" />
-    <ClInclude Include="include\Graphics\Camera.h" />
+    <ClInclude Include="include\Graphics\Camera.hpp" />
     <ClInclude Include="include\graphics\Graphics.hpp" />
     <ClInclude Include="include\Graphics\ImageBuffer.hpp" />
     <ClInclude Include="include\graphics\Model.hpp" />
     <ClInclude Include="include\graphics\Entity.hpp" />
     <ClInclude Include="include\Graphics\ModelManager.hpp" />
+    <ClInclude Include="include\Graphics\Renderer.hpp" />
     <ClInclude Include="include\graphics\ShaderProgram.hpp" />
     <ClInclude Include="include\graphics\Shader.hpp" />
     <ClInclude Include="include\Graphics\Texture.hpp" />

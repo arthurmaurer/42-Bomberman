@@ -1,7 +1,7 @@
 
 #include "graphics/ShaderProgram.hpp"
 #include "graphics/Shader.hpp"
-#include "graphics/Graphics.hpp"
+#include "graphics/Renderer.hpp"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -58,17 +58,17 @@ void	ShaderProgram::load(const std::string & vertexPath, const std::string & fra
 
 void	ShaderProgram::enable() const
 {
-	if (Graphics::shaderProgram != NULL)
-		Graphics::shaderProgram->disable();
+	if (Renderer::shaderProgram != NULL)
+		Renderer::shaderProgram->disable();
 
-	Graphics::shaderProgram = this;
+	Renderer::shaderProgram = this;
 	glUseProgram(id);
 }
 
 void	ShaderProgram::disable() const
 {
-	if (Graphics::shaderProgram == this)
-		Graphics::shaderProgram = NULL;
+	if (Renderer::shaderProgram == this)
+		Renderer::shaderProgram = NULL;
 
 	glUseProgram(0);
 }

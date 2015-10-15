@@ -114,10 +114,13 @@
     <ClCompile Include="src\Graphics\ImageBuffer.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\MiscUtil.Cpp">
+    <ClCompile Include="src\Graphics\Window.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\MiscUtil.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\Window.cpp">
+    <ClCompile Include="src\Graphics\Renderer.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,9 +179,6 @@
     <ClInclude Include="include\Utils\FileUtil.hpp">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="include\Graphics\Camera.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="include\Game\CubeEntity.hpp">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
@@ -189,6 +189,12 @@
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\Graphics\Window.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Graphics\Camera.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Graphics\Renderer.hpp">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
