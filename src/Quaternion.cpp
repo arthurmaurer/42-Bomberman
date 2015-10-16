@@ -70,12 +70,12 @@ bool			Quaternion::operator!=(const Quaternion & rhs) const
 	return (w != rhs.w || x != rhs.x || y != rhs.y || z != rhs.z);
 }
 
-void			Quaternion::set(float w, float x, float y, float z)
+void			Quaternion::set(float wVal, float xVal, float yVal, float zVal)
 {
-	this->w = w;
-	this->x = x;
-	this->y = y;
-	this->z = z;
+	this->w = wVal;
+	this->x = xVal;
+	this->y = yVal;
+	this->z = zVal;
 }
 
 float			Quaternion::getNorm() const

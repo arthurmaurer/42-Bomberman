@@ -22,7 +22,7 @@ public:
 	bool	operator==(const Vec4 & rhs) const;
 	bool	operator!=(const Vec4 & rhs) const;
 
-	void	set(float w, float x, float y, float z);
+	void	set(float wVal, float xVal, float yVal, float zVal);
 	bool	isNull() const;
 };
 

@@ -26,7 +26,7 @@ public:
 	bool			operator==(const Quaternion & rhs) const;
 	bool			operator!=(const Quaternion & rhs) const;
 
-	void			set(float w, float x, float y, float z);
+	void			set(float wVal, float xVal, float yVal, float zVal);
 	float			getNorm() const;
 	Vec3			getEulerAngles() const;
 	void			setFromEulerAngles(const Vec3 & eulerAngles);

@@ -47,6 +47,8 @@ void	ModelManager::_getModelData(std::vector<Vec3> & positions, std::vector<Vec2
 			}
 		}
 	}
+
+	(void)materials;
 }
 
 void		ModelManager::_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs)

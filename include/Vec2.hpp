@@ -26,7 +26,7 @@ public:
 	bool	operator==(const Vec2 & rhs) const;
 	bool	operator!=(const Vec2 & rhs) const;
 
-	void	set(float x, float y);
+	void	set(float xVal, float yVal);
 	bool	isNull() const;
 	float	magnitude() const;
 	Vec2	normalize() const;

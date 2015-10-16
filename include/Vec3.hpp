@@ -31,7 +31,7 @@ public:
 	bool	operator==(const Vec3 & rhs) const;
 	bool	operator!=(const Vec3 & rhs) const;
 
-	void	set(float x, float y, float z);
+	void	set(float xVal, float yVal, float zVal);
 	bool	isNull() const;
 	float	magnitude() const;
 	Vec3	normalize() const;

@@ -94,12 +94,12 @@ bool	Vec4::operator!=(const Vec4 & rhs) const
 	return (w != rhs.w || x != rhs.x || y != rhs.y || z != rhs.z);
 }
 
-void	Vec4::set(float w, float x, float y, float z)
+void	Vec4::set(float wVal, float xVal, float yVal, float zVal)
 {
-	this->w = w;
-	this->x = x;
-	this->y = y;
-	this->z = z;
+	this->w = wVal;
+	this->x = xVal;
+	this->y = yVal;
+	this->z = zVal;
 }
 
 bool	Vec4::isNull() const

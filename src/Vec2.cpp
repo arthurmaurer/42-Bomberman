@@ -86,10 +86,10 @@ bool	Vec2::operator!=(const Vec2 & rhs) const
 	return (x != rhs.x || y != rhs.y);
 }
 
-void	Vec2::set(float x, float y)
+void	Vec2::set(float xVal, float yVal)
 {
-	this->x = x;
-	this->y = y;
+	this->x = xVal;
+	this->y = yVal;
 }
 
 bool	Vec2::isNull() const

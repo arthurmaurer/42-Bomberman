@@ -96,11 +96,11 @@ bool	Vec3::operator!=(const Vec3 & rhs) const
 	return (x != rhs.x || y != rhs.y || z != rhs.z);
 }
 
-void	Vec3::set(float x, float y, float z)
+void	Vec3::set(float xVal, float yVal, float zVal)
 {
-	this->x = x;
-	this->y = y;
-	this->z = z;
+	this->x = xVal;
+	this->y = yVal;
+	this->z = zVal;
 }
 
 bool	Vec3::isNull() const
