@@ -10,7 +10,7 @@ Matrix4		Renderer::projectionMatrix = Matrix4::getPerspective(
 	MathUtil::degToRad(Graphics::fov),
 	1200.f / 800.f,
 	1.0f,
-	10.f
+	1000.f
 );
 
 void		Renderer::render()

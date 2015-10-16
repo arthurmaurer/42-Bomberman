@@ -136,8 +136,8 @@ Matrix4 Matrix4::getPerspective(float fov, float aspect, float nearPlane, float 
 	matrix.data[0] = 1.f / (aspect * tanHalfFov);
 	matrix.data[5] = 1.f / (tanHalfFov);
 	matrix.data[10] = (farPlane + nearPlane) / (farPlane - nearPlane) * -1.f;
-	matrix.data[11] = -1.f;
-	matrix.data[14] = (2.f * farPlane * nearPlane) / (farPlane - nearPlane) * -1.f;
+	matrix.data[11] = (2.f * farPlane * nearPlane) / (farPlane - nearPlane) * -1.f;
+	matrix.data[14] = -1.f;
 
 	return matrix;
 }
