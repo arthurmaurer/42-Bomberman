@@ -32,3 +32,6 @@
 Debug
 Release
 sfml*.dll
+*.sln
+*.vcxproj
+*.vcxproj.*
