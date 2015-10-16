@@ -3,18 +3,20 @@
 #include "Matrix4.hpp"
 #include "Graphics/Entity.hpp"
 #include "Graphics/ShaderProgram.hpp"
+#include "Graphics\Camera.hpp"
+#include "Graphics\Window.hpp"
 #include <vector>
 
 class Renderer
 {
 public:
-	static Matrix4						projectionMatrix;
-	static std::vector<const Entity *>	entities;
+	static std::vector<Entity *>		entities;
 	static const ShaderProgram *		shaderProgram;
+	static const Camera *				activeCamera;
 
-	static void		render();
-	static void		renderEntity(const Entity & entity);
+	static void		render(Window & window);
+	static void		renderEntity(const Window & window, const Entity & entity);
 
-	static void		registerEntity(const Entity & entity);
+	static void		registerEntity(Entity & entity);
 	static void		unregisterEntity(const Entity & entity);
 };

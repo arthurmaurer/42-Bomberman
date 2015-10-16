@@ -151,7 +151,6 @@
     <ClCompile Include="src\Core\Updatable.cpp" />
     <ClCompile Include="src\Game\CubeEntity.cpp" />
     <ClCompile Include="src\Graphics\Camera.cpp" />
-    <ClCompile Include="src\graphics\Graphics.cpp" />
     <ClCompile Include="src\Graphics\ImageBuffer.cpp" />
     <ClCompile Include="src\graphics\Model.cpp" />
     <ClCompile Include="src\Graphics\ModelManager.cpp" />
@@ -178,7 +177,6 @@
     <ClInclude Include="include\Core\Updatable.hpp" />
     <ClInclude Include="include\Game\CubeEntity.hpp" />
     <ClInclude Include="include\Graphics\Camera.hpp" />
-    <ClInclude Include="include\graphics\Graphics.hpp" />
     <ClInclude Include="include\Graphics\ImageBuffer.hpp" />
     <ClInclude Include="include\graphics\Model.hpp" />
     <ClInclude Include="include\graphics\Entity.hpp" />

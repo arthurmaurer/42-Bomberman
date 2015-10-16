@@ -1,19 +1,12 @@
 
 #include "Graphics/Renderer.hpp"
 #include "Utils/MathUtil.hpp"
-#include "Graphics/Graphics.hpp"
 
-std::vector<const Entity *>		Renderer::entities;
-const ShaderProgram *			Renderer::shaderProgram = NULL;
+std::vector<Entity *>		Renderer::entities;
+const ShaderProgram *		Renderer::shaderProgram = NULL;
+const Camera *				Renderer::activeCamera = NULL;
 
-Matrix4		Renderer::projectionMatrix = Matrix4::getPerspective(
-	MathUtil::degToRad(Graphics::fov),
-	1200.f / 800.f,
-	1.0f,
-	1000.f
-);
-
-void		Renderer::render()
+void		Renderer::render(Window & window)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -22,22 +15,28 @@ void		Renderer::render()
 		if (!entity->active)
 			continue;
 
-		renderEntity(*entity);
+		renderEntity(window, *entity);
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	Graphics::window->display();
+	window.display();
 }
 
-void		Renderer::renderEntity(const Entity & entity)
+void		Renderer::renderEntity(const Window & window, const Entity & entity)
 {
 	Matrix4		model;
 	Matrix4		view;
 	Matrix4		mvp;
+	Matrix4		proj = Matrix4::getPerspective(
+		MathUtil::degToRad(activeCamera->fovY),
+		window.width / static_cast<float>(window.height),
+		1.0f,
+		1000.f
+	);
 
 	model.setFromTransform(entity.transform);
-	view.setFromInversedTransform(Graphics::camera.transform);
-	mvp = projectionMatrix * view * model;
+	view.setFromInversedTransform(activeCamera->transform);
+	mvp = proj * view * model;
 	shaderProgram->loadUniform("mvp", mvp);
 
 	glBindVertexArray(entity.model->vaoID);
@@ -52,14 +51,14 @@ void		Renderer::renderEntity(const Entity & entity)
 	glDrawElements(GL_TRIANGLES, entity.model->indexCount, GL_UNSIGNED_INT, (void*)0);
 }
 
-void		Renderer::registerEntity(const Entity & entity)
+void		Renderer::registerEntity(Entity & entity)
 {
 	entities.push_back(&entity);
 }
 
 void		Renderer::unregisterEntity(const Entity & entity)
 {
-	std::vector<const Entity *>::const_iterator	it;
+	std::vector<Entity *>::const_iterator	it;
 
 	it = std::find(entities.cbegin(), entities.cend(), &entity);
 

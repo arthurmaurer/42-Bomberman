@@ -3,58 +3,58 @@
 #include <cstdlib>
 #include <crtdbg.h>
 
-#include "Graphics/Graphics.hpp"
-#include "Graphics/Shader.hpp"
-#include "ShaderProgram/DefaultProgram.hpp"
-#include "Graphics/ModelManager.hpp"
-#include "Graphics/TextureManager.hpp"
+#include "Graphics/Window.hpp"
 #include "Game/CubeEntity.hpp"
 #include "Utils/MathUtil.hpp"
 #include "Graphics\Renderer.hpp"
+#include "Graphics\Camera.hpp"
+#include "ShaderProgram\DefaultProgram.hpp"
+#include "Graphics\TextureManager.hpp"
+#include "Graphics\ModelManager.hpp"
 
 #define MOVE_SPEED	0.5f;
 #define LOOK_SPEED	0.5f
 
-static void	handleControls()
+static void	handleControls(Window & window, Camera & camera)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		Graphics::window->close();
+		window.close();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-		Graphics::camera.transform.position.z -= MOVE_SPEED;
+		camera.transform.position.z -= MOVE_SPEED;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		Graphics::camera.transform.position.z += MOVE_SPEED;
+		camera.transform.position.z += MOVE_SPEED;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-		Graphics::camera.transform.position.x -= MOVE_SPEED;
+		camera.transform.position.x -= MOVE_SPEED;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		Graphics::camera.transform.position.x += MOVE_SPEED;
+		camera.transform.position.x += MOVE_SPEED;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		Graphics::camera.transform.rotation.rotateX(LOOK_SPEED);
+		camera.transform.rotation.rotateX(LOOK_SPEED);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		Graphics::camera.transform.rotation.rotateX(-LOOK_SPEED);
+		camera.transform.rotation.rotateX(-LOOK_SPEED);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		Graphics::camera.transform.rotation.rotateY(-LOOK_SPEED);
+		camera.transform.rotation.rotateY(-LOOK_SPEED);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		Graphics::camera.transform.rotation.rotateY(LOOK_SPEED);
+		camera.transform.rotation.rotateY(LOOK_SPEED);
 }
 
 static void	spawnCubes()
 {
 	CubeEntity *	cube;
 	
-	for (unsigned i = 0; i < 600; i++)
+	for (unsigned i = 0; i < 1000; i++)
 	{
 		cube = new CubeEntity();
-		cube->transform.position.x = MathUtil::random(-50.f, 50.f);
-		cube->transform.position.y = MathUtil::random(-50.f, 50.f);
-		cube->transform.position.z = MathUtil::random(-50.f, 50.f);
+		cube->transform.position.x = MathUtil::random(-100.f, 100.f);
+		cube->transform.position.y = MathUtil::random(-100.f, 100.f);
+		cube->transform.position.z = MathUtil::random(-100.f, 100.f);
 
 		cube->transform.rotation.rotateX(MathUtil::random(0.f, 90.f));
 		cube->transform.rotation.rotateY(MathUtil::random(0.f, 90.f));
@@ -66,13 +66,16 @@ static void	spawnCubes()
 
 int main()
 {
-	Window &	window = Graphics::createWindow(1200, 800);
+	Window		window(1200, 800, "Bomberman");
+	Camera		camera(45.f);
+	
+	Renderer::activeCamera = &camera;
 
 	try
 	{
 		DefaultProgram	shaderProgram;
 		shaderProgram.enable();
-
+		
 		spawnCubes();
 
 		TextureManager::clearCache();
@@ -85,14 +88,17 @@ int main()
 			while (window.window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
-					Graphics::window->close();
+					window.close();
 				else if (event.type == sf::Event::Resized)
 					glViewport(0, 0, event.size.width, event.size.height);
 			}
 
-			handleControls();
+			handleControls(window, camera);
 
-			Renderer::render();
+			for (Entity * entity : Renderer::entities)
+				entity->update();
+
+			Renderer::render(window);
 		}
 	}
 	catch (std::runtime_error & e)
@@ -103,7 +109,6 @@ int main()
 
 	ModelManager::cleanUp();
 	TextureManager::cleanUp();
-	Graphics::unload();
 
 	return 0;
 }

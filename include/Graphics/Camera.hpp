@@ -5,7 +5,8 @@
 class Camera
 {
 public:
+	float		fovY;
 	Transform	transform;
 
-	Camera();
+	Camera(float fovY);
 };

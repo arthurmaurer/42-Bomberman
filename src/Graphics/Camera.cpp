@@ -1,5 +1,6 @@
 
 #include "Graphics\Camera.hpp"
 
-Camera::Camera()
+Camera::Camera(float fovY) :
+	fovY(fovY)
 {}

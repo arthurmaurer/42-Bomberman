@@ -1,6 +1,5 @@
 
 #include "Graphics/Window.hpp"
-#include "Graphics/Graphics.hpp"
 #include "Utils/MiscUtil.hpp"
 
 Window::Window(size_t width, size_t height, const std::string & title) :
