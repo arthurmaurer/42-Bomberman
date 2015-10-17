@@ -1,6 +1,8 @@
-#pragma once
 
-#include "Transform.hpp"
+#ifndef _CAMERA_H
+# define _CAMERA_H
+
+# include "Transform.hpp"
 
 class Camera
 {
@@ -10,3 +12,5 @@ public:
 
 	Camera(float fovY);
 };
+
+#endif

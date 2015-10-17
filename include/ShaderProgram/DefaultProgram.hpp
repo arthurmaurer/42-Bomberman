@@ -1,6 +1,8 @@
-#pragma once
 
-#include "Graphics/ShaderProgram.hpp"
+#ifndef _DEFAULT_PROGRAM_H
+# define _DEFAULT_PROGRAM_H
+
+# include "Graphics/ShaderProgram.hpp"
 
 class DefaultProgram : public ShaderProgram
 {
@@ -9,3 +11,5 @@ public:
 
 	void	getUniformLocations();
 };
+
+#endif

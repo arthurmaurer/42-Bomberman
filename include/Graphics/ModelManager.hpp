@@ -1,12 +1,14 @@
-#pragma once
 
-#include <string>
-#include "Graphics/Model.hpp"
-#include "Vec2.hpp"
-#include "Vec3.hpp"
-#include <vector>
-#include <map>
-#include <tiny_obj_loader.h>
+#ifndef _MODEL_MANAGER_H
+# define _MODEL_MANAGER_H
+
+# include <string>
+# include "Graphics/Model.hpp"
+# include "Vec2.hpp"
+# include "Vec3.hpp"
+# include <vector>
+# include <map>
+# include <tiny_obj_loader.h>
 
 #define VERTEX_DATA_LENGTH	5
 
@@ -54,3 +56,5 @@ public:
 	static void		clearCache();
 	static void		cleanUp();
 };
+
+#endif

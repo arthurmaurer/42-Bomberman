@@ -1,6 +1,8 @@
-#pragma once
 
-#include <iostream>
+#ifndef _VEC3_H
+# define _VEC3_H
+
+# include <iostream>
 
 class Quaternion;
 
@@ -40,3 +42,5 @@ public:
 };
 
 std::ostream &	operator<<(std::ostream & os, const Vec3 & rhs);
+
+#endif

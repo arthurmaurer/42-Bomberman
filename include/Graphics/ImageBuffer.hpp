@@ -1,6 +1,8 @@
-#pragma once
 
-#include <cstdlib>
+#ifndef _IMAGE_BUFFER_H
+# define _IMAGE_BUFFER_H
+
+# include <cstdlib>
 
 class ImageBuffer
 {
@@ -15,3 +17,5 @@ public:
 
 	void	cleanUp();
 };
+
+#endif

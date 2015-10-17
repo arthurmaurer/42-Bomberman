@@ -1,7 +1,9 @@
-#pragma once
 
-#include "Vec3.hpp"
-#include "Quaternion.hpp"
+#ifndef _TRANSFORM_H
+# define _TRANSFORM_H
+
+# include "Vec3.hpp"
+# include "Quaternion.hpp"
 
 class Transform
 {
@@ -15,3 +17,5 @@ public:
 
 	Transform &	operator=(const Transform & rhs);
 };
+
+#endif

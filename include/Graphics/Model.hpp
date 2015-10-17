@@ -1,8 +1,10 @@
-#pragma once
 
-#include <cstdlib>
-#include <GL/glew.h>
-#include "Graphics/Texture.hpp"
+#ifndef _MODEL_H
+# define _MODEL_H
+
+# include <cstdlib>
+# include <GL/glew.h>
+# include "Graphics/Texture.hpp"
 
 class Model
 {
@@ -15,3 +17,5 @@ public:
 	
 	Model();
 };
+
+#endif

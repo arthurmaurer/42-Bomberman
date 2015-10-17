@@ -1,6 +1,8 @@
-#pragma once
 
-#include "Vec3.hpp"
+#ifndef _QUATERNION_H
+# define _QUATERNION_H
+
+# include "Vec3.hpp"
 
 #ifndef M_PI
 # define M_PI	3.14159265358979323846
@@ -41,3 +43,5 @@ public:
 };
 
 std::ostream &		operator<<(std::ostream & os, const Quaternion & rhs);
+
+#endif

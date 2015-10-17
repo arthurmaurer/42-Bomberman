@@ -1,6 +1,8 @@
-#pragma once
 
-#include <iostream>
+#ifndef _VEC4_H
+# define _VEC4_H
+
+# include <iostream>
 
 class Vec4
 {
@@ -27,3 +29,5 @@ public:
 };
 
 std::ostream &	operator<<(std::ostream & os, const Vec4 & rhs);
+
+#endif
