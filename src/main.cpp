@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <crtdbg.h>
 
+#include "Core/Application.hpp"
 #include "Graphics/Window.hpp"
 #include "Game/CubeEntity.hpp"
 #include "Utils/MathUtil.hpp"
@@ -14,7 +15,7 @@
 
 #define MOVE_SPEED	0.5f;
 #define LOOK_SPEED	0.5f
-
+/*
 static void	handleControls(Window & window, Camera & camera)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -48,7 +49,7 @@ static void	handleControls(Window & window, Camera & camera)
 static void	spawnCubes()
 {
 	CubeEntity *	cube;
-	
+
 	for (unsigned i = 0; i < 1000; i++)
 	{
 		cube = new CubeEntity();
@@ -63,19 +64,34 @@ static void	spawnCubes()
 		Renderer::registerEntity(*cube);
 	}
 }
+*/
 
 int main()
 {
-	Window		window(1200, 800, "Bomberman");
+	try
+	{
+		Application	app;
+
+		app.run();
+
+		return EXIT_SUCCESS;
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
+
+/*	Window		window(1200, 800, "Bomberman");
 	Camera		camera(45.f);
-	
+
 	Renderer::activeCamera = &camera;
 
 	try
 	{
 		DefaultProgram	shaderProgram;
 		shaderProgram.enable();
-		
+
 		spawnCubes();
 
 		TextureManager::clearCache();
@@ -110,5 +126,5 @@ int main()
 	ModelManager::cleanUp();
 	TextureManager::cleanUp();
 
-	return 0;
+	return 0;*/
 }

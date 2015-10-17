@@ -149,7 +149,7 @@ void		ModelManager::_loadBuffer(Model & model, const ShapeList & shapes, const M
 	std::vector<Vec3>		positions;
 	std::vector<Vec2>		uvs;
 	std::vector<unsigned>	indices;
-	
+
 	_getModelData(positions, uvs, indices, shapes, materials);
 	model.indexCount = indices.size();
 	model.vaoID = _loadVAO();
@@ -189,7 +189,7 @@ Model &		ModelManager::loadFromOBJ(const std::string & objPath)
 	MaterialList	materials;
 	Model *			model = NULL;
 	obj_t &			obj = _loadOBJ(objPath);
-	
+
 	model = new Model();
 	_loadBuffer(*model, obj.shapes, obj.materials);
 
