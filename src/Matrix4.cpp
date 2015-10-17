@@ -1,5 +1,6 @@
 
 #include "Matrix4.hpp"
+#include <cmath>
 #include <cstring>
 #include <iostream>
 
