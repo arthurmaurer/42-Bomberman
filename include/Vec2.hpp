@@ -1,6 +1,8 @@
-#pragma once
 
-#include <iostream>
+#ifndef _VEC2_H
+# define _VEC2_H
+
+# include <iostream>
 
 class Vec2
 {
@@ -34,3 +36,5 @@ public:
 };
 
 std::ostream &	operator<<(std::ostream & os, const Vec2 & rhs);
+
+#endif

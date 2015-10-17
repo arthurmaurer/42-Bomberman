@@ -1,8 +1,10 @@
-#pragma once
 
-#include <GL/glew.h>
-#include <SFML\Window.hpp>
-#include <SFML\OpenGL.hpp>
+#ifndef _WINDOW_H
+# define _WINDOW_H
+
+# include <GL/glew.h>
+# include <SFML\Window.hpp>
+# include <SFML\OpenGL.hpp>
 
 class Window
 {
@@ -22,3 +24,5 @@ public:
 	bool		isOpen() const;
 	void		display();
 };
+
+#endif

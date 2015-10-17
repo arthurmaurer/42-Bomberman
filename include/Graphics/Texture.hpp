@@ -1,6 +1,8 @@
-#pragma once
 
-#include <GL/glew.h>
+#ifndef _TEXTURE_H
+# define _TEXTURE_H
+
+# include <GL/glew.h>
 
 class Texture
 {
@@ -10,3 +12,5 @@ public:
 	Texture(GLuint id);
 	~Texture();
 };
+
+#endif

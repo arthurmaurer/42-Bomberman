@@ -1,12 +1,14 @@
-#pragma once
 
-#include <string>
-#include <vector>
-#include <map>
-#include <SFML/Graphics.hpp>
-#include "Graphics/Texture.hpp"
-#include <iostream>
-#include "Graphics/ImageBuffer.hpp"
+#ifndef _TEXTURE_MANAGER_H
+# define _TEXTURE_MANAGER_H
+
+# include <string>
+# include <vector>
+# include <map>
+# include <SFML/Graphics.hpp>
+# include "Graphics/Texture.hpp"
+# include <iostream>
+# include "Graphics/ImageBuffer.hpp"
 
 class TextureManager
 {
@@ -21,3 +23,5 @@ public:
 	static void			clearCache();
 	static void			cleanUp();
 };
+
+#endif

@@ -1,9 +1,11 @@
-#pragma once
 
-#include "Quaternion.hpp"
-#include "Transform.hpp"
-#include "Vec3.hpp"
-#include <iostream>
+#ifndef _MATRIX4_H
+# define _MATRIX4_H
+
+# include "Quaternion.hpp"
+# include "Transform.hpp"
+# include "Vec3.hpp"
+# include <iostream>
 
 class Matrix4
 {
@@ -38,3 +40,5 @@ public:
 };
 
 std::ostream &	operator<<(std::ostream & os, const Matrix4 & rhs);
+
+#endif

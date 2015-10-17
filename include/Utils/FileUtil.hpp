@@ -1,6 +1,8 @@
-#pragma once
 
-#include <string>
+#ifndef _FILE_UTIL_H
+# define _FILE_UTIL_H
+
+# include <string>
 
 class FileUtil
 {
@@ -10,3 +12,5 @@ public:
 	static void		changeWorkingDirectory(const std::string & wd);
 	static void		restoreWorkingDirectory();
 };
+
+#endif

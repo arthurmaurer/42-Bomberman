@@ -1,7 +1,9 @@
-#pragma once
 
-#include <string>
-#include <GL/glew.h>
+#ifndef _SHADER_H
+# define _SHADER_H
+
+# include <string>
+# include <GL/glew.h>
 
 class Shader
 {
@@ -20,3 +22,5 @@ public:
 
 	void	load(const std::string & path, GLenum type);
 };
+
+#endif

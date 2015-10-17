@@ -1,4 +1,6 @@
-#pragma once
+
+#ifndef _MATH_UTIL_H
+# define _MATH_UTIL_H
 
 class MathUtil
 {
@@ -10,3 +12,5 @@ public:
 	static float	random(float min, float max);
 	static int		random(int min, int max);
 };
+
+#endif

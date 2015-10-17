@@ -1,12 +1,14 @@
-#pragma once
 
-#include <string>
-#include <GL/glew.h>
-#include <map>
-#include "Vec2.hpp"
-#include "Vec3.hpp"
-#include "Vec4.hpp"
-#include "Matrix4.hpp"
+#ifndef _SHADER_PROGRAM_H
+# define _SHADER_PROGRAM_H
+
+# include <string>
+# include <GL/glew.h>
+# include <map>
+# include "Vec2.hpp"
+# include "Vec3.hpp"
+# include "Vec4.hpp"
+# include "Matrix4.hpp"
 
 class ShaderProgram
 {
@@ -35,3 +37,5 @@ public:
 	void			enable() const;
 	void			disable() const;
 };
+
+#endif
