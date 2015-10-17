@@ -35,3 +35,8 @@ sfml*.dll
 *.sln
 *.vcxproj
 *.vcxproj.*
+
+Makefile
+glew
+SFML*
+tol
