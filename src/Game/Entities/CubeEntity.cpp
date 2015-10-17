@@ -1,8 +1,7 @@
 
-#include "Game/CubeEntity.hpp"
+#include "Game/Entities/CubeEntity.hpp"
 #include "Graphics/ModelManager.hpp"
 #include "Graphics/TextureManager.hpp"
-#include "Utils/MathUtil.hpp"
 
 CubeEntity::CubeEntity() :
 	Entity(ModelManager::loadFromOBJ("cube.obj"))

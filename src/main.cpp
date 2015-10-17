@@ -3,15 +3,10 @@
 #include <cstdlib>
 #include <crtdbg.h>
 
-#include "Core/Application.hpp"
-#include "Graphics/Window.hpp"
-#include "Game/CubeEntity.hpp"
+#include <iostream>
+
 #include "Utils/MathUtil.hpp"
-#include "Graphics\Renderer.hpp"
-#include "Graphics\Camera.hpp"
-#include "ShaderProgram\DefaultProgram.hpp"
-#include "Graphics\TextureManager.hpp"
-#include "Graphics\ModelManager.hpp"
+#include "Game/Game.hpp"
 
 #define MOVE_SPEED	0.5f;
 #define LOOK_SPEED	0.5f
@@ -70,9 +65,10 @@ int main()
 {
 	try
 	{
-		Application	app;
+		Game	game;
 
-		app.run();
+		game.init();
+		game.run();
 
 		return EXIT_SUCCESS;
 	}
