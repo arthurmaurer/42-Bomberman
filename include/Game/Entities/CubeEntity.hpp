@@ -1,6 +1,6 @@
 
-#ifndef _CUBE_ENTITY_H
-# define _CUBE_ENTITY_H
+#ifndef _CUBE_ENTITY_HPP
+# define _CUBE_ENTITY_HPP
 
 # include <memory>
 
@@ -19,4 +19,4 @@ public:
 	void		update(sf::Time dt);
 };
 
-#endif
+#endif /* _CUBE_ENTITY_HPP */

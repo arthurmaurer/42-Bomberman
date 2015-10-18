@@ -1,6 +1,6 @@
 
-#ifndef _IMAGE_BUFFER_H
-# define _IMAGE_BUFFER_H
+#ifndef _IMAGE_BUFFER_HPP
+# define _IMAGE_BUFFER_HPP
 
 # include <cstdlib>
 
@@ -18,4 +18,4 @@ public:
 	void	cleanUp();
 };
 
-#endif
+#endif /* _IMAGE_BUFFER_HPP */

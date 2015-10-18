@@ -152,17 +152,18 @@ void			Quaternion::rotateFromAxisAngle(const Vec3 & axis, float angle)
 	Quaternion	quat;
 	float		sinA;
 
-	angle = angle / 360.0f * (float)M_PI * 2.f;
+	angle = MathUtil::deg(angle);
+	angle = angle / 360.f * (float)M_PI * 2.f;
 
 	sinA = sinf(angle / 2.0f);
 
 	quat.x = axis.x * sinA;
 	quat.y = axis.y * sinA;
 	quat.z = axis.z * sinA;
-	quat.w = cosf(angle / 2.0f);
+	quat.w = cosf(angle / 2.f);
 	quat = quat.normalize();
 
-	*this = *this * quat;
+	*this *= quat;
 }
 
 void Quaternion::setFromVector(const Vec3 & vector)

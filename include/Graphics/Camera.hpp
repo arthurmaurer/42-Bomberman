@@ -1,6 +1,6 @@
 
-#ifndef _CAMERA_H
-# define _CAMERA_H
+#ifndef _CAMERA_HPP
+# define _CAMERA_HPP
 
 # include "Transform.hpp"
 
@@ -13,4 +13,4 @@ public:
 	Camera(float fovY);
 };
 
-#endif
+#endif /* _CAMERA_HPP */

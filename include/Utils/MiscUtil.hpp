@@ -1,6 +1,6 @@
 
-#ifndef _MISC_UTIL_H
-# define _MISC_UTIL_H
+#ifndef _MISC_UTIL_HPP
+# define _MISC_UTIL_HPP
 
 # include <string>
 
@@ -10,4 +10,4 @@ public:
 	static void		abort(const std::string & message, int exitValue = EXIT_SUCCESS);
 };
 
-#endif
+#endif /* _MISC_UTIL_HPP */

@@ -1,6 +1,6 @@
 
-#ifndef _WINDOW_H
-# define _WINDOW_H
+#ifndef _WINDOW_HPP
+# define _WINDOW_HPP
 
 # include <GL/glew.h>
 # include <SFML\Window.hpp>
@@ -25,4 +25,4 @@ public:
 	void		display();
 };
 
-#endif
+#endif /* _WINDOW_HPP */

@@ -192,10 +192,9 @@ void Matrix4::setFromQuaternion(const Quaternion & quat)
 void	Matrix4::setFromTransform(const Transform & trans)
 {
 	setIdentity();
-
-	*this = scale(trans.scale);
 	*this = translate(trans.position);
 	*this *= Matrix4(trans.rotation);
+	*this = scale(trans.scale);
 }
 
 void	Matrix4::setFromInversedTransform(const Transform & trans)
@@ -213,9 +212,9 @@ void	Matrix4::setFromInversedTransform(const Transform & trans)
 	inversedRotation = trans.rotation.inverse();
 
 	setIdentity();
-	*this *= scale(inversedScale);
+	*this = scale(inversedScale);
 	*this *= Matrix4(inversedRotation);
-	*this *= translate(inversedPosition);
+	*this = translate(inversedPosition);
 }
 
 std::ostream &	operator<<(std::ostream & os, const Matrix4 & rhs)

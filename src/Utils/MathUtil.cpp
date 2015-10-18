@@ -1,8 +1,10 @@
 
-#include "Utils/MathUtil.hpp"
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+
+#include "Utils/MathUtil.hpp"
+#include "Vec3.hpp"
 
 #ifndef M_PI
 # define M_PI	3.14159265358979323846
@@ -15,9 +17,19 @@ float	MathUtil::rad(float deg)
 	return (deg * (static_cast<float>(M_PI) / 180.f));
 }
 
+Vec3	MathUtil::rad(const Vec3 & deg)
+{
+	return Vec3(rad(deg.x), rad(deg.y), rad(deg.z));
+}
+
 float	MathUtil::deg(float rad)
 {
 	return ((rad * 180.f) / static_cast<float>(M_PI));
+}
+
+Vec3	MathUtil::deg(const Vec3 & rad)
+{
+	return Vec3(deg(rad.x), deg(rad.y), deg(rad.z));
 }
 
 float		MathUtil::random(float min, float max)

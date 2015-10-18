@@ -17,16 +17,16 @@ void	CubeEntity::update(sf::Time)
 	if (move)
 	{
 		transform.rotation = Quaternion::identity;
-		transform.rotation.rotateX(MathUtil::rad(30.0f * count));
-		transform.rotation.rotateY(MathUtil::rad(30.0f * count));
-		transform.rotation.rotateZ(MathUtil::rad(30.0f * count));
+		transform.rotation.rotateX(MathUtil::rad(1.0f * count));
+		transform.rotation.rotateY(MathUtil::rad(1.0f * count));
+		transform.rotation.rotateZ(MathUtil::rad(1.0f * count));
 		transform.position.y += cos(count * 0.015f) / 50.f;
 	}
 	else
 	{
 		transform.rotation = Quaternion::identity;
-		transform.rotation.rotateX(MathUtil::rad(30.0f * count));
-		transform.rotation.rotateY(MathUtil::rad(30.0f * count));
-		transform.rotation.rotateZ(MathUtil::rad(30.0f * count));
+		transform.rotation.rotateX(MathUtil::rad(1.0f * count));
+		transform.rotation.rotateY(MathUtil::rad(1.0f * count));
+		transform.rotation.rotateZ(MathUtil::rad(1.0f * count));
 	}
 }

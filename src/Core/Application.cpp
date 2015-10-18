@@ -24,7 +24,7 @@ Application::Application() :
 {
 	init();
 }
-
+#include "Utils/MathUtil.hpp"
 void		Application::init()
 {
 	Renderer::shaderProgram = new DefaultProgram();

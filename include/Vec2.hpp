@@ -1,6 +1,6 @@
 
-#ifndef _VEC2_H
-# define _VEC2_H
+#ifndef _VEC2_HPP
+# define _VEC2_HPP
 
 # include <iostream>
 
@@ -46,4 +46,4 @@ public:
 
 std::ostream &	operator<<(std::ostream & os, const Vec2 & rhs);
 
-#endif
+#endif /* _VEC2_HPP */

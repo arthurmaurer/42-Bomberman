@@ -17,7 +17,6 @@
 # include "Game/Entities/CubeEntity.hpp"
 # include "Core/State.hpp"
 
-
 class TestState : public State
 {
 public:

@@ -1,6 +1,6 @@
 
-#ifndef _FILE_UTIL_H
-# define _FILE_UTIL_H
+#ifndef _FILE_UTIL_HPP
+# define _FILE_UTIL_HPP
 
 # include <string>
 
@@ -13,4 +13,4 @@ public:
 	static void		restoreWorkingDirectory();
 };
 
-#endif
+#endif /* _FILE_UTIL_HPP */

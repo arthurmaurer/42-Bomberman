@@ -1,6 +1,6 @@
 
-#ifndef _QUATERNION_H
-# define _QUATERNION_H
+#ifndef _QUATERNION_HPP
+# define _QUATERNION_HPP
 
 # include "Vec3.hpp"
 
@@ -49,4 +49,4 @@ public:
 
 std::ostream &		operator<<(std::ostream & os, const Quaternion & rhs);
 
-#endif
+#endif /* _QUATERNION_HPP */

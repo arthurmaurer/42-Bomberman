@@ -1,6 +1,6 @@
 
-#ifndef _MODEL_MANAGER_H
-# define _MODEL_MANAGER_H
+#ifndef _MODEL_MANAGER_HPP
+# define _MODEL_MANAGER_HPP
 
 # include <string>
 # include "Graphics/Model.hpp"
@@ -57,4 +57,4 @@ public:
 	static void		cleanUp();
 };
 
-#endif
+#endif /* _MODEL_MANAGER_HPP */

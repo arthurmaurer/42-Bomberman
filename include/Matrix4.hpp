@@ -1,6 +1,6 @@
 
-#ifndef _MATRIX4_H
-# define _MATRIX4_H
+#ifndef _MATRIX4_HPP
+# define _MATRIX4_HPP
 
 # include "Quaternion.hpp"
 # include "Transform.hpp"
@@ -41,4 +41,4 @@ public:
 
 std::ostream &	operator<<(std::ostream & os, const Matrix4 & rhs);
 
-#endif
+#endif /* _MATRIX4_HPP */

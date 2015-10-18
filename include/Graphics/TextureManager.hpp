@@ -1,6 +1,6 @@
 
-#ifndef _TEXTURE_MANAGER_H
-# define _TEXTURE_MANAGER_H
+#ifndef _TEXTURE_MANAGER_HPP
+# define _TEXTURE_MANAGER_HPP
 
 # include <string>
 # include <vector>
@@ -24,4 +24,4 @@ public:
 	static void			cleanUp();
 };
 
-#endif
+#endif /* _TEXTURE_MANAGER_HPP */

@@ -1,6 +1,6 @@
 
-#ifndef _MODEL_H
-# define _MODEL_H
+#ifndef _MODEL_HPP
+# define _MODEL_HPP
 
 # include <cstdlib>
 # include <GL/glew.h>
@@ -18,4 +18,4 @@ public:
 	Model();
 };
 
-#endif
+#endif /* _MODEL_HPP */

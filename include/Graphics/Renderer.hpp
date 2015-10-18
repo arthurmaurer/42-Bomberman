@@ -1,6 +1,6 @@
 
-#ifndef _RENDERER_H
-# define _RENDERER_H
+#ifndef _RENDERER_HPP
+# define _RENDERER_HPP
 
 # include "Matrix4.hpp"
 # include "Graphics/ShaderProgram.hpp"
@@ -15,7 +15,7 @@ class Renderer
 public:
 	static std::vector<SceneNode *>		nodes;
 	static const ShaderProgram *		shaderProgram;
-	static const Camera *				activeCamera;
+	static Camera *						activeCamera;
 
 	static void		render(Window & window);
 
@@ -24,4 +24,4 @@ public:
 	static void		unregisterEntity(const SceneNode & node);
 };
 
-#endif
+#endif /* _RENDERER_HPP */

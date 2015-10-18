@@ -1,6 +1,6 @@
 
-#ifndef _SHADER_H
-# define _SHADER_H
+#ifndef _SHADER_HPP
+# define _SHADER_HPP
 
 # include <string>
 # include <GL/glew.h>
@@ -23,4 +23,4 @@ public:
 	void	load(const std::string & path, GLenum type);
 };
 
-#endif
+#endif /* _SHADER_HPP */

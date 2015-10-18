@@ -6,7 +6,7 @@
 
 std::vector<SceneNode *>	Renderer::nodes;
 const ShaderProgram *		Renderer::shaderProgram = NULL;
-const Camera *				Renderer::activeCamera = NULL;
+Camera *						Renderer::activeCamera = NULL;
 
 void		Renderer::render(Window & window)
 {

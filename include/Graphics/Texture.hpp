@@ -1,6 +1,6 @@
 
-#ifndef _TEXTURE_H
-# define _TEXTURE_H
+#ifndef _TEXTURE_HPP
+# define _TEXTURE_HPP
 
 # include <GL/glew.h>
 
@@ -13,4 +13,4 @@ public:
 	~Texture();
 };
 
-#endif
+#endif /* _TEXTURE_HPP */

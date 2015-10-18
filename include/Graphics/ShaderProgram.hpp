@@ -1,6 +1,6 @@
 
-#ifndef _SHADER_PROGRAM_H
-# define _SHADER_PROGRAM_H
+#ifndef _SHADER_PROGRAM_HPP
+# define _SHADER_PROGRAM_HPP
 
 # include <string>
 # include <GL/glew.h>
@@ -38,4 +38,4 @@ public:
 	void			disable() const;
 };
 
-#endif
+#endif /* _SHADER_PROGRAM_HPP */

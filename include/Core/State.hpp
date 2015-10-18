@@ -18,6 +18,7 @@
 
 # include "Graphics/Window.hpp"
 # include "Game/States/StateIdentifiers.hpp"
+// TODO: Importing a header from Game to Core ?..
 
 class		StateStack;
 

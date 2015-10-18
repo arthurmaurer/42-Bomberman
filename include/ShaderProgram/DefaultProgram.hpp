@@ -1,6 +1,6 @@
 
-#ifndef _DEFAULT_PROGRAM_H
-# define _DEFAULT_PROGRAM_H
+#ifndef _DEFAULT_PROGRAM_HPP
+# define _DEFAULT_PROGRAM_HPP
 
 # include "Graphics/ShaderProgram.hpp"
 
@@ -12,4 +12,4 @@ public:
 	void	getUniformLocations();
 };
 
-#endif
+#endif /* _DEFAULT_PROGRAM_HPP */
