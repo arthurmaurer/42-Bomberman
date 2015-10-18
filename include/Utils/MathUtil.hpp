@@ -7,10 +7,12 @@ class MathUtil
 	static bool			randSeedSet;
 
 public:
-	static float	degToRad(float deg);
+	static float	rad(float deg);
+	static float	deg(float rad);
 
 	static float	random(float min, float max);
 	static int		random(int min, int max);
+	static float	clamp(float value, float min, float max);
 };
 
 #endif

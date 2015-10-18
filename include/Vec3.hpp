@@ -26,12 +26,19 @@ public:
 	Vec3(float x, float y, float z);
 
 	Vec3 &	operator=(const Vec3 & rhs);
+	Vec3 &	operator=(float scalar);
 	Vec3	operator+(const Vec3 & rhs) const;
 	Vec3	operator-(const Vec3 & rhs) const;
 	Vec3	operator*(const Vec3 & rhs) const;
 	Vec3	operator*(float factor) const;
 	Vec3	operator/(const Vec3 & rhs) const;
 	Vec3	operator/(float factor) const;
+	Vec3 &	operator+=(const Vec3 & rhs);
+	Vec3 &	operator-=(const Vec3 & rhs);
+	Vec3 &	operator*=(const Vec3 & rhs);
+	Vec3 &	operator*=(float factor);
+	Vec3 &	operator/=(const Vec3 & rhs);
+	Vec3 &	operator/=(float factor);
 	bool	operator==(const Vec3 & rhs) const;
 	bool	operator!=(const Vec3 & rhs) const;
 

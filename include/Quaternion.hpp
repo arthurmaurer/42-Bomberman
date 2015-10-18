@@ -21,13 +21,18 @@ public:
 	Quaternion();
 	Quaternion(const Quaternion & src);
 	Quaternion(float wVal, float xVal, float yVal, float zVal);
+	Quaternion(const Vec3 & eulerAngles);
 
 	Quaternion &	operator=(const Quaternion & rhs);
 	Quaternion		operator*(const Quaternion & rhs) const;
+	Quaternion &	operator*=(const Quaternion & rhs);
 	Vec3			operator*(const Vec3 & rhs) const;
 	bool			operator==(const Quaternion & rhs) const;
 	bool			operator!=(const Quaternion & rhs) const;
 
+	float			pitch() const;
+	float			yaw() const;
+	float			roll() const;
 	void			set(float wVal, float xVal, float yVal, float zVal);
 	float			getNorm() const;
 	Vec3			getEulerAngles() const;

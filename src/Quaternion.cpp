@@ -1,6 +1,7 @@
 
+
 #include "Quaternion.hpp"
-#include <cmath>
+#include "Utils/MathUtil.hpp"
 
 Quaternion	Quaternion::identity = Quaternion(0, 0, 0, 1.f);
 
@@ -9,8 +10,7 @@ Quaternion::Quaternion() :
 	x(0),
 	y(0),
 	z(0)
-{
-}
+{}
 
 Quaternion::Quaternion(const Quaternion & src)
 {
@@ -22,7 +22,11 @@ Quaternion::Quaternion(float wVal, float xVal, float yVal, float zVal) :
 	x(xVal),
 	y(yVal),
 	z(zVal)
+{}
+
+Quaternion::Quaternion(const Vec3 & eulerAngles)
 {
+	setFromEulerAngles(eulerAngles);
 }
 
 Quaternion &	Quaternion::operator=(const Quaternion & rhs)
@@ -40,14 +44,28 @@ Quaternion &	Quaternion::operator=(const Quaternion & rhs)
 
 Quaternion		Quaternion::operator*(const Quaternion & rhs) const
 {
-	Quaternion	quat;
+	Quaternion	quat(*this);
+
+	quat *= rhs;
+
+	return quat;
+}
+
+Quaternion &	Quaternion::operator*=(const Quaternion & rhs)
+{
+	Quaternion	quat(*this);
 
 	quat.w = w * rhs.w - x * rhs.x - y * rhs.y - z * rhs.z;
 	quat.x = w * rhs.x + x * rhs.w + y * rhs.z - z * rhs.y;
 	quat.y = w * rhs.y - x * rhs.z + y * rhs.w + z * rhs.x;
 	quat.z = w * rhs.z + x * rhs.y - y * rhs.x + z * rhs.w;
 
-	return quat;
+	w = quat.w;
+	x = quat.x;
+	y = quat.y;
+	z = quat.z;
+
+	return *this;
 }
 
 Vec3			Quaternion::operator*(const Vec3 & rhs) const
@@ -70,6 +88,28 @@ bool			Quaternion::operator!=(const Quaternion & rhs) const
 	return (w != rhs.w || x != rhs.x || y != rhs.y || z != rhs.z);
 }
 
+float			Quaternion::pitch() const
+{
+	return atan2(2.f * (y * z + w * x), w * w - x * x - y * y + z * z);
+}
+
+#include <cstdio>
+
+
+float			Quaternion::yaw() const
+{
+	float	tmp = -2.f * (x * z - w * y);
+
+	tmp = MathUtil::clamp(tmp, -1.f, 1.f);
+	
+	return (asinf(tmp));
+}
+
+float			Quaternion::roll() const
+{
+	return (atan2(2.f * (x * y + w * z), w * w + x * x - y * y - z * z));
+}
+
 void			Quaternion::set(float wVal, float xVal, float yVal, float zVal)
 {
 	this->w = wVal;
@@ -85,22 +125,26 @@ float			Quaternion::getNorm() const
 
 Vec3			Quaternion::getEulerAngles() const
 {
-	return Vec3();
+	return Vec3(pitch(), yaw(), roll());
 }
 
 void			Quaternion::setFromEulerAngles(const Vec3 & eulerAngles)
 {
-	Quaternion	quatX;
-	Quaternion	quatY;
-	Quaternion	quatZ;
+	Vec3	cosAngles;
+	Vec3	sinAngles;
 
-	*this = identity;
+	cosAngles.x = cosf(eulerAngles.x * 0.5f);
+	cosAngles.y = cosf(eulerAngles.y * 0.5f);
+	cosAngles.z = cosf(eulerAngles.z * 0.5f);
 
-	quatX.rotateFromAxisAngle(Vec3::right, eulerAngles.x);
-	quatY.rotateFromAxisAngle(Vec3::up, eulerAngles.y);
-	quatZ.rotateFromAxisAngle(Vec3::forward, eulerAngles.z);
+	sinAngles.x = sinf(eulerAngles.x * 0.5f);
+	sinAngles.y = sinf(eulerAngles.y * 0.5f);
+	sinAngles.z = sinf(eulerAngles.z * 0.5f);
 
-	*this = quatX * quatY * quatZ;
+	w = cosAngles.x * cosAngles.y * cosAngles.z + sinAngles.x * sinAngles.y * sinAngles.z;
+	x = sinAngles.x * cosAngles.y * cosAngles.z - cosAngles.x * sinAngles.y * sinAngles.z;
+	y = cosAngles.x * sinAngles.y * cosAngles.z + sinAngles.x * cosAngles.y * sinAngles.z;
+	z = cosAngles.x * cosAngles.y * sinAngles.z - sinAngles.x * sinAngles.y * cosAngles.z;
 }
 
 void			Quaternion::rotateFromAxisAngle(const Vec3 & axis, float angle)
@@ -170,7 +214,7 @@ std::ostream &	operator<<(std::ostream & os, const Quaternion & rhs)
 		<< rhs.x << ", "
 		<< rhs.y << ", "
 		<< rhs.z << ")"
-		;
+	;
 
 	return os;
 }

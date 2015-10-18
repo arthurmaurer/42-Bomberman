@@ -45,7 +45,7 @@ auto		SceneNode::detachChild(const SceneNode & node) -> Ptr
 void	SceneNode::updateNode(sf::Time dt)
 {
 	if (parent != nullptr)
-		absoluteTransform = parent->absoluteTransform * transform;
+		absoluteTransform = transform * parent->absoluteTransform;
 	else
 		absoluteTransform = transform;
 

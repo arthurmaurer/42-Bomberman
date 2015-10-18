@@ -10,9 +10,14 @@
 
 bool	MathUtil::randSeedSet = false;
 
-float	MathUtil::degToRad(float deg)
+float	MathUtil::rad(float deg)
 {
-	return (deg * (static_cast<float>(M_PI) / 180.0f));
+	return (deg * (static_cast<float>(M_PI) / 180.f));
+}
+
+float	MathUtil::deg(float rad)
+{
+	return ((rad * 180.f) / static_cast<float>(M_PI));
 }
 
 float		MathUtil::random(float min, float max)
@@ -37,4 +42,14 @@ int		MathUtil::random(int min, int max)
 	}
 
 	return (rand() % (max - min) + min);
+}
+
+float	MathUtil::clamp(float value, float min, float max)
+{
+	if (value < min)
+		value = min;
+	else if (value > max)
+		value = max;
+
+	return value;
 }

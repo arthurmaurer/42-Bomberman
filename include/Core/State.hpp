@@ -14,7 +14,7 @@
 #ifndef _STATE_HPP
 # define _STATE_HPP
 
-# include <SFML/Graphics/RenderWindow.hpp>
+# include <memory>
 
 # include "Graphics/Window.hpp"
 # include "Game/States/StateIdentifiers.hpp"

@@ -192,8 +192,9 @@ void Matrix4::setFromQuaternion(const Quaternion & quat)
 void	Matrix4::setFromTransform(const Transform & trans)
 {
 	setIdentity();
-	*this *= scale(trans.scale);
-	*this *= translate(trans.position);
+
+	*this = scale(trans.scale);
+	*this = translate(trans.position);
 	*this *= Matrix4(trans.rotation);
 }
 

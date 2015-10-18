@@ -1,6 +1,6 @@
 
-#ifndef _TRANSFORM_H
-# define _TRANSFORM_H
+#ifndef _TRANSFORM_HPP
+# define _TRANSFORM_HPP
 
 # include "Vec3.hpp"
 # include "Quaternion.hpp"
@@ -17,6 +17,10 @@ public:
 
 	Transform &	operator=(const Transform & rhs);
 	Transform	operator*(const Transform & rhs) const;
+	Transform &	operator*=(const Transform & rhs);
+
+	void		rotateAround(const Vec3 & center, const Vec3 & eulerAngles);
+	void		rotateAround(const Vec3 & center, const Quaternion & quat);
 };
 
-#endif
+#endif /* _TRANSFORM_HPP */

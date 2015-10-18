@@ -36,12 +36,19 @@ Vec2 &	Vec2::operator=(const Vec2 & rhs)
 	return *this;
 }
 
+Vec2 &	Vec2::operator=(float scalar)
+{
+	x = scalar;
+	y = scalar;
+
+	return *this;
+}
+
 Vec2	Vec2::operator+(const Vec2 & rhs) const
 {
 	Vec2	vec(*this);
 
-	vec.x += rhs.x;
-	vec.y += rhs.y;
+	vec += rhs;
 
 	return vec;
 }
@@ -50,18 +57,35 @@ Vec2	Vec2::operator-(const Vec2 & rhs) const
 {
 	Vec2	vec(*this);
 
-	vec.x -= rhs.x;
-	vec.y -= rhs.y;
+	vec -= rhs;
 
 	return vec;
 }
+
+Vec2	Vec2::operator*(const Vec2 & rhs) const
+{
+	Vec2	vec(*this);
+
+	vec *= rhs;
+
+	return vec;
+}
+
 
 Vec2	Vec2::operator*(float factor) const
 {
 	Vec2	vec(*this);
 
-	vec.x *= factor;
-	vec.y *= factor;
+	vec *= factor;
+
+	return vec;
+}
+
+Vec2	Vec2::operator/(const Vec2 & rhs) const
+{
+	Vec2	vec(*this);
+
+	vec /= rhs;
 
 	return vec;
 }
@@ -70,10 +94,57 @@ Vec2	Vec2::operator/(float factor) const
 {
 	Vec2	vec(*this);
 
-	vec.x /= factor;
-	vec.y /= factor;
+	vec /= factor;
 
 	return vec;
+}
+
+Vec2 &	Vec2::operator+=(const Vec2 & rhs)
+{
+	x += rhs.x;
+	y += rhs.y;
+
+	return *this;
+}
+
+Vec2 &	Vec2::operator-=(const Vec2 & rhs)
+{
+	x -= rhs.x;
+	y -= rhs.y;
+
+	return *this;
+}
+
+Vec2 &	Vec2::operator*=(const Vec2 & rhs)
+{
+	x *= rhs.x;
+	y *= rhs.y;
+
+	return *this;
+}
+
+Vec2 &	Vec2::operator*=(float factor)
+{
+	x *= factor;
+	y *= factor;
+
+	return *this;
+}
+
+Vec2 &	Vec2::operator/=(const Vec2 & rhs)
+{
+	x /= rhs.x;
+	y /= rhs.y;
+
+	return *this;
+}
+
+Vec2 &	Vec2::operator/=(float factor)
+{
+	x /= factor;
+	y /= factor;
+
+	return *this;
 }
 
 bool	Vec2::operator==(const Vec2 & rhs) const

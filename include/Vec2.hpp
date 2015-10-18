@@ -21,10 +21,19 @@ public:
 	Vec2(float x, float y);
 
 	Vec2 &	operator=(const Vec2 & rhs);
+	Vec2 &	operator=(float scalar);
 	Vec2	operator+(const Vec2 & rhs) const;
 	Vec2	operator-(const Vec2 & rhs) const;
+	Vec2	operator*(const Vec2 & rhs) const;
 	Vec2	operator*(float factor) const;
+	Vec2	operator/(const Vec2 & rhs) const;
 	Vec2	operator/(float factor) const;
+	Vec2 &	operator+=(const Vec2 & rhs);
+	Vec2 &	operator-=(const Vec2 & rhs);
+	Vec2 &	operator*=(const Vec2 & rhs);
+	Vec2 &	operator*=(float factor);
+	Vec2 &	operator/=(const Vec2 & rhs);
+	Vec2 &	operator/=(float factor);
 	bool	operator==(const Vec2 & rhs) const;
 	bool	operator!=(const Vec2 & rhs) const;
 

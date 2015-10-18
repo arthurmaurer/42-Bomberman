@@ -36,14 +36,21 @@ Vec4 &	Vec4::operator=(const Vec4 & rhs)
 	return *this;
 }
 
+Vec4 &	Vec4::operator=(float scalar)
+{
+	w = scalar;
+	x = scalar;
+	y = scalar;
+	z = scalar;
+
+	return *this;
+}
+
 Vec4	Vec4::operator+(const Vec4 & rhs) const
 {
 	Vec4	vec(*this);
 
-	vec.w += rhs.w;
-	vec.x += rhs.x;
-	vec.y += rhs.y;
-	vec.z += rhs.z;
+	vec += rhs;
 
 	return vec;
 }
@@ -52,22 +59,35 @@ Vec4	Vec4::operator-(const Vec4 & rhs) const
 {
 	Vec4	vec(*this);
 
-	vec.w -= rhs.w;
-	vec.x -= rhs.x;
-	vec.y -= rhs.y;
-	vec.z -= rhs.z;
+	vec -= rhs;
 
 	return vec;
 }
+
+Vec4	Vec4::operator*(const Vec4 & rhs) const
+{
+	Vec4	vec(*this);
+
+	vec *= rhs;
+
+	return vec;
+}
+
 
 Vec4	Vec4::operator*(float factor) const
 {
 	Vec4	vec(*this);
 
-	vec.w *= factor;
-	vec.x *= factor;
-	vec.y *= factor;
-	vec.z *= factor;
+	vec *= factor;
+
+	return vec;
+}
+
+Vec4	Vec4::operator/(const Vec4 & rhs) const
+{
+	Vec4	vec(*this);
+
+	vec /= rhs;
 
 	return vec;
 }
@@ -76,12 +96,68 @@ Vec4	Vec4::operator/(float factor) const
 {
 	Vec4	vec(*this);
 
-	vec.w /= factor;
-	vec.x /= factor;
-	vec.y /= factor;
-	vec.z /= factor;
+	vec /= factor;
 
 	return vec;
+}
+
+Vec4 &	Vec4::operator+=(const Vec4 & rhs)
+{
+	w += rhs.w;
+	x += rhs.x;
+	y += rhs.y;
+	z += rhs.z;
+
+	return *this;
+}
+
+Vec4 &	Vec4::operator-=(const Vec4 & rhs)
+{
+	x -= rhs.x;
+	y -= rhs.y;
+	z -= rhs.z;
+
+	return *this;
+}
+
+Vec4 &	Vec4::operator*=(const Vec4 & rhs)
+{
+	w *= rhs.w;
+	x *= rhs.x;
+	y *= rhs.y;
+	z *= rhs.z;
+
+	return *this;
+}
+
+Vec4 &	Vec4::operator*=(float factor)
+{
+	w *= factor;
+	x *= factor;
+	y *= factor;
+	z *= factor;
+
+	return *this;
+}
+
+Vec4 &	Vec4::operator/=(const Vec4 & rhs)
+{
+	w /= rhs.w;
+	x /= rhs.x;
+	y /= rhs.y;
+	z /= rhs.z;
+
+	return *this;
+}
+
+Vec4 &	Vec4::operator/=(float factor)
+{
+	w /= factor;
+	x /= factor;
+	y /= factor;
+	z /= factor;
+
+	return *this;
 }
 
 bool	Vec4::operator==(const Vec4 & rhs) const

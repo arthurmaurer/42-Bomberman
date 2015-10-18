@@ -21,19 +21,15 @@ TestState::TestState(StateStack & stateStack, State::Context & context) :
 	State(stateStack, context),
 	root(new CubeEntity())
 {
-	root->transform.position.z = -20.f;
-	root->transform.position.x = 2.f;
-	root->transform.rotation.rotateX(50.f);
-	root->transform.rotation.rotateY(50.f);
-	root->transform.rotation.rotateZ(50.f);
+	root->transform.position.set(2.f, 0, -20.f);
+	root->transform.scale = 10.f;
+	root->move = true;
 
 	Renderer::registerEntity(*root);
 	std::unique_ptr<CubeEntity>	cube2(new CubeEntity());
 
-	cube2->transform.position.x = 2.f;
-	cube2->transform.rotation.rotateZ(-50.f);
-	cube2->transform.rotation.rotateY(-50.f);
-	cube2->transform.rotation.rotateX(-50.f);
+	cube2->transform.position.x = 3.f;
+	cube2->move = false;
 
 	Renderer::registerEntity(cube2.get());
 	root->attachChild(std::move(cube2));

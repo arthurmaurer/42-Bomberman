@@ -11,6 +11,9 @@ class CubeEntity : public ModelNode
 public:
 	typedef std::unique_ptr<CubeEntity>	Ptr;
 
+	bool		move;
+	unsigned	count = 0;
+
 	CubeEntity();
 
 	void		update(sf::Time dt);

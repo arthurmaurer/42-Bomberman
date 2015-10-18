@@ -27,7 +27,7 @@ void	ModelNode::render(Window & window)
 	Matrix4		modelMatrix;
 	Matrix4		viewMatrix;
 	Matrix4		projMatrix = Matrix4::getPerspective(
-		MathUtil::degToRad(Renderer::activeCamera->fovY),
+		MathUtil::rad(Renderer::activeCamera->fovY),
 		window.width / static_cast<float>(window.height),
 		1.0f,
 		1000.f
