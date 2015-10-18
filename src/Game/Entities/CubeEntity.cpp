@@ -5,9 +5,9 @@
 #include "Utils/MathUtil.hpp"
 
 CubeEntity::CubeEntity() :
-	ModelNode(ModelManager::loadFromOBJ("cube.obj"))
+	ModelNode(ModelManager::loadFromOBJ("companion_cube.obj"))
 {
-	model->texture = &TextureManager::loadTexture("cube.bmp");
+	model->texture = &TextureManager::loadTexture("companion_cube.jpg");
 }
 
 void	CubeEntity::update(sf::Time)

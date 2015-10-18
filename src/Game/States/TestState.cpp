@@ -22,18 +22,20 @@ TestState::TestState(StateStack & stateStack, State::Context & context) :
 	root(new CubeEntity())
 {
 	root->transform.position.set(2.f, 0, -20.f);
-	root->transform.scale = 2.f;
+	root->transform.scale = 1.f;
 	root->move = true;
 	Renderer::registerEntity(*root);
 
 	std::unique_ptr<CubeEntity>	cube2(new CubeEntity());
 	cube2->transform.position.set(3.f, 0, 0);
+	cube2->transform.scale = 0.5f;
 	cube2->move = false;
 	Renderer::registerEntity(cube2.get());
 	root->attachChild(std::move(cube2));
 
 	std::unique_ptr<CubeEntity>	cube3(new CubeEntity());
 	cube3->transform.position.set(-3.f, 0, 0);
+	cube3->transform.scale = 0.5f;
 	cube3->move = false;
 	Renderer::registerEntity(cube3.get());
 	root->attachChild(std::move(cube3));

@@ -6,10 +6,6 @@
 #include "Utils/MathUtil.hpp"
 #include "Vec3.hpp"
 
-#ifndef M_PI
-# define M_PI	3.14159265358979323846
-#endif
-
 bool	MathUtil::randSeedSet = false;
 
 float	MathUtil::rad(float deg)

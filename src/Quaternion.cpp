@@ -93,15 +93,15 @@ float			Quaternion::pitch() const
 	return atan2(2.f * (y * z + w * x), w * w - x * x - y * y + z * z);
 }
 
-#include <cstdio>
-
-
 float			Quaternion::yaw() const
 {
 	float	tmp = -2.f * (x * z - w * y);
 
-	tmp = MathUtil::clamp(tmp, -1.f, 1.f);
-	
+	if (tmp < -1.f)
+		return (float)-M_PI_2;
+	else if (tmp > 1.f)
+		return (float)M_PI_2;
+
 	return (asinf(tmp));
 }
 

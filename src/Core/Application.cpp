@@ -15,6 +15,7 @@
 #include "Graphics/Renderer.hpp"
 #include "ShaderProgram/DefaultProgram.hpp"
 #include "Graphics/Camera.hpp"
+#include "Utils/MathUtil.hpp"
 
 const sf::Time	Application::timePerFrame = sf::seconds(1.f / 60.f);
 
@@ -24,7 +25,7 @@ Application::Application() :
 {
 	init();
 }
-#include "Utils/MathUtil.hpp"
+
 void		Application::init()
 {
 	Renderer::shaderProgram = new DefaultProgram();
