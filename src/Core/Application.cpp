@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-10-17 08:13:43
+//         :      _/|      :  Last Edit  : 2015-10-18 04:15:04
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -54,8 +54,13 @@ void		Application::run()
 				window.close();
 		}
 
-		Renderer::render(window);
+		render();
 	}
+}
+
+void	Application::render()
+{
+	stateStack.render();
 }
 
 void	Application::processInput()

@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : State.cpp
 //         :               :  Creation   : 2015-10-13 20:44:32
-//         :      _/|      :  Last Edit  : 2015-10-17 07:45:23
+//         :      _/|      :  Last Edit  : 2015-10-18 03:22:55
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -22,8 +22,8 @@ State::Context::Context(Window & window) :
 }
 
 State::State(StateStack & stack, Context context) :
-	_stack(&stack),
-	_context(context)
+	stack(&stack),
+	context(context)
 {
 }
 
@@ -33,20 +33,15 @@ State::~State()
 
 void State::requestStackPush(States::ID stateID)
 {
-	_stack->pushState(stateID);
+	stack->pushState(stateID);
 }
 
 void State::requestStackPop()
 {
-	_stack->popState();
+	stack->popState();
 }
 
 void State::requestStateClear()
 {
-	_stack->clearStates();
-}
-
-State::Context State::getContext() const
-{
-	return _context;
+	stack->clearStates();
 }

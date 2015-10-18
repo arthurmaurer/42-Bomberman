@@ -12,7 +12,7 @@ public:
 	float	x;
 	float	y;
 	float	z;
-	
+
 	static Vec3	zero;
 	static Vec3	up;
 	static Vec3	down;
@@ -28,7 +28,9 @@ public:
 	Vec3 &	operator=(const Vec3 & rhs);
 	Vec3	operator+(const Vec3 & rhs) const;
 	Vec3	operator-(const Vec3 & rhs) const;
+	Vec3	operator*(const Vec3 & rhs) const;
 	Vec3	operator*(float factor) const;
+	Vec3	operator/(const Vec3 & rhs) const;
 	Vec3	operator/(float factor) const;
 	bool	operator==(const Vec3 & rhs) const;
 	bool	operator!=(const Vec3 & rhs) const;

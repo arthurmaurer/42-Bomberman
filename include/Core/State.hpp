@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : State.hpp
 //         :               :  Creation   : 2015-10-11 18:58:24
-//         :      _/|      :  Last Edit  : 2015-10-17 07:56:52
+//         :      _/|      :  Last Edit  : 2015-10-18 03:23:37
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -33,10 +33,13 @@ public:
 		Window *	window = NULL;
 	};
 
+	StateStack *	stack;
+	Context			context;
+
 	State(StateStack & stateStack, Context context);
 	virtual	~State();
 
-	virtual void	draw() = 0;
+	virtual void	render() = 0;
 	virtual bool	update(sf::Time dt) = 0;
 	virtual bool	handleEvent(const sf::Event & event) = 0;
 
@@ -44,12 +47,6 @@ protected:
 	void			requestStackPush(States::ID stateID);
 	void			requestStackPop();
 	void			requestStateClear();
-
-	Context			getContext() const;
-
-private:
-	StateStack *	_stack;
-	Context			_context;
 };
 
 #endif /* _STATE_HPP */

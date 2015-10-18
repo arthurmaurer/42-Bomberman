@@ -24,3 +24,15 @@ Transform &		Transform::operator=(const Transform & rhs)
 
 	return *this;
 }
+
+Transform		Transform::operator*(const Transform & rhs) const
+{
+	Transform	transform(*this);
+
+	// TODO: += & ... operators
+	transform.position = transform.position + rhs.position;
+	transform.scale = transform.scale * rhs.scale;
+	transform.rotation = transform.rotation * rhs.rotation;
+
+	return transform;
+}

@@ -1,15 +1,19 @@
 
 #ifndef _CUBE_ENTITY_H
-# define _CUTE_ENTITY_H
+# define _CUBE_ENTITY_H
 
-# include "Graphics/Entity.hpp"
+# include <memory>
 
-class CubeEntity : public Entity
+# include "Core/ModelNode.hpp"
+
+class CubeEntity : public ModelNode
 {
 public:
+	typedef std::unique_ptr<CubeEntity>	Ptr;
+
 	CubeEntity();
 
-	void	update();
+	void		update(sf::Time dt);
 };
 
 #endif

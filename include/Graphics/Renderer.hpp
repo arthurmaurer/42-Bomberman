@@ -3,24 +3,25 @@
 # define _RENDERER_H
 
 # include "Matrix4.hpp"
-# include "Graphics/Entity.hpp"
 # include "Graphics/ShaderProgram.hpp"
 # include "Graphics\Camera.hpp"
 # include "Graphics\Window.hpp"
 # include <vector>
 
+class SceneNode;
+
 class Renderer
 {
 public:
-	static std::vector<Entity *>		entities;
+	static std::vector<SceneNode *>		nodes;
 	static const ShaderProgram *		shaderProgram;
 	static const Camera *				activeCamera;
 
 	static void		render(Window & window);
-	static void		renderEntity(const Window & window, const Entity & entity);
 
-	static void		registerEntity(Entity & entity);
-	static void		unregisterEntity(const Entity & entity);
+	static void		registerEntity(SceneNode & node);
+	static void		registerEntity(SceneNode * node);
+	static void		unregisterEntity(const SceneNode & node);
 };
 
 #endif

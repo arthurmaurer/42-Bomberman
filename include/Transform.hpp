@@ -16,6 +16,7 @@ public:
 	Transform(const Transform & src);
 
 	Transform &	operator=(const Transform & rhs);
+	Transform	operator*(const Transform & rhs) const;
 };
 
 #endif

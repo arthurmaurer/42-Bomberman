@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : StateStack.hpp
 //         :               :  Creation   : 2015-10-11 18:42:52
-//         :      _/|      :  Last Edit  : 2015-10-17 07:59:05
+//         :      _/|      :  Last Edit  : 2015-10-18 03:20:20
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -35,7 +35,7 @@ public:
 	void		registerState(States::ID stateID);
 
 	void		update(sf::Time dt);
-	void		draw();
+	void		render();
 	void		handleEvent(const sf::Event & event);
 
 	void		pushState(States::ID stateID);

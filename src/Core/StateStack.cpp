@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : StateStack.cpp
 //         :               :  Creation   : 2015-10-11 18:43:38
-//         :      _/|      :  Last Edit  : 2015-10-17 07:47:10
+//         :      _/|      :  Last Edit  : 2015-10-18 04:15:57
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -46,10 +46,10 @@ void StateStack::update(sf::Time dt)
 	applyPendingChanges();
 }
 
-void StateStack::draw()
+void StateStack::render()
 {
 	for (auto & state : _stack)
-		state->draw();
+		state->render();
 }
 
 State::Ptr StateStack::createState(States::ID stateID)
