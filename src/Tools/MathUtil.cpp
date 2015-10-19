@@ -1,5 +1,5 @@
 
-#include "Utils/MathUtil.hpp"
+#include "Tools/MathUtil.hpp"
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
@@ -20,7 +20,7 @@ float		MathUtil::random(float min, float max)
 	float	random;
 	float	diff;
 	float	result;
-	
+
 	random = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 	diff = max - min;
 	result = random * diff + min;

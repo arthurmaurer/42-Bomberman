@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-10-18 04:15:04
+//         :      _/|      :  Last Edit  : 2015-10-19 20:45:54
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -15,6 +15,7 @@
 #include "Graphics/Renderer.hpp"
 #include "ShaderProgram/DefaultProgram.hpp"
 #include "Graphics/Camera.hpp"
+#include "Tools/TextureManager.hpp"
 
 const sf::Time	Application::timePerFrame = sf::seconds(1.f / 60.f);
 
@@ -30,6 +31,9 @@ void		Application::init()
 	Renderer::shaderProgram = new DefaultProgram();
 	Renderer::shaderProgram->enable();
 	Renderer::activeCamera = new Camera(45.f);
+
+	TextureManager::Ptr	textureManagerInstance(new TextureManager());
+	TextureManager::instance = std::move(textureManagerInstance);
 }
 
 void		Application::run()

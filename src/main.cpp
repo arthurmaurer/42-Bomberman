@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-#include "Utils/MathUtil.hpp"
+#include "Tools/MathUtil.hpp"
 #include "Game/Game.hpp"
 
 #define MOVE_SPEED	0.5f;

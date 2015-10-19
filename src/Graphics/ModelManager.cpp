@@ -3,8 +3,8 @@
 #include "Graphics/Renderer.hpp"
 #include <algorithm>
 #include <tiny_obj_loader.h>
-#include "Utils/MathUtil.hpp"
-#include "Utils/FileUtil.hpp"
+#include "Tools/MathUtil.hpp"
+#include "Tools/FileUtil.hpp"
 
 std::map<std::string, obj_t *>	ModelManager::_cachedOBJs;
 std::vector<GLuint>				ModelManager::_vbos;
