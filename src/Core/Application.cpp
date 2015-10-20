@@ -55,7 +55,9 @@ void		Application::run()
 				window.close();
 		}
 
-		render();
+		// TODO: Rewrite this to avoid the double isOpen condition.
+		if (window.isOpen())
+			render();
 	}
 }
 

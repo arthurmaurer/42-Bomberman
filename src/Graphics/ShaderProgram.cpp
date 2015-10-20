@@ -1,10 +1,16 @@
 
-#include "graphics/ShaderProgram.hpp"
-#include "graphics/Shader.hpp"
-#include "graphics/Renderer.hpp"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+
+#include "Graphics/ShaderProgram.hpp"
+#include "Graphics/Shader.hpp"
+#include "Graphics/Renderer.hpp"
+#include "Graphics/Light.hpp"
+#include "Vec2.hpp"
+#include "Vec3.hpp"
+#include "Vec4.hpp"
+#include "Matrix4.hpp"
 
 ShaderProgram::ShaderProgram()
 {}
@@ -123,4 +129,23 @@ void	ShaderProgram::loadUniform(const std::string & name, const Vec4 & value) co
 void	ShaderProgram::loadUniform(const std::string & name, const Matrix4 & value) const
 {
 	glUniformMatrix4fv(uniforms.at(name), 1, GL_FALSE, value.data);
+}
+
+void	ShaderProgram::loadUniform(const std::string & name, const Light & value) const
+{
+	loadUniform(name + ".position", value.transform.position);
+	loadUniform(name + ".ambient", value.ambient);
+	loadUniform(name + ".diffuse", value.diffuse);
+	loadUniform(name + ".specular", value.specular);
+}
+
+void	ShaderProgram::loadNormalMatrixUniform(const std::string & name, const Matrix4 & value) const
+{
+	GLfloat		buffer[9] = {
+		value.data[0], value.data[1], value.data[2],
+		value.data[4], value.data[5], value.data[6],
+		value.data[8], value.data[9], value.data[10]
+	};
+
+	glUniformMatrix3fv(uniforms.at(name), 1, GL_FALSE, buffer);
 }

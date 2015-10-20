@@ -12,13 +12,12 @@ ImageBuffer &	TextureManager::_loadImage(const std::string & path)
 	bool			success = false;
 	sf::Image		image;
 	ImageBuffer *	buffer = NULL;
-	
+
 	buffer = _cachedImages[path];
 
 	if (buffer == NULL)
 	{
 		FileUtil::changeWorkingDirectory("resources/");
-		// TODO: is loadFromImage leaking ?
 		success = image.loadFromFile(path);
 		FileUtil::restoreWorkingDirectory();
 
@@ -29,7 +28,7 @@ ImageBuffer &	TextureManager::_loadImage(const std::string & path)
 
 		buffer = new ImageBuffer(image.getSize().x, image.getSize().y);
 		memcpy(buffer->data, image.getPixelsPtr(), buffer->size);
-		
+
 		_cachedImages[path] = buffer;
 	}
 
@@ -65,7 +64,7 @@ Texture &	TextureManager::loadTexture(const std::string & path)
 
 	_textures.push_back(textureID);
 	texture = new Texture(textureID);
-	
+
 	return *texture;
 }
 

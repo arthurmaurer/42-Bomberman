@@ -2,13 +2,15 @@
 #ifndef _SHADER_PROGRAM_HPP
 # define _SHADER_PROGRAM_HPP
 
+# include <map>
 # include <string>
 # include <GL/glew.h>
-# include <map>
-# include "Vec2.hpp"
-# include "Vec3.hpp"
-# include "Vec4.hpp"
-# include "Matrix4.hpp"
+
+class Vec2;
+class Vec3;
+class Vec4;
+class Matrix4;
+class Light;
 
 class ShaderProgram
 {
@@ -32,6 +34,8 @@ public:
 	void			loadUniform(const std::string & name, const Vec3 & value) const;
 	void			loadUniform(const std::string & name, const Vec4 & value) const;
 	void			loadUniform(const std::string & name, const Matrix4 & value) const;
+	void			loadUniform(const std::string & name, const Light & value) const;
+	void			loadNormalMatrixUniform(const std::string & name, const Matrix4 & value) const;
 	virtual void	getUniformLocations() = 0;
 
 	void			enable() const;

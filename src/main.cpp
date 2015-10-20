@@ -75,6 +75,9 @@ int main()
 	catch (std::exception & e)
 	{
 		std::cout << e.what() << std::endl;
+#ifdef _WIN32
+		system("pause");
+#endif
 		return EXIT_FAILURE;
 	}
 }

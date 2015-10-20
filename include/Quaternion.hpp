@@ -45,6 +45,7 @@ public:
 	Quaternion		normalize() const;
 	Quaternion		conjugate() const;
 	Quaternion		inverse() const;
+	float			dot(const Quaternion & quat) const;
 };
 
 std::ostream &		operator<<(std::ostream & os, const Quaternion & rhs);

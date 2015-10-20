@@ -1,21 +1,24 @@
 
+#include <algorithm>
+
 #include "Graphics\ModelManager.hpp"
 #include "Graphics/Renderer.hpp"
-#include <algorithm>
 #include <tiny_obj_loader.h>
 #include "Utils/MathUtil.hpp"
 #include "Utils/FileUtil.hpp"
+#include "Graphics/ShaderProgram.hpp"
 
 std::map<std::string, obj_t *>	ModelManager::_cachedOBJs;
 std::vector<GLuint>				ModelManager::_vbos;
 std::vector<GLuint>				ModelManager::_vaos;
 std::vector<GLuint>				ModelManager::_ibos;
 
-void	ModelManager::_getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials)
+void	ModelManager::_getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<Vec3> & normals, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials)
 {
 	std::vector<Vec3>::const_iterator	it;
-	Vec3								position;
-	Vec2								uv;
+	Vec3	position;
+	Vec3	normal;
+	Vec2	uv;
 
 	for (const auto & shape : shapes)
 	{
@@ -37,8 +40,16 @@ void	ModelManager::_getModelData(std::vector<Vec3> & positions, std::vector<Vec2
 					uv.y = shape.mesh.texcoords[indice * 2 + 1];
 				}
 
+				if (indice * 3 + 2 < shape.mesh.normals.size())
+				{
+					normal.x = shape.mesh.normals[indice * 3];
+					normal.y = shape.mesh.normals[indice * 3 + 1];
+					normal.z = shape.mesh.normals[indice * 3 + 2];
+				}
+
 				positions.push_back(position);
 				uvs.push_back(uv);
+				normals.push_back(normal);
 				indices.push_back(positions.size() - 1);
 			}
 			else
@@ -51,10 +62,13 @@ void	ModelManager::_getModelData(std::vector<Vec3> & positions, std::vector<Vec2
 	(void)materials;
 }
 
-void		ModelManager::_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs)
+void		ModelManager::_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs, const std::vector<Vec3> & normals)
 {
 	size_t		positionsLength = positions.size();
 	size_t		uvsLength = uvs.size();
+	size_t		normalsLength = normals.size();
+
+	memset(buffer, 0, positionsLength * VERTEX_DATA_LENGTH);
 
 	for (size_t i = 0; i < positionsLength; i++)
 	{
@@ -67,15 +81,17 @@ void		ModelManager::_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positio
 			buffer[i * VERTEX_DATA_LENGTH + 3] = uvs[i].x;
 			buffer[i * VERTEX_DATA_LENGTH + 4] = uvs[i].y;
 		}
-		else
+
+		if (i < normalsLength)
 		{
-			buffer[i * VERTEX_DATA_LENGTH + 3] = 0;
-			buffer[i * VERTEX_DATA_LENGTH + 4] = 0;
+			buffer[i * VERTEX_DATA_LENGTH + 5] = normals[i].x;
+			buffer[i * VERTEX_DATA_LENGTH + 6] = normals[i].y;
+			buffer[i * VERTEX_DATA_LENGTH + 7] = normals[i].z;
 		}
 	}
 }
 
-GLuint		ModelManager::_loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs)
+GLuint		ModelManager::_loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs, const std::vector<Vec3> & normals)
 {
 	GLuint		vboID = 0;
 	GLuint		programID = 0;
@@ -88,7 +104,7 @@ GLuint		ModelManager::_loadVBO(const std::vector<Vec3> & positions, const std::v
 
 	dataLength = positions.size() * VERTEX_DATA_LENGTH;
 	data = new GLfloat[dataLength];
-	_fillVBO(data, positions, uvs);
+	_fillVBO(data, positions, uvs, normals);
 	glBufferData(GL_ARRAY_BUFFER, dataLength * sizeof(GLfloat), data, GL_STATIC_DRAW);
 	delete[] data;
 
@@ -101,6 +117,10 @@ GLuint		ModelManager::_loadVBO(const std::vector<Vec3> & positions, const std::v
 	attribLocation = glGetAttribLocation(programID, "uv");
 	glEnableVertexAttribArray(attribLocation);
 	glVertexAttribPointer(attribLocation, 2, GL_FLOAT, GL_FALSE, VERTEX_DATA_LENGTH * sizeof(GLfloat), (void*)(sizeof(GLfloat) * 3));
+
+	attribLocation = glGetAttribLocation(programID, "normal");
+	glEnableVertexAttribArray(attribLocation);
+	glVertexAttribPointer(attribLocation, 3, GL_FLOAT, GL_FALSE, VERTEX_DATA_LENGTH * sizeof(GLfloat), (void*)(sizeof(GLfloat) * 5));
 
 	return vboID;
 }
@@ -119,7 +139,7 @@ void		ModelManager::_fillIBO(GLuint * buffer, const std::vector<GLuint> & indice
 GLuint		ModelManager::_loadIBO(const std::vector<GLuint>& indices)
 {
 	GLuint		iboID = 0;
-	GLuint *	data = NULL;
+	GLuint *	data = nullptr;
 	size_t		dataLength = 0;
 
 	glGenBuffers(1, &iboID);
@@ -148,12 +168,13 @@ void		ModelManager::_loadBuffer(Model & model, const ShapeList & shapes, const M
 {
 	std::vector<Vec3>		positions;
 	std::vector<Vec2>		uvs;
+	std::vector<Vec3>		normals;
 	std::vector<unsigned>	indices;
 
-	_getModelData(positions, uvs, indices, shapes, materials);
+	_getModelData(positions, uvs, normals, indices, shapes, materials);
 	model.indexCount = indices.size();
 	model.vaoID = _loadVAO();
-	model.vboID = _loadVBO(positions, uvs);
+	model.vboID = _loadVBO(positions, uvs, normals);
 	model.iboID = _loadIBO(indices);
 
 	glBindVertexArray(0);
@@ -161,12 +182,12 @@ void		ModelManager::_loadBuffer(Model & model, const ShapeList & shapes, const M
 
 obj_t &	ModelManager::_loadOBJ(const std::string & path)
 {
-	obj_t *			obj = NULL;
+	obj_t *			obj = nullptr;
 	std::string		error;
 
 	obj = _cachedOBJs[path];
 
-	if (obj == NULL)
+	if (obj == nullptr)
 	{
 		obj = new obj_t();
 		FileUtil::changeWorkingDirectory("resources/");
@@ -187,7 +208,7 @@ Model &		ModelManager::loadFromOBJ(const std::string & objPath)
 	std::string		error;
 	ShapeList		shapes;
 	MaterialList	materials;
-	Model *			model = NULL;
+	Model *			model = nullptr;
 	obj_t &			obj = _loadOBJ(objPath);
 
 	model = new Model();

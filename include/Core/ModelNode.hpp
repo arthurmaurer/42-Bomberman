@@ -19,6 +19,9 @@
 
 class ModelNode : public SceneNode
 {
+private:
+	void		_uploadUniforms(const Window & window);
+
 public:
 	Model *		model = nullptr;
 

@@ -10,7 +10,7 @@
 # include <map>
 # include <tiny_obj_loader.h>
 
-#define VERTEX_DATA_LENGTH	5
+#define VERTEX_DATA_LENGTH	8
 
 typedef std::vector<tinyobj::shape_t>		ShapeList;
 typedef std::vector<tinyobj::material_t>	MaterialList;
@@ -28,10 +28,10 @@ class ModelManager
 	static std::vector<GLuint>				_vaos;
 	static std::vector<GLuint>				_ibos;
 
-	static void		_getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials);
+	static void		_getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<Vec3> & normals, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials);
 
-	static void		_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs);
-	static GLuint	_loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs);
+	static void		_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs, const std::vector<Vec3> & normals);
+	static GLuint	_loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs, const std::vector<Vec3> & normals);
 
 	static void		_fillIBO(GLuint * buffer, const std::vector<GLuint> & indices);
 	static GLuint	_loadIBO(const std::vector<GLuint> & indices);
@@ -48,7 +48,6 @@ class ModelManager
 	static void		_unloadVBOs();
 	static void		_unloadVAOs();
 	static void		_unloadIBOs();
-
 
 public:
 	static Model &	loadFromOBJ(const std::string & objPath);
