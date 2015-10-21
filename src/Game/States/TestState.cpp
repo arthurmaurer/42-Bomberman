@@ -43,12 +43,17 @@ TestState::TestState(StateStack & stateStack, State::Context & context) :
 	Renderer::registerNode(*cube3.get());
 	root->attachChild(std::move(cube3));
 
-	Light *	light1 = new Light();
-	light1->transform.position.set(0, 20.f, 10.f);
-	light1->ambient.set(1.f, 1.f, 1.f);
-	light1->diffuse.set(1.f, 1.f, 1.f);
-	light1->specular.set(1.f, 1.f, 1.f);
+	Light *	light1 = new Light(Vec3(0, 1.f, 0));
+	light1->transform.position.set(10.f, -5.f, -5.f);
 	Renderer::registerNode(*light1);
+
+	Light *	light2 = new Light(Vec3(1.f, 0, 0));
+	light2->transform.position.set(-10.f, -5.f, -5.f);
+	Renderer::registerNode(*light2);
+
+	Light *	light3 = new Light(Vec3(0, 0, 1.f));
+	light3->transform.position.set(0.f, 5.f, -5.f);
+	Renderer::registerNode(*light3);
 }
 
 void	TestState::render()

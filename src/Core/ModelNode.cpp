@@ -24,7 +24,7 @@ ModelNode::ModelNode(Model & model) :
 	model(&model)
 {}
 
-void	ModelNode::_uploadUniforms(const Window & window)
+void	ModelNode::_uploadUniforms(const Window & window) const
 {
 	Matrix4		mvp;
 	Matrix4		modelMatrix;
@@ -41,7 +41,9 @@ void	ModelNode::_uploadUniforms(const Window & window)
 	Renderer::shaderProgram->loadUniform("mvp", mvp);
 	Renderer::shaderProgram->loadUniform("modelViewMatrix", modelViewMatrix);
 	Renderer::shaderProgram->loadNormalMatrixUniform("normalMatrix", modelViewMatrix);
-	Renderer::shaderProgram->loadUniform("light", *Renderer::lights.at(0));
+
+	for (unsigned i = 0; i < Renderer::shaderProgram->maxRenderedLights; i++)
+		Renderer::shaderProgram->loadUniform("light", *Renderer::lights.at(i), i);
 }
 
 void	ModelNode::render(Window & window)

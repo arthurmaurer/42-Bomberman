@@ -99,6 +99,11 @@ void	ShaderProgram::loadUniform(const std::string & name, GLfloat value) const
 	glUniform1f(uniforms.at(name), value);
 }
 
+void	ShaderProgram::loadUniform(const std::string & name, GLfloat * buffer, size_t length) const
+{
+	glUniform1fv(uniforms.at(name), length, buffer);
+}
+
 void	ShaderProgram::loadUniform(const std::string & name, GLint value) const
 {
 	glUniform1i(uniforms.at(name), value);
@@ -111,40 +116,46 @@ void	ShaderProgram::loadUniform(const std::string & name, bool value) const
 	glUniform1i(uniforms.at(name), v);
 }
 
-void	ShaderProgram::loadUniform(const std::string & name, const Vec2 & value) const
+void	ShaderProgram::loadUniform(const std::string & name, const Vec2 & vec) const
 {
-	glUniform2f(uniforms.at(name), value.x, value.y);
+	glUniform2f(uniforms.at(name), vec.x, vec.y);
 }
 
-void	ShaderProgram::loadUniform(const std::string & name, const Vec3 & value) const
+void	ShaderProgram::loadUniform(const std::string & name, const Vec3 & vec) const
 {
-	glUniform3f(uniforms.at(name), value.x, value.y, value.z);
+	glUniform3f(uniforms.at(name), vec.x, vec.y, vec.z);
 }
 
-void	ShaderProgram::loadUniform(const std::string & name, const Vec4 & value) const
+void	ShaderProgram::loadUniform(const std::string & name, const Vec4 & vec) const
 {
-	glUniform4f(uniforms.at(name), value.w, value.x, value.y, value.z);
+	glUniform4f(uniforms.at(name), vec.w, vec.x, vec.y, vec.z);
 }
 
-void	ShaderProgram::loadUniform(const std::string & name, const Matrix4 & value) const
+void	ShaderProgram::loadUniform(const std::string & name, const Matrix4 & matrix) const
 {
-	glUniformMatrix4fv(uniforms.at(name), 1, GL_FALSE, value.data);
+	glUniformMatrix4fv(uniforms.at(name), 1, GL_FALSE, matrix.data);
 }
 
-void	ShaderProgram::loadUniform(const std::string & name, const Light & value) const
+void	ShaderProgram::loadUniform(const std::string & name, const Light & light, int index) const
 {
-	loadUniform(name + ".position", value.transform.position);
-	loadUniform(name + ".ambient", value.ambient);
-	loadUniform(name + ".diffuse", value.diffuse);
-	loadUniform(name + ".specular", value.specular);
+	std::string	fullName(name);
+
+	if (index != -1)
+		fullName.append("[").append(std::to_string(index)).append("]");
+
+	loadUniform(fullName + ".position", light.transform.position);
+	loadUniform(fullName + ".ambient", light.ambient);
+	loadUniform(fullName + ".diffuse", light.diffuse);
+	loadUniform(fullName + ".specular", light.specular);
+	loadUniform(fullName + ".attenuation", light.attenuation);
 }
 
-void	ShaderProgram::loadNormalMatrixUniform(const std::string & name, const Matrix4 & value) const
+void	ShaderProgram::loadNormalMatrixUniform(const std::string & name, const Matrix4 & matrix) const
 {
 	GLfloat		buffer[9] = {
-		value.data[0], value.data[1], value.data[2],
-		value.data[4], value.data[5], value.data[6],
-		value.data[8], value.data[9], value.data[10]
+		matrix.data[0], matrix.data[1], matrix.data[2],
+		matrix.data[4], matrix.data[5], matrix.data[6],
+		matrix.data[8], matrix.data[9], matrix.data[10]
 	};
 
 	glUniformMatrix3fv(uniforms.at(name), 1, GL_FALSE, buffer);
