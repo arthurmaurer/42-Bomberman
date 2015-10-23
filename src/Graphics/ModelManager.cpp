@@ -13,7 +13,7 @@ std::vector<GLuint>				ModelManager::_vbos;
 std::vector<GLuint>				ModelManager::_vaos;
 std::vector<GLuint>				ModelManager::_ibos;
 
-void	ModelManager::_getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<Vec3> & normals, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials)
+void	ModelManager::_getModelData(RawModelData & modelData, const ShapeList & shapes, const MaterialList & materials)
 {
 	std::vector<Vec3>::const_iterator	it;
 	Vec3	position;
@@ -30,9 +30,9 @@ void	ModelManager::_getModelData(std::vector<Vec3> & positions, std::vector<Vec2
 			position.y = shape.mesh.positions[indice * 3 + 1];
 			position.z = shape.mesh.positions[indice * 3 + 2];
 
-			it = std::find(positions.cbegin(), positions.cend(), position);
+			it = std::find(modelData.positions.cbegin(), modelData.positions.cend(), position);
 
-			if (it == positions.cend())
+			if (it == modelData.positions.cend())
 			{
 				if (indice * 2 + 1 < shape.mesh.texcoords.size())
 				{
@@ -47,14 +47,14 @@ void	ModelManager::_getModelData(std::vector<Vec3> & positions, std::vector<Vec2
 					normal.z = shape.mesh.normals[indice * 3 + 2];
 				}
 
-				positions.push_back(position);
-				uvs.push_back(uv);
-				normals.push_back(normal);
-				indices.push_back(positions.size() - 1);
+				modelData.positions.push_back(position);
+				modelData.uvs.push_back(uv);
+				modelData.normals.push_back(normal);
+				modelData.indices.push_back(modelData.positions.size() - 1);
 			}
 			else
 			{
-				indices.push_back(it - positions.cbegin());
+				modelData.indices.push_back(it - modelData.positions.cbegin());
 			}
 		}
 	}
@@ -164,20 +164,22 @@ GLuint		ModelManager::_loadVAO()
 	return vaoID;
 }
 
-void		ModelManager::_loadBuffer(Model & model, const ShapeList & shapes, const MaterialList & materials)
+Model &		ModelManager::createModel(const RawModelData & modelData)
 {
-	std::vector<Vec3>		positions;
-	std::vector<Vec2>		uvs;
-	std::vector<Vec3>		normals;
-	std::vector<unsigned>	indices;
+	Model *		model = new Model();
 
-	_getModelData(positions, uvs, normals, indices, shapes, materials);
-	model.indexCount = indices.size();
-	model.vaoID = _loadVAO();
-	model.vboID = _loadVBO(positions, uvs, normals);
-	model.iboID = _loadIBO(indices);
+	model->indexCount = modelData.indices.size();
+	model->vaoID = _loadVAO();
+	model->vboID = _loadVBO(modelData.positions, modelData.uvs, modelData.normals);
+	model->iboID = _loadIBO(modelData.indices);
 
 	glBindVertexArray(0);
+
+	_vbos.push_back(model->vboID);
+	_vaos.push_back(model->vaoID);
+	_ibos.push_back(model->iboID);
+
+	return *model;
 }
 
 obj_t &	ModelManager::_loadOBJ(const std::string & path)
@@ -205,20 +207,12 @@ obj_t &	ModelManager::_loadOBJ(const std::string & path)
 
 Model &		ModelManager::loadFromOBJ(const std::string & objPath)
 {
-	std::string		error;
-	ShapeList		shapes;
-	MaterialList	materials;
-	Model *			model = nullptr;
+	RawModelData	modelData;
 	obj_t &			obj = _loadOBJ(objPath);
+	
+	_getModelData(modelData, obj.shapes, obj.materials);
 
-	model = new Model();
-	_loadBuffer(*model, obj.shapes, obj.materials);
-
-	_vbos.push_back(model->vboID);
-	_vaos.push_back(model->vaoID);
-	_ibos.push_back(model->iboID);
-
-	return *model;
+	return createModel(modelData);
 }
 
 void		ModelManager::_unloadVBO(GLuint vboID)

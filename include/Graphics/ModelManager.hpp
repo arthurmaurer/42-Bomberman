@@ -21,6 +21,14 @@ typedef struct
 	MaterialList	materials;
 }					obj_t;
 
+typedef struct
+{
+	std::vector<Vec3>		positions;
+	std::vector<Vec2>		uvs;
+	std::vector<Vec3>		normals;
+	std::vector<unsigned>	indices;
+}							RawModelData;
+
 class ModelManager
 {
 	static std::map<std::string, obj_t *>	_cachedOBJs;
@@ -28,7 +36,7 @@ class ModelManager
 	static std::vector<GLuint>				_vaos;
 	static std::vector<GLuint>				_ibos;
 
-	static void		_getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<Vec3> & normals, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials);
+	static void		_getModelData(RawModelData & modelData, const ShapeList & shapes, const MaterialList & materials);
 
 	static void		_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs, const std::vector<Vec3> & normals);
 	static GLuint	_loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs, const std::vector<Vec3> & normals);
@@ -37,7 +45,6 @@ class ModelManager
 	static GLuint	_loadIBO(const std::vector<GLuint> & indices);
 
 	static GLuint	_loadVAO();
-	static void		_loadBuffer(Model & model, const ShapeList & shapes, const MaterialList & materials);
 
 	static obj_t &	_loadOBJ(const std::string & path);
 
@@ -50,6 +57,7 @@ class ModelManager
 	static void		_unloadIBOs();
 
 public:
+	static Model &	createModel(const RawModelData & modelData);
 	static Model &	loadFromOBJ(const std::string & objPath);
 	static void		unloadModel(Model & model);
 	static void		clearCache();

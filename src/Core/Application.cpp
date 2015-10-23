@@ -66,6 +66,9 @@ void	Application::render()
 	stateStack.render();
 }
 
+#define MOVE_SPEED	0.1f
+#define LOOK_SPEED	0.01f
+
 void	Application::processInput()
 {
 	sf::Event event;
@@ -77,6 +80,35 @@ void	Application::processInput()
 		if (event.type == sf::Event::Closed)
 			window.close();
 	}
+
+	Camera &	camera = *Renderer::activeCamera;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		window.close();
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+		camera.transform.position -= camera.transform.rotation * (Vec3::forward * MOVE_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		camera.transform.position -= camera.transform.rotation * (Vec3::back * MOVE_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		camera.transform.position += camera.transform.rotation * (Vec3::left * MOVE_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		camera.transform.position += camera.transform.rotation * (Vec3::right * MOVE_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		camera.transform.rotation.rotateX(LOOK_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		camera.transform.rotation.rotateX(-LOOK_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		camera.transform.rotation.rotateY(-LOOK_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		camera.transform.rotation.rotateY(LOOK_SPEED);
 }
 
 void	Application::update(sf::Time dt)

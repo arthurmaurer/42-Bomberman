@@ -34,7 +34,7 @@ void	ModelNode::_uploadUniforms(const Window & window) const
 
 	modelMatrix.setFromTransform(absoluteTransform);
 	viewMatrix.setFromTransform(Renderer::activeCamera->transform);
-	viewMatrix = viewMatrix.transpose().inverse();
+	viewMatrix = viewMatrix.inverse();
 	modelViewMatrix = viewMatrix * modelMatrix;
 	mvp = projMatrix * modelViewMatrix;
 
