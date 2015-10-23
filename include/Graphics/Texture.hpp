@@ -2,6 +2,7 @@
 #ifndef _TEXTURE_HPP
 # define _TEXTURE_HPP
 
+# include <memory>
 # include <GL/glew.h>
 
 class Texture

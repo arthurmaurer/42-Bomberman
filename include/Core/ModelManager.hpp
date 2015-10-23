@@ -1,6 +1,6 @@
 
-#ifndef _MODEL_MANAGER_HPP
-# define _MODEL_MANAGER_HPP
+#ifndef _MODEL_MANAGER_H
+# define _MODEL_MANAGER_H
 
 # include <string>
 # include "Graphics/Model.hpp"
@@ -23,10 +23,11 @@ typedef struct
 
 class ModelManager
 {
-	static std::map<std::string, obj_t *>	_cachedOBJs;
-	static std::vector<GLuint>				_vbos;
-	static std::vector<GLuint>				_vaos;
-	static std::vector<GLuint>				_ibos;
+	static std::map<std::string, Model::Ptr>	_models;
+	static std::map<std::string, obj_t *>		_cachedOBJs;
+	static std::vector<GLuint>					_vbos;
+	static std::vector<GLuint>					_vaos;
+	static std::vector<GLuint>					_ibos;
 
 	static void		_getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials);
 
@@ -51,10 +52,10 @@ class ModelManager
 
 
 public:
-	static Model &	loadFromOBJ(const std::string & objPath);
+	static Model &	loadFromOBJ(const std::string & key, const std::string & objPath);
 	static void		unloadModel(Model & model);
 	static void		clearCache();
 	static void		cleanUp();
 };
 
-#endif /* _MODEL_MANAGER_HPP */
+#endif

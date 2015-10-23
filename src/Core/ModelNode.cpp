@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : ModelNode.cpp
 //         :               :  Creation   : 2015-10-18 01:35:20
-//         :      _/|      :  Last Edit  : 2015-10-18 04:13:49
+//         :      _/|      :  Last Edit  : 2015-10-19 00:41:12
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -13,7 +13,7 @@
 
 #include "Core/ModelNode.hpp"
 #include "Matrix4.hpp"
-#include "Utils/MathUtil.hpp"
+#include "Tools/MathUtil.hpp"
 #include "Graphics/Renderer.hpp"
 
 ModelNode::ModelNode(Model & model) :

@@ -1,13 +1,13 @@
 
 #include "Game/Entities/CubeEntity.hpp"
-#include "Graphics/ModelManager.hpp"
-#include "Graphics/TextureManager.hpp"
-#include "Utils/MathUtil.hpp"
+#include "Tools/MathUtil.hpp"
+#include "Tools/ModelManager.hpp"
+#include "Tools/TextureManager.hpp"
 
 CubeEntity::CubeEntity() :
-	ModelNode(ModelManager::loadFromOBJ("companion_cube.obj"))
+	ModelNode(ModelManager::load("Cube", "companion_cube.obj"))
 {
-	model->texture = &TextureManager::loadTexture("companion_cube.jpg");
+	model->texture = &TextureManager::load("Cube", "companion_cube.jpg");
 }
 
 void	CubeEntity::update(sf::Time)

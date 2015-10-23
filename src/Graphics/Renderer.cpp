@@ -1,7 +1,7 @@
 
 # include <stdio.h>
 #include "Graphics/Renderer.hpp"
-#include "Utils/MathUtil.hpp"
+#include "Tools/MathUtil.hpp"
 #include "Core/SceneNode.hpp"
 
 std::vector<SceneNode *>	Renderer::nodes;

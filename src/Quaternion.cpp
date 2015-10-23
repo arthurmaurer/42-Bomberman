@@ -1,7 +1,8 @@
 
+#include <cmath>
 
 #include "Quaternion.hpp"
-#include "Utils/MathUtil.hpp"
+#include "Tools/MathUtil.hpp"
 
 Quaternion	Quaternion::identity = Quaternion(0, 0, 0, 1.f);
 

@@ -1,4 +1,6 @@
 
+#include <cmath>
+
 #include "Transform.hpp"
 
 Transform::Transform() :
@@ -24,14 +26,15 @@ Transform &		Transform::operator=(const Transform & rhs)
 
 	return *this;
 }
-#include "Utils/MathUtil.hpp"
+
+#include "Tools/MathUtil.hpp"
 
 Transform		Transform::operator*(const Transform & rhs) const
 {
 	Transform	transform(*this);
-	
+
 	transform.rotateAround(rhs.position, rhs.rotation);
-	
+
 	return transform;
 }
 

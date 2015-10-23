@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
-#include "Utils/MathUtil.hpp"
+#include "Tools/MathUtil.hpp"
 #include "Vec3.hpp"
 
 bool	MathUtil::randSeedSet = false;
@@ -33,7 +33,7 @@ float		MathUtil::random(float min, float max)
 	float	random;
 	float	diff;
 	float	result;
-	
+
 	random = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 	diff = max - min;
 	result = random * diff + min;
