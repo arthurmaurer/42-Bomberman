@@ -8,6 +8,8 @@ class Camera
 {
 public:
 	float		fovY;
+	float		nearPlane;
+	float		farPlane;
 	Transform	transform;
 
 	Camera(float fovY);

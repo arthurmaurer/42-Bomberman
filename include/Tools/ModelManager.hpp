@@ -1,30 +1,16 @@
-//             .-'''''-.
-//           .'         `.
-//          :             :   File       : ModelManager.hpp
-//         :               :  Creation   : 2015-10-22 08:34:48
-//         :      _/|      :  Last Edit  : 2015-10-23 22:08:38
-//          :   =/_/      :   Author     : nsierra-
-//           `._/ |     .'    Mail       : nsierra-@student.42.fr
-//         (   /  ,|...-'
-//          \_/^\/||__
-//        /~  `""~`"` \_
-//    __/  -'/  `-._ `\_\__
-//  /     /-'`  `\   \  \-
 
 #ifndef _MODEL_MANAGER_HPP
 # define _MODEL_MANAGER_HPP
 
-# include <vector>
-
-# include <GL/glew.h>
-# include <tiny_obj_loader.h>
-
+# include <string>
 # include "Graphics/Model.hpp"
-# include "Tools/ResourceManager.hpp"
 # include "Vec2.hpp"
 # include "Vec3.hpp"
+# include <vector>
+# include <map>
+# include <tiny_obj_loader.h>
 
-# define VERTEX_DATA_LENGTH 5
+#define VERTEX_DATA_LENGTH	8
 
 typedef std::vector<tinyobj::shape_t>		ShapeList;
 typedef std::vector<tinyobj::material_t>	MaterialList;
@@ -35,43 +21,47 @@ typedef struct
 	MaterialList	materials;
 }					obj_t;
 
-class		ModelManager : public ResourceManager<std::string, Model>
+typedef struct
 {
-	std::map<std::string, obj_t *>	_cachedOBJs;
-	std::vector<GLuint>				_vbos;
-	std::vector<GLuint>				_vaos;
-	std::vector<GLuint>				_ibos;
+	std::vector<Vec3>		positions;
+	std::vector<Vec2>		uvs;
+	std::vector<Vec3>		normals;
+	std::vector<unsigned>	indices;
+}							RawModelData;
 
-	void		_getModelData(std::vector<Vec3> & positions, std::vector<Vec2> & uvs, std::vector<GLuint> & indices, const ShapeList & shapes, const MaterialList & materials);
+class ModelManager
+{
+	static std::map<std::string, obj_t *>	_cachedOBJs;
+	static std::vector<GLuint>				_vbos;
+	static std::vector<GLuint>				_vaos;
+	static std::vector<GLuint>				_ibos;
 
-	void		_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs);
-	GLuint		_loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs);
+	static void		_getModelData(RawModelData & modelData, const ShapeList & shapes, const MaterialList & materials);
 
-	void		_fillIBO(GLuint * buffer, const std::vector<GLuint> & indices);
-	GLuint		_loadIBO(const std::vector<GLuint> & indices);
+	static void		_fillVBO(GLfloat * buffer, const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs, const std::vector<Vec3> & normals);
+	static GLuint	_loadVBO(const std::vector<Vec3> & positions, const std::vector<Vec2> & uvs, const std::vector<Vec3> & normals);
 
-	GLuint		_loadVAO();
-	void		_loadBuffer(Model & model, const ShapeList & shapes, const MaterialList & materials);
+	static void		_fillIBO(GLuint * buffer, const std::vector<GLuint> & indices);
+	static GLuint	_loadIBO(const std::vector<GLuint> & indices);
 
-	obj_t &		_loadOBJ(const std::string & path);
+	static GLuint	_loadVAO();
 
-	void		_unloadVBO(GLuint vboID);
-	void		_unloadVAO(GLuint vaoID);
-	void		_unloadIBO(GLuint iboID);
+	static obj_t &	_loadOBJ(const std::string & path);
 
-	void		_unloadVBOs();
-	void		_unloadVAOs();
-	void		_unloadIBOs();
+	static void		_unloadVBO(GLuint vboID);
+	static void		_unloadVAO(GLuint vaoID);
+	static void		_unloadIBO(GLuint iboID);
 
-protected:
-	Model &		_load(const std::string & key, const std::string & param = "");
-	void		_unload(const std::string & key);
+	static void		_unloadVBOs();
+	static void		_unloadVAOs();
+	static void		_unloadIBOs();
 
 public:
-	ModelManager();
-
-	void		clearCache();
-	void		cleanUp();
+	static Model &	createModel(const RawModelData & modelData);
+	static Model &	loadFromOBJ(const std::string & objPath);
+	static void		unloadModel(Model & model);
+	static void		clearCache();
+	static void		cleanUp();
 };
 
 #endif /* _MODEL_MANAGER_HPP */

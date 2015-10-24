@@ -55,9 +55,9 @@ int		MathUtil::random(int min, int max)
 float	MathUtil::clamp(float value, float min, float max)
 {
 	if (value < min)
-		value = min;
+		return min;
 	else if (value > max)
-		value = max;
+		return max;
 
 	return value;
 }

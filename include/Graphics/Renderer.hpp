@@ -2,13 +2,14 @@
 #ifndef _RENDERER_HPP
 # define _RENDERER_HPP
 
-# include "Matrix4.hpp"
-# include "Graphics/ShaderProgram.hpp"
-# include "Graphics\Camera.hpp"
-# include "Graphics\Window.hpp"
 # include <vector>
 
 class SceneNode;
+class Window;
+class Camera;
+class ShaderProgram;
+class Light;
+class Matrix4;
 
 class Renderer
 {
@@ -16,12 +17,18 @@ public:
 	static std::vector<SceneNode *>		nodes;
 	static const ShaderProgram *		shaderProgram;
 	static Camera *						activeCamera;
+	static std::vector<Light *>			lights;
+	static Matrix4						projectionMatrix;
+	static bool							updateProjectionMatrix;
 
-	static void		render(Window & window);
+	static void			clear(Window & window);
+	static void			display(Window & window);
+	static void			render(Window & window);
 
-	static void		registerEntity(SceneNode & node);
-	static void		registerEntity(SceneNode * node);
-	static void		unregisterEntity(const SceneNode & node);
+	static void			registerNode(SceneNode & node);
+	static void			unregisterNode(const SceneNode & node);
+
+	static Matrix4 &	getProjectionMatrix(const Window & window);
 };
 
 #endif /* _RENDERER_HPP */

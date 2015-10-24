@@ -96,13 +96,13 @@ float			Quaternion::pitch() const
 
 float			Quaternion::yaw() const
 {
-	float	tmp = -2.f * (x * z - w * y);
+	Quaternion	normalized(normalize());
+	float		tmp = -2.f * (normalized.x * normalized.z - normalized.w * normalized.y);
 
-	if (tmp < -1.f)
-		return (float)-M_PI_2;
-	else if (tmp > 1.f)
-		return (float)M_PI_2;
+	tmp = MathUtil::clamp(tmp, -1.f, 1.f);
 
+	// TODO: tmp < -1.f even when norm = 1.f. It create "jumps" on certain
+	// frames.
 	return (asinf(tmp));
 }
 
@@ -121,7 +121,7 @@ void			Quaternion::set(float wVal, float xVal, float yVal, float zVal)
 
 float			Quaternion::getNorm() const
 {
-	return sqrt(w * w + x * x + y * y + z * z);
+	return sqrtf(dot(*this));
 }
 
 Vec3			Quaternion::getEulerAngles() const
@@ -153,8 +153,7 @@ void			Quaternion::rotateFromAxisAngle(const Vec3 & axis, float angle)
 	Quaternion	quat;
 	float		sinA;
 
-	angle = MathUtil::deg(angle);
-	angle = angle / 360.f * (float)M_PI * 2.f;
+	angle = MathUtil::deg(angle) / 360.f * (float)M_PI * 2.f;
 
 	sinA = sinf(angle / 2.0f);
 
@@ -162,9 +161,8 @@ void			Quaternion::rotateFromAxisAngle(const Vec3 & axis, float angle)
 	quat.y = axis.y * sinA;
 	quat.z = axis.z * sinA;
 	quat.w = cosf(angle / 2.f);
-	quat = quat.normalize();
 
-	*this *= quat;
+	*this *= quat.normalize();
 }
 
 void Quaternion::setFromVector(const Vec3 & vector)
@@ -206,6 +204,11 @@ Quaternion		Quaternion::conjugate() const
 Quaternion		Quaternion::inverse() const
 {
 	return Quaternion(w, -x, -y, -z);
+}
+
+float			Quaternion::dot(const Quaternion & quat) const
+{
+	return (x * quat.x + y * quat.y + z * quat.z + w * quat.w);
 }
 
 std::ostream &	operator<<(std::ostream & os, const Quaternion & rhs)

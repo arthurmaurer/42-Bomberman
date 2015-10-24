@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-10-23 21:53:55
+//         :      _/|      :  Last Edit  : 2015-10-24 03:31:55
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -36,9 +36,6 @@ void		Application::init()
 
 	TextureManager::Ptr	textureManagerInstance(new TextureManager());
 	TextureManager::instance = std::move(textureManagerInstance);
-
-	ModelManager::Ptr	modelManagerInstance(new ModelManager());
-	ModelManager::instance = std::move(modelManagerInstance);
 }
 
 void		Application::run()
@@ -63,7 +60,9 @@ void		Application::run()
 				window.close();
 		}
 
-		render();
+		// TODO: Rewrite this to avoid the double isOpen condition.
+		if (window.isOpen())
+			render();
 	}
 }
 
@@ -71,6 +70,9 @@ void	Application::render()
 {
 	stateStack.render();
 }
+
+#define MOVE_SPEED	0.1f
+#define LOOK_SPEED	0.01f
 
 void	Application::processInput()
 {
@@ -83,6 +85,35 @@ void	Application::processInput()
 		if (event.type == sf::Event::Closed)
 			window.close();
 	}
+
+	Camera &	camera = *Renderer::activeCamera;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		window.close();
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+		camera.transform.position -= camera.transform.rotation * (Vec3::forward * MOVE_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		camera.transform.position -= camera.transform.rotation * (Vec3::back * MOVE_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		camera.transform.position += camera.transform.rotation * (Vec3::left * MOVE_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		camera.transform.position += camera.transform.rotation * (Vec3::right * MOVE_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		camera.transform.rotation.rotateX(LOOK_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		camera.transform.rotation.rotateX(-LOOK_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		camera.transform.rotation.rotateY(-LOOK_SPEED);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		camera.transform.rotation.rotateY(LOOK_SPEED);
 }
 
 void	Application::update(sf::Time dt)
