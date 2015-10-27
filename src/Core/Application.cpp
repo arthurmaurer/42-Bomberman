@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-10-24 03:31:55
+//         :      _/|      :  Last Edit  : 2015-10-27 22:29:18
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -10,6 +10,11 @@
 //        /~  `""~`"` \_
 //    __/  -'/  `-._ `\_\__
 //  /     /-'`  `\   \  \-
+
+#include <stdexcept>
+
+#include <SFML/Window/Event.hpp>
+#include <stdlib.h>
 
 #include "Core/Application.hpp"
 #include "Graphics/Renderer.hpp"
@@ -22,16 +27,20 @@
 const sf::Time	Application::timePerFrame = sf::seconds(1.f / 60.f);
 
 Application::Application() :
-	window(1200, 800, "Bomberman"),
+	window(640, 480, "Bomberman"),
 	stateStack(State::Context(window))
 {
-	init();
+	if (!_statsFont.loadFromFile("Sansation.ttf"))
+		throw std::runtime_error("Error loading statistics font");
+	_statsString.setFont(_statsFont);
+	_statsString.setPosition(5.f, 5.f);
+	_statsString.setCharacterSize(10);
 }
 
 void		Application::init()
 {
 	Renderer::shaderProgram = new DefaultProgram();
-	Renderer::shaderProgram->enable();
+//	Renderer::shaderProgram->enable();
 	Renderer::activeCamera = new Camera(45.f);
 
 	TextureManager::Ptr	textureManagerInstance(new TextureManager());
@@ -55,12 +64,12 @@ void		Application::run()
 			processInput();
 			update(timePerFrame);
 
-			// Check inside this loop, because stack might be empty before update() call
 			if (stateStack.isEmpty())
 				window.close();
 		}
 
 		// TODO: Rewrite this to avoid the double isOpen condition.
+		_updateStats(dt);
 		if (window.isOpen())
 			render();
 	}
@@ -68,7 +77,16 @@ void		Application::run()
 
 void	Application::render()
 {
+	sf::RenderWindow &	win	= window.window;
+
 	stateStack.render();
+
+	win.pushGLStates();
+	// TODO: Not working (SFML Rendering inside OpenGL Context)
+	win.draw(_statsString);
+	win.popGLStates();
+
+	win.display();
 }
 
 #define MOVE_SPEED	0.1f
@@ -78,6 +96,10 @@ void	Application::processInput()
 {
 	sf::Event event;
 
+	/* TODO:
+		Try fixing SFML/JoystickManager
+		http://en.sfml-dev.org/forums/index.php?topic=19082.0
+	*/
 	while (window.window.pollEvent(event))
 	{
 		stateStack.handleEvent(event);
@@ -119,4 +141,18 @@ void	Application::processInput()
 void	Application::update(sf::Time dt)
 {
 	stateStack.update(dt);
+}
+
+void	Application::_updateStats(sf::Time dt)
+{
+	_statsUpdateTime += dt;
+	_statsFrameCount += 1;
+
+	if (_statsUpdateTime >= sf::seconds(1.0f))
+	{
+		_statsString.setFont(_statsFont);
+		_statsString.setString("FPS: " + std::to_string(_statsFrameCount));
+		_statsUpdateTime -= sf::seconds(1.0f);
+		_statsFrameCount = 0;
+	}
 }

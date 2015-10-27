@@ -3,6 +3,7 @@
 # define _APPLICATION_HPP
 
 # include <SFML/System/Time.hpp>
+# include <SFML/Graphics/Text.hpp>
 
 # include "Graphics/Window.hpp"
 # include "Core/StateStack.hpp"
@@ -21,7 +22,15 @@ public:
 	void			processInput();
 	void			update(sf::Time dt);
 	void			render();
-	virtual void	init();
+	void			init();
+
+private:
+	sf::Font		_statsFont;
+	sf::Text		_statsString;
+	sf::Time		_statsUpdateTime;
+	size_t			_statsFrameCount;
+
+	void			_updateStats(sf::Time dt);
 };
 
 #endif /* _APPLICATION_HPP */

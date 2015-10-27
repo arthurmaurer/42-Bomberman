@@ -64,18 +64,11 @@ void	ShaderProgram::load(const std::string & vertexPath, const std::string & fra
 
 void	ShaderProgram::enable() const
 {
-	if (Renderer::shaderProgram != NULL)
-		Renderer::shaderProgram->disable();
-
-	Renderer::shaderProgram = this;
 	glUseProgram(id);
 }
 
 void	ShaderProgram::disable() const
 {
-	if (Renderer::shaderProgram == this)
-		Renderer::shaderProgram = NULL;
-
 	glUseProgram(0);
 }
 
@@ -90,7 +83,7 @@ void	ShaderProgram::cleanUp()
 GLint	ShaderProgram::getUniformLocation(const std::string & name)
 {
 	uniforms[name] = glGetUniformLocation(id, name.c_str());
-	
+
 	return uniforms[name];
 }
 

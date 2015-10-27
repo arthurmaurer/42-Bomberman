@@ -1,5 +1,8 @@
 
 # include <stdio.h>
+# include <iostream>
+
+#include "Graphics/ShaderProgram.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Tools/MathUtil.hpp"
 #include "Core/SceneNode.hpp"
@@ -29,11 +32,15 @@ void		Renderer::render(Window & window)
 {
 	clear(window);
 
+	shaderProgram->enable();
+
 	for (SceneNode * node : nodes)
 		node->render(window);
 
+	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	display(window);
+
+	shaderProgram->disable();
 }
 
 void		Renderer::registerNode(SceneNode & node)
@@ -42,7 +49,7 @@ void		Renderer::registerNode(SceneNode & node)
 
 	if (lightPtr != nullptr)
 		lights.push_back(lightPtr);
-	
+
 	nodes.push_back(&node);
 }
 
