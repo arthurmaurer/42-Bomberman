@@ -42,7 +42,7 @@ void	ModelNode::_uploadUniforms(const Window & window) const
 	Renderer::shaderProgram->loadUniform("modelViewMatrix", modelViewMatrix);
 	Renderer::shaderProgram->loadNormalMatrixUniform("normalMatrix", modelViewMatrix);
 
-	for (unsigned i = 0; i < Renderer::shaderProgram->maxRenderedLights; i++)
+	for (unsigned i = 0; i < Renderer::lights.size(); i++)
 		Renderer::shaderProgram->loadUniform("light", *Renderer::lights.at(i), i);
 }
 

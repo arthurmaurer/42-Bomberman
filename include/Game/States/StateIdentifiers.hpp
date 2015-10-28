@@ -19,7 +19,7 @@ namespace States
 	enum ID
 	{
 		None,
-		Test
+		LevelState
 	};
 }
 

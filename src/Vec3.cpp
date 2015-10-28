@@ -2,6 +2,7 @@
 #include "Vec3.hpp"
 #include "Quaternion.hpp"
 #include <cmath>
+#include <cassert>
 
 Vec3 Vec3::zero = Vec3(0, 0, 0);
 Vec3 Vec3::up = Vec3(0, 1.0f, 0);

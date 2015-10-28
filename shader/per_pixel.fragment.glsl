@@ -40,7 +40,7 @@ vec3	getLightIntensity(uint lightID)
 
 	distance = length(indata.toLight[lightID]);
 	tNorm = normalize(indata.normal * normalMatrix);
-	// eyeDirection = normalize(-input.eyePosition);
+	// eyeDirection = normalize(-indata.eyePosition);
 	eyeDirection = vec3(0, 0, 1.0);
 	reflection = reflect(-indata.toLight[lightID], tNorm);
 
