@@ -2,13 +2,20 @@
 
 #define LIGHT_COUNT	3
 
-struct PointLight
+struct	PointLight
 {
 	vec3	position;
 	vec3	ambient;
 	vec3	diffuse;
 	vec3	specular;
 	vec2	attenuation;
+};
+
+struct	LightIntensity
+{
+	vec3	ambient;
+	vec3	diffuse;
+	vec3	specular;
 };
 
 in	data
@@ -26,38 +33,49 @@ uniform PointLight	light[LIGHT_COUNT];
 uniform mat3		normalMatrix;
 uniform sampler2D	diffuseSampler;
 
-vec3	getLightIntensity(uint lightID)
+vec3	applyAttenuation(uint lightID, LightIntensity intensity)
 {
-	vec3	tNorm;
-	vec3	eyeDirection;
-	vec3	reflection;
-	vec3	ambientIntensity;
-	vec3	diffuseIntensity;
-	vec3	specularIntensity = vec3(0, 0, 0);
 	float	distance;
 	float	attenuation;
-	float	brightness;
 
 	distance = length(indata.toLight[lightID]);
+	attenuation = 1.0 + light[lightID].attenuation.x * distance + light[lightID].attenuation.y * distance * distance;
+
+	return intensity.ambient + intensity.diffuse + intensity.specular;
+
+	return (intensity.ambient / attenuation +
+		intensity.diffuse / attenuation +
+		intensity.specular / attenuation);
+}
+
+vec3	getLightIntensity(uint lightID)
+{
+	vec3			tNorm;
+	vec3			eyeDirection;
+	vec3			reflection;
+	float			brightness;
+	LightIntensity	intensity;
+
+	intensity.ambient = vec3(0, 0, 0);
+	intensity.diffuse = vec3(0, 0, 0);
+	intensity.specular = vec3(0, 0, 0);
+
 	tNorm = normalize(indata.normal * normalMatrix);
-	// eyeDirection = normalize(-indata.eyePosition);
+	//eyeDirection = normalize(indata.eyePosition);
 	eyeDirection = vec3(0, 0, 1.0);
-	reflection = reflect(-indata.toLight[lightID], tNorm);
 
 	brightness = max(dot(indata.toLight[lightID], tNorm), 0);
-	diffuseIntensity = light[lightID].diffuse * brightness;
+	intensity.diffuse = light[lightID].diffuse * brightness;
+
+	reflection = reflect(-indata.toLight[lightID], tNorm);
 	brightness = dot(reflection, eyeDirection);
 
-	attenuation = 1.0 +
-		light[lightID].attenuation.x * distance +
-		light[lightID].attenuation.y * distance * distance;
-
 	if (brightness >= 0)
-		specularIntensity = light[lightID].specular * pow(brightness, 10.f);
+		intensity.specular = light[lightID].specular * pow(brightness, 15.f);
 
-	ambientIntensity = light[lightID].ambient * 0.1;
+	intensity.ambient = light[lightID].ambient * 0.1;
 
-	return ambientIntensity / attenuation + diffuseIntensity / attenuation + specularIntensity / attenuation;
+	return applyAttenuation(lightID, intensity);
 }
 
 void	main()

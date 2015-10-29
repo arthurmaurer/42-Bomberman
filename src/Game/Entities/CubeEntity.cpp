@@ -3,13 +3,16 @@
 #include "Tools/MathUtil.hpp"
 #include "Tools/ModelManager.hpp"
 #include "Tools/TextureManager.hpp"
+#include "Tools/ModelGenerator.hpp"
 
 #define ROTATION_SPEED 1.f
 
 CubeEntity::CubeEntity() :
-	ModelNode(ModelManager::loadFromOBJ("companion_cube.obj"))
+	//ModelNode(ModelManager::loadFromOBJ("companion_cube.obj"))
+	ModelNode(ModelManager::loadFromOBJ("sphere.obj"))
+	//ModelNode(ModelGenerator::generateCube({ 1, 1, 1 }))
 {
-	model->texture = &TextureManager::load("Cube", "companion_cube.jpg");
+	model->texture = &TextureManager::load("Cube1", "companion_cube.jpg");
 }
 
 void	CubeEntity::update(sf::Time)

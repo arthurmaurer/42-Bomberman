@@ -24,6 +24,7 @@ class		TextureManager : public ResourceManager<std::string, Texture>
 	std::vector<GLuint>										_texturesID;
 	std::map<std::string, std::unique_ptr<ImageBuffer>>		_cachedImages;
 
+	GLuint			_loadGLTexture(const ImageBuffer & imageBuffer);
 	void			_unloadGLTexture(const Texture & value);
 	ImageBuffer &	_loadImage(const std::string & path);
 

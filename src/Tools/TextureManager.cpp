@@ -42,6 +42,8 @@ ImageBuffer &	TextureManager::_loadImage(const std::string & path)
 		if (!success)
 			throw std::runtime_error("Could not load the texture file.");
 
+		image.flipVertically();
+
 		std::unique_ptr<ImageBuffer>	buffer(new ImageBuffer(image.getSize().x, image.getSize().y));
 		memcpy(buffer->data, image.getPixelsPtr(), buffer->size);
 
@@ -130,7 +132,7 @@ Texture &	TextureManager::_load(const std::string & key, const std::string & par
 		return *_resources.at(key);
 	}
 }
-
+/*
 Texture &	TextureManager::_load(const std::string & key, const ImageBuffer & imageBuffer)
 {
 	try
@@ -149,7 +151,7 @@ Texture &	TextureManager::_load(const std::string & key, const ImageBuffer & ima
 		return *_resources.at(key);
 	}
 }
-
+*/
 void		TextureManager::_unload(const std::string & key)
 {
 	Texture & texture = *_resources.at(key);

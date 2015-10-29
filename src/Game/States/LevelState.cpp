@@ -28,11 +28,29 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	State(stateStack, context),
 	rootNode(new SceneNode())
 {
-	level = new Level00();
+	CubeEntity *	cube;
+	
+	cube = new CubeEntity();
+	cube->transform.position.x = -0.f;
+	cube->updateNode(sf::Time());
+	Renderer::registerNode(*cube);
+
+	cube = new CubeEntity();
+	cube->transform.position.x = 6.f;
+	cube->updateNode(sf::Time());
+	Renderer::registerNode(*cube);
 
 	Light *	light1 = new Light(Vec3(1.f, 1.f, 1.f));
-	light1->transform.position.z = 10.f;
+	light1->transform.position = { 3, 0, 0 };
+	light1->updateNode(sf::Time());
 	Renderer::registerNode(*light1);
+
+	cube = new CubeEntity();
+	cube->transform.position = light1->transform.position;
+	cube->transform.scale = { 0.2f, 0.2f, 0.2f };
+	cube->model->texture = &TextureManager::load("ok", "texture.jpg");
+	cube->updateNode(sf::Time());
+	Renderer::registerNode(*cube);
 }
 
 void	LevelState::render()

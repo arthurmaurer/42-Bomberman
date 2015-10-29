@@ -3,8 +3,8 @@
 # define _WINDOW_HPP
 
 # include <GL/glew.h>
-# include <SFML\Window.hpp>
-# include <SFML\OpenGL.hpp>
+# include <SFML/Graphics/RenderWindow.hpp>
+# include <SFML/OpenGL.hpp>
 
 class Window
 {
@@ -14,7 +14,7 @@ class Window
 public:
 	size_t		width;
 	size_t		height;
-	sf::Window	window;
+	sf::RenderWindow	window;
 
 	Window(size_t width, size_t height, const std::string & title);
 	~Window();

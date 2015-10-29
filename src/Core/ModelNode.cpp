@@ -53,7 +53,7 @@ void	ModelNode::render(Window & window)
 	glBindVertexArray(model->vaoID);
 	glBindBuffer(GL_ARRAY_BUFFER, model->vboID);
 
-	if (model->texture != NULL)
+	if (model->texture != nullptr)
 	{
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, model->texture->id);
