@@ -31,6 +31,7 @@ private:
 	size_t			_statsFrameCount;
 
 	void			_updateStats(sf::Time dt);
+	void			_initStats();
 };
 
 #endif /* _APPLICATION_HPP */

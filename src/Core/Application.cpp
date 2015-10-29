@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-10-27 22:29:18
+//         :      _/|      :  Last Edit  : 2015-10-29 23:17:25
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -30,12 +30,7 @@ Application::Application() :
 	window(640, 480, "Bomberman"),
 	stateStack(State::Context(window))
 {
-	if (!_statsFont.loadFromFile("Sansation.ttf"))
-		throw std::runtime_error("Error loading statistics font");
-
-	_statsString.setFont(_statsFont);
-	_statsString.setPosition(5.f, 5.f);
-	_statsString.setCharacterSize(10);
+	_initStats();
 }
 
 void		Application::init()
@@ -70,7 +65,7 @@ void		Application::run()
 		}
 
 		_updateStats(dt);
-		
+
 		// TODO: Rewrite this to avoid the double isOpen condition.
 		if (window.isOpen())
 			render();
@@ -143,7 +138,7 @@ void	Application::update(sf::Time dt)
 {
 	stateStack.update(dt);
 }
-sf::String	str("Salut");
+
 void	Application::_updateStats(sf::Time dt)
 {
 	_statsUpdateTime += dt;
@@ -157,4 +152,14 @@ void	Application::_updateStats(sf::Time dt)
 		_statsUpdateTime -= sf::seconds(1.0f);
 		_statsFrameCount = 0;
 	}
+}
+
+void	Application::_initStats()
+{
+	if (!_statsFont.loadFromFile("Sansation.ttf"))
+		throw std::runtime_error("Error loading statistics font");
+
+	_statsString.setFont(_statsFont);
+	_statsString.setPosition(5.f, 5.f);
+	_statsString.setCharacterSize(10);
 }
