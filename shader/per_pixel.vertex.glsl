@@ -30,13 +30,18 @@ uniform mat4		mvp;
 
 void	main()
 {
-	outdata.eyePosition = (vec4(position, 1.0) * modelViewMatrix).xyz;
+	vec4	worldPosition = vec4(position, 1.0) * modelViewMatrix;
+
+	outdata.eyePosition = -worldPosition.xyz;
 	outdata.position = position;
 	outdata.normal = normal;
 	outdata.uv = uv;
 
 	for (uint i = 0; i < LIGHT_COUNT; i++)
-		outdata.toLight[i] = normalize(light[i].position - outdata.eyePosition);
+	{
+		vec4	lightWorldPosition = vec4(light[i].position, 1.0) * modelViewMatrix;
+		outdata.toLight[i] = normalize(lightWorldPosition - worldPosition).xyz;
+	}
 
 	gl_Position = vec4(position, 1.0) * mvp;
 }

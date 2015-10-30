@@ -49,8 +49,8 @@ void		Renderer::registerNode(SceneNode & node)
 
 	if (lightPtr != nullptr)
 		lights.push_back(lightPtr);
-
-	nodes.push_back(&node);
+	else
+		nodes.push_back(&node);
 }
 
 void		Renderer::unregisterNode(const SceneNode & node)

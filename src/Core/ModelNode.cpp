@@ -42,7 +42,7 @@ void	ModelNode::_uploadUniforms(const Window & window) const
 	Renderer::shaderProgram->loadUniform("modelViewMatrix", modelViewMatrix);
 	Renderer::shaderProgram->loadNormalMatrixUniform("normalMatrix", modelViewMatrix);
 
-	for (unsigned i = 0; i < Renderer::shaderProgram->maxRenderedLights; i++)
+	for (unsigned i = 0; i < Renderer::lights.size(); i++)
 		Renderer::shaderProgram->loadUniform("light", *Renderer::lights.at(i), i);
 }
 
@@ -53,7 +53,7 @@ void	ModelNode::render(Window & window)
 	glBindVertexArray(model->vaoID);
 	glBindBuffer(GL_ARRAY_BUFFER, model->vboID);
 
-	if (model->texture != NULL)
+	if (model->texture != nullptr)
 	{
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, model->texture->id);

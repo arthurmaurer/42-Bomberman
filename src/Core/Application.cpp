@@ -32,6 +32,7 @@ Application::Application() :
 {
 	if (!_statsFont.loadFromFile("Sansation.ttf"))
 		throw std::runtime_error("Error loading statistics font");
+
 	_statsString.setFont(_statsFont);
 	_statsString.setPosition(5.f, 5.f);
 	_statsString.setCharacterSize(10);
@@ -40,8 +41,8 @@ Application::Application() :
 void		Application::init()
 {
 	Renderer::shaderProgram = new DefaultProgram();
-//	Renderer::shaderProgram->enable();
 	Renderer::activeCamera = new Camera(45.f);
+	Renderer::activeCamera->transform.position.z = 10.f;
 
 	TextureManager::Ptr	textureManagerInstance(new TextureManager());
 	TextureManager::instance = std::move(textureManagerInstance);
@@ -68,8 +69,9 @@ void		Application::run()
 				window.close();
 		}
 
-		// TODO: Rewrite this to avoid the double isOpen condition.
 		_updateStats(dt);
+		
+		// TODO: Rewrite this to avoid the double isOpen condition.
 		if (window.isOpen())
 			render();
 	}
@@ -82,7 +84,6 @@ void	Application::render()
 	stateStack.render();
 
 	win.pushGLStates();
-	// TODO: Not working (SFML Rendering inside OpenGL Context)
 	win.draw(_statsString);
 	win.popGLStates();
 
@@ -142,7 +143,7 @@ void	Application::update(sf::Time dt)
 {
 	stateStack.update(dt);
 }
-
+sf::String	str("Salut");
 void	Application::_updateStats(sf::Time dt)
 {
 	_statsUpdateTime += dt;
@@ -151,7 +152,8 @@ void	Application::_updateStats(sf::Time dt)
 	if (_statsUpdateTime >= sf::seconds(1.0f))
 	{
 		_statsString.setFont(_statsFont);
-		_statsString.setString("FPS: " + std::to_string(_statsFrameCount));
+		//_statsString.setString("FPS: " + std::to_string(_statsFrameCount));
+		_statsString.setString(str);
 		_statsUpdateTime -= sf::seconds(1.0f);
 		_statsFrameCount = 0;
 	}

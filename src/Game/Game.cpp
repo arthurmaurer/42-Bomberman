@@ -12,7 +12,7 @@
 //  /     /-'`  `\   \  \-
 
 #include "Game/Game.hpp"
-#include "Game/States/TestState.hpp"
+#include "Game/States/LevelState.hpp"
 
 Game::Game() :
 	Application()
@@ -23,11 +23,11 @@ void	Game::init()
 	Application::init();
 
 	_registerStates();
-	stateStack.pushState(States::Test);
+	stateStack.pushState(States::LevelState);
 }
 
 void	Game::_registerStates()
 {
-	stateStack.registerState<TestState>(States::Test);
+	stateStack.registerState<LevelState>(States::LevelState);
 }
 

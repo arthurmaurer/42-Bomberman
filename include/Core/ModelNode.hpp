@@ -14,6 +14,8 @@
 #ifndef _MODEL_NODE_HPP
 # define _MODEL_NODE_HPP
 
+# include <memory>
+
 # include "Core/SceneNode.hpp"
 # include "Graphics/Model.hpp"
 
@@ -23,8 +25,11 @@ private:
 	void		_uploadUniforms(const Window & window) const;
 
 public:
+	typedef std::unique_ptr<SceneNode>	Ptr;
+
 	Model *		model = nullptr;
 
+	ModelNode() = default;
 	ModelNode(Model & model);
 
 	void		render(Window & window);

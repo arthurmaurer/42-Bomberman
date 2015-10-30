@@ -20,13 +20,10 @@
 #include "Tools/MiscUtil.hpp"
 #include <string.h>
 
-
 TextureManager::TextureManager() :
 	_texturesID(),
 	_cachedImages()
-{
-
-}
+{}
 
 ImageBuffer &	TextureManager::_loadImage(const std::string & path)
 {
@@ -37,10 +34,9 @@ ImageBuffer &	TextureManager::_loadImage(const std::string & path)
 	{
 		return *_cachedImages.at(path);
 	}
-	catch (std::out_of_range & oor)
+	catch (std::out_of_range &)
 	{
 		FileUtil::changeWorkingDirectory("resources/");
-		// TODO: is loadFromImage leaking ?
 		success = image.loadFromFile(path);
 		FileUtil::restoreWorkingDirectory();
 
@@ -57,15 +53,15 @@ ImageBuffer &	TextureManager::_loadImage(const std::string & path)
 	}
 }
 
-void		TextureManager::_unloadGLTexture(const Texture & value)
+void		TextureManager::_unloadGLTexture(const Texture & texture)
 {
 	std::vector<GLuint>::iterator	it;
 
-	it = std::find(_texturesID.begin(), _texturesID.end(), value.id);
+	it = std::find(_texturesID.begin(), _texturesID.end(), texture.id);
 
 	if (it != _texturesID.end())
 	{
-		glDeleteTextures(1, &value.id);
+		glDeleteTextures(1, &texture.id);
 		_texturesID.erase(it);
 	}
 }
@@ -90,37 +86,44 @@ void		TextureManager::cleanUp()
 	clearCache();
 }
 
+GLuint		TextureManager::_loadGLTexture(const ImageBuffer & imageBuffer)
+{
+	GLuint	textureID;
+
+	glGenTextures(1, &textureID);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	glTexImage2D(
+		GL_TEXTURE_2D,
+		0,
+		GL_RGBA,
+		imageBuffer.width,
+		imageBuffer.height,
+		0,
+		GL_RGBA,
+		GL_UNSIGNED_BYTE,
+		imageBuffer.data
+		);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	return textureID;
+}
+
 Texture &	TextureManager::_load(const std::string & key, const std::string & param)
 {
 	try
 	{
 		return *_resources.at(key);
 	}
-	catch (std::out_of_range & oor)
+	catch (std::out_of_range &)
 	{
-		GLuint			textureID = 0;
 		ImageBuffer &	imageBuffer = _loadImage(param);
-
-		glGenTextures(1, &textureID);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureID);
-
-		glTexImage2D(
-			GL_TEXTURE_2D,
-			0,
-			GL_RGBA,
-			imageBuffer.width,
-			imageBuffer.height,
-			0,
-			GL_RGBA,
-			GL_UNSIGNED_BYTE,
-			imageBuffer.data
-		);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		GLuint			textureID = _loadGLTexture(imageBuffer);
 
 		_texturesID.push_back(textureID);
 
@@ -130,7 +133,26 @@ Texture &	TextureManager::_load(const std::string & key, const std::string & par
 		return *_resources.at(key);
 	}
 }
+/*
+Texture &	TextureManager::_load(const std::string & key, const ImageBuffer & imageBuffer)
+{
+	try
+	{
+		return *_resources.at(key);
+	}
+	catch (std::out_of_range &)
+	{
+		GLuint			textureID = _loadGLTexture(imageBuffer);
 
+		_texturesID.push_back(textureID);
+
+		ResourcePtr	texture(new Texture(textureID));
+		_resources[key] = std::move(texture);
+
+		return *_resources.at(key);
+	}
+}
+*/
 void		TextureManager::_unload(const std::string & key)
 {
 	Texture & texture = *_resources.at(key);

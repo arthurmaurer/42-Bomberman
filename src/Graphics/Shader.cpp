@@ -39,7 +39,7 @@ void	Shader::load(const std::string & path, GLenum type)
 	if (id == 0)
 		throw std::runtime_error("Could not create the shader.");
 
-	glShaderSource(id, 1, &code, &length);
+	glShaderSource(id, 1, (const char **)&code, &length);
 	delete[] code;
 
 	_compile();
