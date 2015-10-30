@@ -55,17 +55,17 @@ void		Renderer::registerNode(SceneNode & node)
 
 void		Renderer::unregisterNode(const SceneNode & node)
 {
-	std::vector<SceneNode *>::const_iterator	nodeIt;
-	std::vector<Light *>::const_iterator		lightIt;
+	std::vector<SceneNode *>::iterator	nodeIt;
+	std::vector<Light *>::iterator		lightIt;
 
-	nodeIt = std::find(nodes.cbegin(), nodes.cend(), &node);
+	nodeIt = std::find(nodes.begin(), nodes.end(), &node);
 
-	if (nodeIt != nodes.cend())
+	if (nodeIt != nodes.end())
 		nodes.erase(nodeIt);
 
-	lightIt = std::find(lights.cbegin(), lights.cend(), &node);
+	lightIt = std::find(lights.begin(), lights.end(), &node);
 
-	if (lightIt != lights.cend())
+	if (lightIt != lights.end())
 		lights.erase(lightIt);
 }
 

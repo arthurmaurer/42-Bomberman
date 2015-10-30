@@ -20,7 +20,12 @@ void		FileUtil::changeWorkingDirectory(const std::string & wd)
 #endif
 
 	previousWorkingDirectory = buffer;
+
+#ifdef _WIN32
 	_chdir(wd.c_str());
+#else
+	chdir(wd.c_str());
+#endif
 }
 
 void		FileUtil::restoreWorkingDirectory()

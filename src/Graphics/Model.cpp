@@ -1,5 +1,5 @@
 
-#include "graphics/Model.hpp"
+#include "Graphics/Model.hpp"
 
 Model::Model()
 {}

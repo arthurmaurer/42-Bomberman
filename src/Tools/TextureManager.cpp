@@ -18,6 +18,7 @@
 #include "Tools/TextureManager.hpp"
 #include "Tools/FileUtil.hpp"
 #include "Tools/MiscUtil.hpp"
+#include <string.h>
 
 TextureManager::TextureManager() :
 	_texturesID(),
@@ -54,11 +55,11 @@ ImageBuffer &	TextureManager::_loadImage(const std::string & path)
 
 void		TextureManager::_unloadGLTexture(const Texture & texture)
 {
-	std::vector<GLuint>::const_iterator	it;
+	std::vector<GLuint>::iterator	it;
 
-	it = std::find(_texturesID.cbegin(), _texturesID.cend(), texture.id);
+	it = std::find(_texturesID.begin(), _texturesID.end(), texture.id);
 
-	if (it != _texturesID.cend())
+	if (it != _texturesID.end())
 	{
 		glDeleteTextures(1, &texture.id);
 		_texturesID.erase(it);

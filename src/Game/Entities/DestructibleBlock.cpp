@@ -1,7 +1,7 @@
 
 #include "Game/Entities/DestructibleBlock.hpp"
 #include "Tools/ModelGenerator.hpp"
-#include "tools/TextureManager.hpp"
+#include "Tools/TextureManager.hpp"
 
 DestructibleBlock::DestructibleBlock()
 {

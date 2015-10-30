@@ -218,11 +218,11 @@ Model &		ModelManager::loadFromOBJ(const std::string & objPath)
 
 void		ModelManager::_unloadVBO(GLuint vboID)
 {
-	std::vector<GLuint>::const_iterator		it;
+	std::vector<GLuint>::iterator		it;
 
-	std::find(_vbos.cbegin(), _vbos.cend(), vboID);
+	it = std::find(_vbos.begin(), _vbos.end(), vboID);
 
-	if (it != _vbos.cend())
+	if (it != _vbos.end())
 	{
 		glDeleteBuffers(1, &vboID);
 		_vbos.erase(it);
@@ -231,11 +231,11 @@ void		ModelManager::_unloadVBO(GLuint vboID)
 
 void		ModelManager::_unloadVAO(GLuint vaoID)
 {
-	std::vector<GLuint>::const_iterator		it;
+	std::vector<GLuint>::iterator		it;
 
-	std::find(_vaos.cbegin(), _vaos.cend(), vaoID);
+	it = std::find(_vaos.begin(), _vaos.end(), vaoID);
 
-	if (it != _vaos.cend())
+	if (it != _vaos.end())
 	{
 		glDeleteBuffers(1, &vaoID);
 		_vaos.erase(it);
@@ -244,11 +244,11 @@ void		ModelManager::_unloadVAO(GLuint vaoID)
 
 void		ModelManager::_unloadIBO(GLuint iboID)
 {
-	std::vector<GLuint>::const_iterator		it;
+	std::vector<GLuint>::iterator		it;
 
-	std::find(_ibos.cbegin(), _ibos.cend(), iboID);
+	it = std::find(_ibos.begin(), _ibos.end(), iboID);
 
-	if (it != _vbos.cend())
+	if (it != _vbos.end())
 	{
 		glDeleteBuffers(1, &iboID);
 		_vbos.erase(it);
