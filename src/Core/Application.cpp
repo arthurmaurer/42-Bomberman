@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-10-29 23:17:25
+//         :      _/|      :  Last Edit  : 2015-10-29 23:50:49
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -147,8 +147,7 @@ void	Application::_updateStats(sf::Time dt)
 	if (_statsUpdateTime >= sf::seconds(1.0f))
 	{
 		_statsString.setFont(_statsFont);
-		//_statsString.setString("FPS: " + std::to_string(_statsFrameCount));
-		_statsString.setString(str);
+		_statsString.setString("FPS: " + std::to_string(_statsFrameCount));
 		_statsUpdateTime -= sf::seconds(1.0f);
 		_statsFrameCount = 0;
 	}

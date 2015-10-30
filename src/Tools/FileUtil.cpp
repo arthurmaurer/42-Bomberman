@@ -14,9 +14,11 @@ void		FileUtil::changeWorkingDirectory(const std::string & wd)
 	char	buffer[200] = { 0 };
 
 #ifdef _WIN32
-	_getcwd(buffer, 200);
+	if (!_getcwd(buffer, 200))
+		throw std::runtime_error("Current working directory path is too long.");
 #else
-	getcwd(buffer, 200);
+	if (!getcwd(buffer, 200))
+		throw std::runtime_error("Current working directory path is too long.");
 #endif
 
 	previousWorkingDirectory = buffer;
