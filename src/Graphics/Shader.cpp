@@ -1,5 +1,5 @@
 
-#include "graphics/Shader.hpp"
+#include "Graphics/Shader.hpp"
 #include <fstream>
 #include <stdexcept>
 
