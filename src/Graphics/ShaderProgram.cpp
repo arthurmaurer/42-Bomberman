@@ -54,11 +54,20 @@ void	ShaderProgram::load(const std::string & vertexPath, const std::string & fra
 	if (success == GL_FALSE)
 	{
 		glGetProgramiv(id, GL_INFO_LOG_LENGTH, &logLength);
-		glGetProgramInfoLog(id, logLength, NULL, log);
 
-		std::runtime_error	e(log);
-		delete[] log;
-		throw e;
+		if (logLength > 1)
+		{
+			glGetProgramInfoLog(id, logLength, NULL, log);
+			std::runtime_error	e(log);
+			free(log);
+			throw e;
+		}
+		else
+		{
+			std::runtime_error	e("Unknown shader error.");
+			throw e;
+		}
+
 	}
 }
 

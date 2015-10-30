@@ -1,6 +1,6 @@
 #version 400 core
 
-#define LIGHT_COUNT	3
+#define LIGHT_COUNT	2
 
 struct	PointLight
 {
@@ -11,7 +11,7 @@ struct	PointLight
 	vec2	attenuation;
 };
 
-struct	LightIntensity
+struct	LightColor
 {
 	vec3	ambient;
 	vec3	diffuse;
@@ -22,60 +22,74 @@ in	data
 {
 	vec2	uv;
 	vec3	normal;
-	vec3	position;
-	vec3	eyePosition;
 	vec3	toLight[LIGHT_COUNT];
 }			indata;
 
-out vec4	finalColor;
-
-uniform PointLight	light[LIGHT_COUNT];
+uniform PointLight	lights[LIGHT_COUNT];
 uniform mat3		normalMatrix;
+uniform mat4		viewMatrix;
 uniform sampler2D	diffuseSampler;
 
-vec3	applyAttenuation(uint lightID, LightIntensity intensity)
+out vec4	finalColor;
+
+vec3	mergeLightColor(const LightColor color)
+{
+	return (color.ambient + color.diffuse + color.specular);
+}
+
+void	applyAttenuation(const PointLight light, const vec3 toLight, LightColor lightColor)
 {
 	float	distance;
 	float	attenuation;
 
-	distance = length(indata.toLight[lightID]);
-	attenuation = 1.0 + light[lightID].attenuation.x * distance + light[lightID].attenuation.y * distance * distance;
+	distance = length(toLight);
+	attenuation = 1.0 + light.attenuation.x * distance + light.attenuation.y * distance * distance;
 
-	return intensity.ambient + intensity.diffuse + intensity.specular;
-
-	return (intensity.ambient / attenuation +
-		intensity.diffuse / attenuation +
-		intensity.specular / attenuation);
+	lightColor.ambient /= attenuation;
+	lightColor.diffuse /= attenuation;
+	lightColor.specular /= attenuation;
 }
 
-vec3	getLightIntensity(uint lightID)
+vec3	getSpecularColor(const PointLight light, const vec3 toLight)
 {
-	vec3			tNorm;
-	vec3			eyeDirection;
 	vec3			reflection;
 	float			brightness;
-	LightIntensity	intensity;
+	vec3			color = vec3(0.0, 0.0, 0.0);
+	vec3			eyeDirection = vec3(0.0, 0.0, 1.0);
 
-	intensity.ambient = vec3(0, 0, 0);
-	intensity.diffuse = vec3(0, 0, 0);
-	intensity.specular = vec3(0, 0, 0);
-
-	tNorm = normalize(indata.normal * normalMatrix);
-	//eyeDirection = normalize(indata.eyePosition);
-	eyeDirection = vec3(0, 0, 1.0);
-
-	brightness = max(dot(indata.toLight[lightID], tNorm), 0);
-	intensity.diffuse = light[lightID].diffuse * brightness;
-
-	reflection = reflect(-indata.toLight[lightID], tNorm);
+	reflection = reflect(-toLight, indata.normal);
 	brightness = dot(reflection, eyeDirection);
 
-	if (brightness >= 0)
-		intensity.specular = light[lightID].specular * pow(brightness, 15.f);
+	if (brightness >= 0.0)
+		color = light.specular * pow(brightness, 15.0);
 
-	intensity.ambient = light[lightID].ambient * 0.1;
+	return color;
+}
 
-	return applyAttenuation(lightID, intensity);
+vec3	getDiffuseColor(const PointLight light, const vec3 toLight)
+{
+	float	brightness = max(dot(toLight, indata.normal), 0.0);
+
+	return light.diffuse * brightness;
+}
+
+vec3	getAmbientColor(const PointLight light)
+{
+	return light.ambient * 0.1;
+}
+
+vec3	getPointLightColor(const PointLight light, const vec3 toLight)
+{
+	LightColor		lightColor;
+	vec3			lightDirection = normalize(toLight);
+
+	lightColor.diffuse = getDiffuseColor(light, lightDirection);
+	lightColor.specular = getSpecularColor(light, lightDirection);
+	lightColor.ambient = getAmbientColor(light);
+
+	applyAttenuation(light, toLight, lightColor);
+
+	return mergeLightColor(lightColor);
 }
 
 void	main()
@@ -84,8 +98,8 @@ void	main()
 	vec3	lightIntensity = vec3(0, 0, 0);
 
 	for (uint i = 0; i < LIGHT_COUNT; i++)
-		lightIntensity += getLightIntensity(i);
+		lightIntensity += getPointLightColor(lights[i], indata.toLight[i]);
 
-	diffuse = texture(diffuseSampler, indata.uv);
+	diffuse = texture2D(diffuseSampler, indata.uv);
 	finalColor = vec4(lightIntensity, 1.0) * diffuse;
 }

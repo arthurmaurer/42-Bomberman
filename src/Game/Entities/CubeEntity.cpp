@@ -12,7 +12,7 @@ CubeEntity::CubeEntity() :
 	ModelNode(ModelManager::loadFromOBJ("sphere.obj"))
 	//ModelNode(ModelGenerator::generateCube({ 1, 1, 1 }))
 {
-	model->texture = &TextureManager::load("Cube1", "companion_cube.jpg");
+	model->texture = &TextureManager::load("Cube1", "texture.jpg");
 }
 
 void	CubeEntity::update(sf::Time)

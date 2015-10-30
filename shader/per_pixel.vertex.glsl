@@ -1,6 +1,6 @@
 #version 400 core
 
-#define LIGHT_COUNT	3
+#define LIGHT_COUNT 2
 
 struct PointLight
 {
@@ -19,29 +19,32 @@ out	data
 {
 	vec2	uv;
 	vec3	normal;
-	vec3	position;
-	vec3	eyePosition;
 	vec3	toLight[LIGHT_COUNT];
 }			outdata;
 
-uniform PointLight	light[LIGHT_COUNT];
+uniform PointLight	lights[LIGHT_COUNT];
+uniform mat3		normalMatrix;
 uniform mat4		modelViewMatrix;
+uniform mat4		viewMatrix;
 uniform mat4		mvp;
 
-void	main()
+void	setToLights()
 {
 	vec4	worldPosition = vec4(position, 1.0) * modelViewMatrix;
 
-	outdata.eyePosition = -worldPosition.xyz;
-	outdata.position = position;
-	outdata.normal = normal;
-	outdata.uv = uv;
-
 	for (uint i = 0; i < LIGHT_COUNT; i++)
 	{
-		vec4	lightWorldPosition = vec4(light[i].position, 1.0) * modelViewMatrix;
-		outdata.toLight[i] = normalize(lightWorldPosition - worldPosition).xyz;
+		vec4	lightPosition = vec4(lights[i].position, 1.0) * viewMatrix;
+		outdata.toLight[i] = lightPosition.xyz - worldPosition.xyz;
 	}
+}
 
+void	main()
+{
 	gl_Position = vec4(position, 1.0) * mvp;
+
+	outdata.normal = normalize(normal * normalMatrix);
+	outdata.uv = uv;
+
+	setToLights();
 }

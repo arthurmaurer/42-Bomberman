@@ -31,17 +31,17 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	CubeEntity *	cube;
 	
 	cube = new CubeEntity();
-	cube->transform.position.x = -0.f;
+	cube->transform.position.x = -3.f;
 	cube->updateNode(sf::Time());
 	Renderer::registerNode(*cube);
 
 	cube = new CubeEntity();
-	cube->transform.position.x = 6.f;
+	cube->transform.position.x = 3.f;
 	cube->updateNode(sf::Time());
 	Renderer::registerNode(*cube);
 
 	Light *	light1 = new Light(Vec3(1.f, 1.f, 1.f));
-	light1->transform.position = { 3, 0, 0 };
+	light1->transform.position = { 0, 0, 0 };
 	light1->updateNode(sf::Time());
 	Renderer::registerNode(*light1);
 

@@ -15,12 +15,15 @@ void	DefaultProgram::getUniformLocations()
 
 	getUniformLocation("mvp");
 	getUniformLocation("modelViewMatrix");
+	getUniformLocation("modelMatrix");
+	getUniformLocation("viewMatrix");
 	getUniformLocation("normalMatrix");
+	getUniformLocation("viewMatrix");
 
 	for (unsigned i = 0; i < maxRenderedLights; i++)
 	{
 		name.clear();
-		name.append("light[").append(std::to_string(i)).append("].");
+		name.append("lights[").append(std::to_string(i)).append("].");
 
 		getUniformLocation(name + "position");
 		getUniformLocation(name + "ambient");
