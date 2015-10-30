@@ -1,3 +1,4 @@
+#include <stdexcept>
 
 #include "Tools/FileUtil.hpp"
 
