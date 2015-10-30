@@ -25,18 +25,22 @@ void		FileUtil::changeWorkingDirectory(const std::string & wd)
 	previousWorkingDirectory = buffer;
 
 #ifdef _WIN32
-	_chdir(wd.c_str());
+	if (!_chdir(wd.c_str()))
+		throw std::runtime_error("Failled to changed directory.");
 #else
-	chdir(wd.c_str());
+	if (!chdir(wd.c_str()))
+		throw std::runtime_error("Failled to changed directory.");
 #endif
 }
 
 void		FileUtil::restoreWorkingDirectory()
 {
 #ifdef _WIN32
-	_chdir(previousWorkingDirectory.c_str());
+	if (!_chdir(previousWorkingDirectory.c_str()))
+		throw std::runtime_error("Failled to changed directory.");
 #else
-	chdir(previousWorkingDirectory.c_str());
+	if (!chdir(previousWorkingDirectory.c_str()))
+		throw std::runtime_error("Failled to changed directory.");
 #endif
 	previousWorkingDirectory = "";
 }
