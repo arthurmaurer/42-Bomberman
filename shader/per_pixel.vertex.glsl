@@ -1,9 +1,15 @@
 #version 400 core
 
-#define LIGHT_COUNT 2
+#define LIGHT_COUNT			3
 
-struct PointLight
+#define DISABLED_LIGHT		0
+#define POINT_LIGHT			1
+#define DIRECTIONAL_LIGHT	2
+#define SPOT_LIGHT			3
+
+struct	Light
 {
+	int		type;
 	vec3	position;
 	vec3	ambient;
 	vec3	diffuse;
@@ -22,7 +28,7 @@ out	data
 	vec3	toLight[LIGHT_COUNT];
 }			outdata;
 
-uniform PointLight	lights[LIGHT_COUNT];
+uniform Light		lights[LIGHT_COUNT];
 uniform mat3		normalMatrix;
 uniform mat4		modelViewMatrix;
 uniform mat4		viewMatrix;

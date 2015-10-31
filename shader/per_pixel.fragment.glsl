@@ -1,9 +1,15 @@
 #version 400 core
 
-#define LIGHT_COUNT	2
+#define LIGHT_COUNT			3
 
-struct	PointLight
+#define DISABLED_LIGHT		0
+#define POINT_LIGHT			1
+#define DIRECTIONAL_LIGHT	2
+#define SPOT_LIGHT			3
+
+struct	Light
 {
+	int		type;
 	vec3	position;
 	vec3	ambient;
 	vec3	diffuse;
@@ -25,7 +31,7 @@ in	data
 	vec3	toLight[LIGHT_COUNT];
 }			indata;
 
-uniform PointLight	lights[LIGHT_COUNT];
+uniform Light		lights[LIGHT_COUNT];
 uniform mat3		normalMatrix;
 uniform mat4		viewMatrix;
 uniform sampler2D	diffuseSampler;
@@ -37,7 +43,7 @@ vec3	mergeLightColor(const LightColor color)
 	return (color.ambient + color.diffuse + color.specular);
 }
 
-void	applyAttenuation(const PointLight light, const vec3 toLight, LightColor lightColor)
+void	applyAttenuation(const Light light, const vec3 toLight, LightColor lightColor)
 {
 	float	distance;
 	float	attenuation;
@@ -50,7 +56,7 @@ void	applyAttenuation(const PointLight light, const vec3 toLight, LightColor lig
 	lightColor.specular /= attenuation;
 }
 
-vec3	getSpecularColor(const PointLight light, const vec3 toLight)
+vec3	getSpecularColor(const Light light, const vec3 toLight)
 {
 	vec3			reflection;
 	float			brightness;
@@ -66,19 +72,19 @@ vec3	getSpecularColor(const PointLight light, const vec3 toLight)
 	return color;
 }
 
-vec3	getDiffuseColor(const PointLight light, const vec3 toLight)
+vec3	getDiffuseColor(const Light light, const vec3 toLight)
 {
 	float	brightness = max(dot(toLight, indata.normal), 0.0);
 
 	return light.diffuse * brightness;
 }
 
-vec3	getAmbientColor(const PointLight light)
+vec3	getAmbientColor(const Light light)
 {
 	return light.ambient * 0.1;
 }
 
-vec3	getPointLightColor(const PointLight light, const vec3 toLight)
+vec3	getPointLightColor(const Light light, const vec3 toLight)
 {
 	LightColor		lightColor;
 	vec3			lightDirection = normalize(toLight);
@@ -98,7 +104,10 @@ void	main()
 	vec3	lightIntensity = vec3(0, 0, 0);
 
 	for (uint i = 0; i < LIGHT_COUNT; i++)
-		lightIntensity += getPointLightColor(lights[i], indata.toLight[i]);
+	{
+		if (lights[i].type == POINT_LIGHT)
+			lightIntensity += getPointLightColor(lights[i], indata.toLight[i]);
+	}
 
 	diffuse = texture2D(diffuseSampler, indata.uv);
 	finalColor = vec4(lightIntensity, 1.0) * diffuse;

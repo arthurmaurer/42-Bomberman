@@ -25,6 +25,7 @@ void	DefaultProgram::getUniformLocations()
 		name.clear();
 		name.append("lights[").append(std::to_string(i)).append("].");
 
+		getUniformLocation(name + "type");
 		getUniformLocation(name + "position");
 		getUniformLocation(name + "ambient");
 		getUniformLocation(name + "diffuse");

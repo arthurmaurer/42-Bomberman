@@ -145,11 +145,16 @@ void	ShaderProgram::loadUniform(const std::string & name, const Light & light, i
 	if (index != -1)
 		fullName.append("[").append(std::to_string(index)).append("]");
 
-	loadUniform(fullName + ".position", light.transform.position);
+	loadUniform(fullName + ".type", (int)light.type);
 	loadUniform(fullName + ".ambient", light.ambient);
 	loadUniform(fullName + ".diffuse", light.diffuse);
 	loadUniform(fullName + ".specular", light.specular);
 	loadUniform(fullName + ".attenuation", light.attenuation);
+
+	if (light.type == Light::Point)
+		loadUniform(fullName + ".position", light.transform.position);
+	else if (light.type == Light::Directional)
+		loadUniform(fullName + ".position", light.transform.rotation.getEulerAngles());
 }
 
 void	ShaderProgram::loadNormalMatrixUniform(const std::string & name, const Matrix4 & matrix) const

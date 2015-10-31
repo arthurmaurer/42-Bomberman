@@ -40,7 +40,7 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	cube->updateNode(sf::Time());
 	Renderer::registerNode(*cube);
 
-	Light *	light1 = new Light(Vec3(1.f, 1.f, 1.f));
+	Light *	light1 = new Light(Light::Point, Vec3(1.f, 1.f, 1.f));
 	light1->transform.position = { 0, 0, 0 };
 	light1->updateNode(sf::Time());
 	Renderer::registerNode(*light1);
