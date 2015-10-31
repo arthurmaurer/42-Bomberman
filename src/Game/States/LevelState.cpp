@@ -27,6 +27,7 @@
 #include "Graphics/Model.hpp"
 #include "Graphics/Texture.hpp"
 #include "Core/TextNode.hpp"
+#include "Core/SpriteNode.hpp"
 #include "Core/Application.hpp"
 
 LevelState::LevelState(StateStack & stateStack, State::Context & context) :
@@ -57,6 +58,14 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	TextNode::Ptr	text(new TextNode("Salut les mecs", context.app._statsFont));
 	text->transform.position = { 50, 50, 50 };
 	rootNode->attachChild(std::move(text));
+
+	sf::Texture *	texture = new sf::Texture();
+	texture->loadFromFile("resources/dude.jpg");
+	SpriteNode::Ptr	sprite(new SpriteNode(*texture));
+	sprite->transform.position = { 20, 100, 0 };
+	sprite->transform.scale = { 0.2f, 0.2f, 1.f };
+	sprite->transform.rotation.rotateZ(MathUtil::rad(45.f));
+	rootNode->attachChild(std::move(sprite));
 }
 
 void	LevelState::render()
