@@ -103,7 +103,7 @@ void	main()
 	vec4	diffuse;
 	vec3	lightIntensity = vec3(0, 0, 0);
 
-	for (uint i = 0; i < LIGHT_COUNT; i++)
+	for (int i = 0; i < LIGHT_COUNT; i++)
 	{
 		if (lights[i].type == POINT_LIGHT)
 			lightIntensity += getPointLightColor(lights[i], indata.toLight[i]);

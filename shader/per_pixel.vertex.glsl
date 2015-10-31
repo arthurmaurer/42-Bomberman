@@ -38,7 +38,7 @@ void	setToLights()
 {
 	vec4	worldPosition = vec4(position, 1.0) * modelViewMatrix;
 
-	for (uint i = 0; i < LIGHT_COUNT; i++)
+	for (int i = 0; i < LIGHT_COUNT; i++)
 	{
 		vec4	lightPosition = vec4(lights[i].position, 1.0) * viewMatrix;
 		outdata.toLight[i] = lightPosition.xyz - worldPosition.xyz;
