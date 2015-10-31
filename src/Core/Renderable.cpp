@@ -12,6 +12,7 @@
 //  /     /-'`  `\   \  \-
 
 #include "Core/Renderable.hpp"
+#include "Graphics/Renderer.hpp"
 
 void	Renderable::render(Window &)
 {}

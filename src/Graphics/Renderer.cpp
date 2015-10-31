@@ -37,7 +37,10 @@ void		Renderer::renderModelNodes(Window & window)
 	shaderProgram->enable();
 
 	for (ModelNode * node : modelNodes)
-		node->render(window);
+	{
+		if (node->visible)
+			node->render(window);
+	}
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -52,7 +55,10 @@ void		Renderer::renderSFMLNodes(Window & window)
 	win.pushGLStates();
 
 	for (SFMLNode * node : sfmlNodes)
-		node->render(window);
+	{
+		if (node->visible)
+			node->render(window);
+	}
 
 	win.popGLStates();
 }

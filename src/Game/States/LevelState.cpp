@@ -43,23 +43,19 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	cube = new CubeEntity();
 	cube->transform.position.x = 3.f;
 	cube->updateNode(sf::Time());
-	Renderer::registerNode(*cube);
 
 	Light *	light1 = new Light(Light::LightType::Point, Vec3(1.f, 1.f, 1.f));
 	light1->transform.position = { 0, 0, 0 };
 	light1->updateNode(sf::Time());
-	Renderer::registerNode(*light1);
 
 	cube = new CubeEntity();
 	cube->transform.position = light1->transform.position;
 	cube->transform.scale = { 0.2f, 0.2f, 0.2f };
 	cube->model->texture = &TextureManager::load("ok", "texture.jpg");
 	cube->updateNode(sf::Time());
-	Renderer::registerNode(*cube);
 
 	TextNode::Ptr	text(new TextNode("Salut les mecs", context.app._statsFont));
 	text->transform.position = { 50, 50, 50 };
-	Renderer::registerNode(*text);
 	rootNode->attachChild(std::move(text));
 }
 

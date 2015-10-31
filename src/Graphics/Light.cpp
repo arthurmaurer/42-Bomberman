@@ -1,6 +1,7 @@
 
 #include "Graphics/Light.hpp"
 #include "Vec2.hpp"
+#include "Graphics/Renderer.hpp"
 
 Light::Light(LightType type) :
 	type(type),
@@ -8,7 +9,9 @@ Light::Light(LightType type) :
 	diffuse(ambient),
 	specular(ambient),
 	attenuation(Vec2(0, 0))
-{}
+{
+	Renderer::registerNode(*this);
+}
 
 Light::Light(LightType type, const Vec3 & color) :
 	type(type),
@@ -16,4 +19,6 @@ Light::Light(LightType type, const Vec3 & color) :
 	diffuse(color),
 	specular(color),
 	attenuation(Vec2(0, 0))
-{}
+{
+	Renderer::registerNode(*this);
+}

@@ -19,7 +19,9 @@ class Window;
 class Renderable
 {
 public:
-	virtual void	render(Window & window);
+	bool			visible = true;
+
+	virtual void	render(Window & window) = 0;
 };
 
 #endif /* _RENDERABLE_HPP */

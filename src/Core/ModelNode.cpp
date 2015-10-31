@@ -24,7 +24,9 @@
 ModelNode::ModelNode(Model & model) :
 	SceneNode(),
 	model(&model)
-{}
+{
+	Renderer::registerNode(*this);
+}
 
 void	ModelNode::_uploadUniforms(const Window & window) const
 {
