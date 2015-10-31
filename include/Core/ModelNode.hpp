@@ -28,8 +28,6 @@ private:
 	void		_uploadUniforms(const Window & window) const;
 
 public:
-	typedef std::unique_ptr<ModelNode>	Ptr;
-
 	Model *		model = nullptr;
 
 	ModelNode() = default;

@@ -13,8 +13,6 @@ class SFMLNode :	public SceneNode,
 					public Renderable
 {
 public:
-	typedef std::unique_ptr<SFMLNode>	Ptr;
-
 	SFMLNode();
 
 	void		render(Window & window);
