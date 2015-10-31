@@ -38,6 +38,6 @@ sfml*.dll
 
 Makefile
 glew
-SFML*
+SFML-*
 tol
 extlibs
