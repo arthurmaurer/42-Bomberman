@@ -3,6 +3,8 @@
 #include "Engine/Tools/ModelManager.hpp"
 #include "Engine/Tools/TextureManager.hpp"
 #include "Engine/Tools/ModelGenerator.hpp"
+#include "Engine/Tools/TextureManager.hpp"
+#include "Engine/Tools/Resource.hpp"
 
 #include "Game/Entities/CubeEntity.hpp"
 
@@ -13,7 +15,7 @@ CubeEntity::CubeEntity() :
 	ModelNode(ModelManager::loadFromOBJ("sphere.obj"))
 	//ModelNode(ModelGenerator::generateCube({ 1, 1, 1 }))
 {
-	model->texture = &TextureManager::load("Cube1", "texture.jpg");
+	model->texture = &Resource::load<TextureManager>("Cube1", "texture.jpg");
 }
 
 void	CubeEntity::update(sf::Time)

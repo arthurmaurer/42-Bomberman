@@ -1,8 +1,7 @@
 
 #include "Engine/Graphics/ImageBuffer.hpp"
 #include "Engine/Graphics/Model.hpp"
-#include "Engine/Tools/ModelGenerator.hpp"
-#include "Engine/Tools/TextureManager.hpp"
+#include "Engine/Tools.hpp"
 
 #include "Game/Entities/Block.hpp"
 
@@ -13,7 +12,7 @@ Block::Block() :
 	ImageBuffer	imageBuffer(1, 1);
 	imageBuffer.data[0] = 0xff0000;
 	*/
-	model->texture = &TextureManager::load("block", "cube.jpg");
+	model->texture = &Resource::load<TextureManager>("block", "cube.jpg");
 }
 
 Block::Block(Model & model) :

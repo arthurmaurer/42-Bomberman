@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-10-29 23:50:49
+//         :      _/|      :  Last Edit  : 2015-10-31 23:58:45
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -38,9 +38,6 @@ void		Application::init()
 	Renderer::shaderProgram = new DefaultProgram();
 	Renderer::activeCamera = new Camera(45.f);
 	Renderer::activeCamera->transform.position.z = 10.f;
-
-	TextureManager::Ptr	textureManagerInstance(new TextureManager());
-	TextureManager::instance = std::move(textureManagerInstance);
 }
 
 void		Application::run()

@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : TextureManager.cpp
 //         :               :  Creation   : 2015-10-19 01:07:09
-//         :      _/|      :  Last Edit  : 2015-10-19 02:50:40
+//         :      _/|      :  Last Edit  : 2015-11-01 00:03:45
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -115,7 +115,7 @@ GLuint		TextureManager::_loadGLTexture(const ImageBuffer & imageBuffer)
 	return textureID;
 }
 
-Texture &	TextureManager::_load(const std::string & key, const std::string & param)
+Texture &	TextureManager::load(const std::string & key, const std::string & param)
 {
 	try
 	{
@@ -128,7 +128,7 @@ Texture &	TextureManager::_load(const std::string & key, const std::string & par
 
 		_texturesID.push_back(textureID);
 
-		ResourcePtr	texture(new Texture(textureID));
+		std::unique_ptr<Texture>	texture(new Texture(textureID));
 		_resources[key] = std::move(texture);
 
 		return *_resources.at(key);
@@ -154,7 +154,7 @@ Texture &	TextureManager::_load(const std::string & key, const ImageBuffer & ima
 	}
 }
 */
-void		TextureManager::_unload(const std::string & key)
+void		TextureManager::unload(const std::string & key)
 {
 	Texture & texture = *_resources.at(key);
 	_unloadGLTexture(texture);
