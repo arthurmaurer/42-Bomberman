@@ -12,7 +12,7 @@ class TextNode : public SFMLNode
 
 public:
 	std::string			text;
-	const sf::Font &	font;
+	const sf::Font *	font = nullptr;
 	unsigned			characterSize;
 
 	TextNode() = default;
