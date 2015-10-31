@@ -3,6 +3,7 @@
 #include "Tools/ModelGenerator.hpp"
 #include "Tools/TextureManager.hpp"
 #include "Graphics/ImageBuffer.hpp"
+#include "Graphics/Model.hpp"
 
 Block::Block() :
 	ModelNode(ModelGenerator::generateCube(Vec3(1.f, 1.f, 1.f)))

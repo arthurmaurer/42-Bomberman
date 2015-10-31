@@ -17,15 +17,18 @@
 # include <memory>
 
 # include "Core/SceneNode.hpp"
-# include "Graphics/Model.hpp"
+# include "Core/Renderable.hpp"
 
-class ModelNode : public SceneNode
+class Model;
+
+class ModelNode :	public SceneNode,
+					public Renderable
 {
 private:
 	void		_uploadUniforms(const Window & window) const;
 
 public:
-	typedef std::unique_ptr<SceneNode>	Ptr;
+	typedef std::unique_ptr<ModelNode>	Ptr;
 
 	Model *		model = nullptr;
 

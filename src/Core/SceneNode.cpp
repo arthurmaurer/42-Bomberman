@@ -20,8 +20,7 @@
 SceneNode::SceneNode() :
 	children(),
 	parent(nullptr)
-{
-}
+{}
 
 void		SceneNode::attachChild(Ptr child)
 {
@@ -29,7 +28,7 @@ void		SceneNode::attachChild(Ptr child)
 	children.push_back(std::move(child));
 }
 
-auto		SceneNode::detachChild(const SceneNode & node) -> Ptr
+SceneNode::Ptr	SceneNode::detachChild(const SceneNode & node)
 {
 	auto found = std::find_if(children.begin(), children.end(),
 		[&] (Ptr & p) { return p.get() == &node; });
@@ -39,6 +38,7 @@ auto		SceneNode::detachChild(const SceneNode & node) -> Ptr
 	Ptr	result = std::move(*found);
 	result->parent = nullptr;
 	children.erase(found);
+
 	return result;
 }
 

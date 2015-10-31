@@ -16,20 +16,18 @@
 #include "Core/State.hpp"
 #include "Core/StateStack.hpp"
 
-State::Context::Context(Window & window) :
-	window(&window)
-{
-}
+State::Context::Context(Window & window, Application & app) :
+	window(&window),
+	app(app)
+{}
 
 State::State(StateStack & stack, Context context) :
 	stack(&stack),
 	context(context)
-{
-}
+{}
 
 State::~State()
-{
-}
+{}
 
 void State::requestStackPush(States::ID stateID)
 {

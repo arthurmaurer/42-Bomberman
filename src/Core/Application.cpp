@@ -28,7 +28,7 @@ const sf::Time	Application::timePerFrame = sf::seconds(1.f / 60.f);
 
 Application::Application() :
 	window(640, 480, "Bomberman"),
-	stateStack(State::Context(window))
+	stateStack(State::Context(window, *this))
 {
 	_initStats();
 }
@@ -72,17 +72,22 @@ void		Application::run()
 	}
 }
 
-void	Application::render()
+void	Application::drawFPS()
 {
-	sf::RenderWindow &	win	= window.window;
-
-	stateStack.render();
+	sf::RenderWindow &	win = window.window;
 
 	win.pushGLStates();
 	win.draw(_statsString);
 	win.popGLStates();
+}
 
-	win.display();
+void	Application::render()
+{
+
+	stateStack.render();
+	drawFPS();
+
+	window.window.display();
 }
 
 #define MOVE_SPEED	0.1f

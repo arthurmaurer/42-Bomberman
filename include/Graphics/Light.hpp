@@ -8,16 +8,16 @@
 class Light : public SceneNode
 {
 public:
-	typedef enum
+	enum class	LightType
 	{
 		None,
 		Point,
 		Directional,
 		Spot,
 		Ambient
-	}		LightType;
+	};
 
-	LightType	type = None;
+	LightType	type = LightType::None;
 	Vec3		ambient;
 	Vec3		diffuse;
 	Vec3		specular;

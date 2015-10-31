@@ -18,6 +18,8 @@
 #include "Graphics/Camera.hpp"
 #include "Graphics/ShaderProgram.hpp"
 #include "Graphics/Light.hpp"
+#include "Graphics/Model.hpp"
+#include "Graphics/Texture.hpp"
 
 ModelNode::ModelNode(Model & model) :
 	SceneNode(),
@@ -44,8 +46,8 @@ void	ModelNode::_uploadUniforms(const Window & window) const
 	Renderer::shaderProgram->loadUniform("modelMatrix", modelMatrix);
 	Renderer::shaderProgram->loadNormalMatrixUniform("normalMatrix", modelViewMatrix);
 
-	for (unsigned i = 0; i < Renderer::lights.size(); i++)
-		Renderer::shaderProgram->loadUniform("lights", *Renderer::lights.at(i), i);
+	for (unsigned i = 0; i < Renderer::lightNodes.size(); i++)
+		Renderer::shaderProgram->loadUniform("lights", *Renderer::lightNodes.at(i), i);
 }
 
 void	ModelNode::render(Window & window)

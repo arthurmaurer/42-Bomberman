@@ -4,7 +4,9 @@
 
 # include <vector>
 
-class SceneNode;
+class Renderable;
+class SFMLNode;
+class ModelNode;
 class Window;
 class Camera;
 class ShaderProgram;
@@ -13,11 +15,16 @@ class Matrix4;
 
 class Renderer
 {
+	static void			renderModelNodes(Window & window);
+	static void			renderSFMLNodes(Window & window);
+
 public:
-	static std::vector<SceneNode *>		nodes;
+	static std::vector<SFMLNode *>		sfmlNodes;
+	static std::vector<ModelNode *>		modelNodes;
+	static std::vector<Light *>			lightNodes;
+
 	static const ShaderProgram *		shaderProgram;
 	static Camera *						activeCamera;
-	static std::vector<Light *>			lights;
 	static Matrix4						projectionMatrix;
 	static bool							updateProjectionMatrix;
 
@@ -25,8 +32,14 @@ public:
 	static void			display(Window & window);
 	static void			render(Window & window);
 
-	static void			registerNode(SceneNode & node);
-	static void			unregisterNode(const SceneNode & node);
+	static void			registerNode(Light & node);
+	static void			unregisterNode(const Light & node);
+
+	static void			registerNode(SFMLNode & node);
+	static void			unregisterNode(const SFMLNode & node);
+
+	static void			registerNode(ModelNode & node);
+	static void			unregisterNode(const ModelNode & node);
 
 	static Matrix4 &	getProjectionMatrix(const Window & window);
 };

@@ -151,9 +151,9 @@ void	ShaderProgram::loadUniform(const std::string & name, const Light & light, i
 	loadUniform(fullName + ".specular", light.specular);
 	loadUniform(fullName + ".attenuation", light.attenuation);
 
-	if (light.type == Light::Point)
+	if (light.type == Light::LightType::Point)
 		loadUniform(fullName + ".position", light.transform.position);
-	else if (light.type == Light::Directional)
+	else if (light.type == Light::LightType::Directional)
 		loadUniform(fullName + ".position", light.transform.rotation.getEulerAngles());
 }
 

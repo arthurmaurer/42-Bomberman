@@ -22,13 +22,11 @@
 
 # include "Core/Transformable.hpp"
 # include "Core/NonCopyable.hpp"
-# include "Core/Renderable.hpp"
 # include "Graphics/Window.hpp"
 
 struct Command;
 
 class SceneNode :	public Transformable,
-					public Renderable,
 					private NonCopyable
 {
 public:

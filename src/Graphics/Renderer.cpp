@@ -10,11 +10,15 @@
 #include "Matrix4.hpp"
 #include "Graphics/Window.hpp"
 #include "Graphics/Camera.hpp"
+#include "Core/ModelNode.hpp"
+#include "Core/SFMLNode.hpp"
 
-std::vector<SceneNode *>	Renderer::nodes;
+std::vector<SFMLNode *>		Renderer::sfmlNodes;
+std::vector<ModelNode *>	Renderer::modelNodes;
+std::vector<Light *>		Renderer::lightNodes;
+
 const ShaderProgram *		Renderer::shaderProgram = nullptr;
 Camera *					Renderer::activeCamera = nullptr;
-std::vector<Light *>		Renderer::lights;
 Matrix4						Renderer::projectionMatrix;
 bool						Renderer::updateProjectionMatrix = true;
 
@@ -28,13 +32,11 @@ void		Renderer::display(Window & window)
 	window.display();
 }
 
-void		Renderer::render(Window & window)
+void		Renderer::renderModelNodes(Window & window)
 {
-	clear(window);
-
 	shaderProgram->enable();
 
-	for (SceneNode * node : nodes)
+	for (ModelNode * node : modelNodes)
 		node->render(window);
 
 	glBindVertexArray(0);
@@ -43,30 +45,69 @@ void		Renderer::render(Window & window)
 	shaderProgram->disable();
 }
 
-void		Renderer::registerNode(SceneNode & node)
+void		Renderer::renderSFMLNodes(Window & window)
 {
-	Light *	lightPtr = dynamic_cast<Light *>(&node);
+	sf::RenderWindow &	win = window.window;
 
-	if (lightPtr != nullptr)
-		lights.push_back(lightPtr);
-	else
-		nodes.push_back(&node);
+	win.pushGLStates();
+
+	for (SFMLNode * node : sfmlNodes)
+		node->render(window);
+
+	win.popGLStates();
 }
 
-void		Renderer::unregisterNode(const SceneNode & node)
+void		Renderer::render(Window & window)
 {
-	std::vector<SceneNode *>::iterator	nodeIt;
-	std::vector<Light *>::iterator		lightIt;
+	clear(window);
 
-	nodeIt = std::find(nodes.begin(), nodes.end(), &node);
+	renderModelNodes(window);
+	renderSFMLNodes(window);
+}
 
-	if (nodeIt != nodes.end())
-		nodes.erase(nodeIt);
+void		Renderer::registerNode(Light & node)
+{
+	lightNodes.push_back(&node);
+}
 
-	lightIt = std::find(lights.begin(), lights.end(), &node);
+void		Renderer::unregisterNode(const Light & node)
+{
+	std::vector<Light *>::iterator	it;
 
-	if (lightIt != lights.end())
-		lights.erase(lightIt);
+	it = std::find(lightNodes.begin(), lightNodes.end(), &node);
+
+	if (it != lightNodes.end())
+		lightNodes.erase(it);
+}
+
+void		Renderer::registerNode(SFMLNode & node)
+{
+	sfmlNodes.push_back(&node);
+}
+
+void		Renderer::unregisterNode(const SFMLNode & node)
+{
+	std::vector<SFMLNode *>::iterator	it;
+
+	it = std::find(sfmlNodes.begin(), sfmlNodes.end(), &node);
+
+	if (it != sfmlNodes.end())
+		sfmlNodes.erase(it);
+}
+
+void		Renderer::registerNode(ModelNode & node)
+{
+	modelNodes.push_back(&node);
+}
+
+void		Renderer::unregisterNode(const ModelNode & node)
+{
+	std::vector<ModelNode *>::iterator	it;
+
+	it = std::find(modelNodes.begin(), modelNodes.end(), &node);
+
+	if (it != modelNodes.end())
+		modelNodes.erase(it);
 }
 
 Matrix4 &	Renderer::getProjectionMatrix(const Window & window)

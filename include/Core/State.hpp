@@ -20,18 +20,20 @@
 # include "Game/States/StateIdentifiers.hpp"
 // TODO: Importing a header from Game to Core ?..
 
-class		StateStack;
+class StateStack;
+class Application;
 
-class		State
+class State
 {
 public:
 	typedef	std::unique_ptr<State>	Ptr;
 
 	struct	Context
 	{
-		Context(Window & window);
+		Context(Window & window, Application & app);
 
-		Window *	window = NULL;
+		Window *		window = NULL;
+		Application &	app;
 	};
 
 	StateStack *	stack;

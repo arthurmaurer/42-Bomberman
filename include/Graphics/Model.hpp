@@ -5,7 +5,8 @@
 # include <memory>
 # include <cstdlib>
 # include <GL/glew.h>
-# include "Graphics/Texture.hpp"
+
+class Texture;
 
 class Model
 {

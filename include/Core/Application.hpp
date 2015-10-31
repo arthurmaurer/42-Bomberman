@@ -18,14 +18,17 @@ public:
 
 	Application();
 
+	void			drawFPS();
 	void			run();
 	void			processInput();
 	void			update(sf::Time dt);
 	void			render();
 	void			init();
 
-private:
+	// TODO: clean this shit
 	sf::Font		_statsFont;
+
+private:
 	sf::Text		_statsString;
 	sf::Time		_statsUpdateTime;
 	size_t			_statsFrameCount;

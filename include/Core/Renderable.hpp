@@ -19,7 +19,7 @@ class Window;
 class Renderable
 {
 public:
-	virtual void		render(Window & window);
+	virtual void	render(Window & window);
 };
 
 #endif /* _RENDERABLE_HPP */

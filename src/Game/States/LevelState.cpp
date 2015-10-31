@@ -23,6 +23,11 @@
 #include "Tools/ModelGenerator.hpp"
 #include "Tools/TextureManager.hpp"
 #include "Game/Levels/Level00.hpp"
+#include "Core/ModelNode.hpp"
+#include "Graphics/Model.hpp"
+#include "Graphics/Texture.hpp"
+#include "Core/TextNode.hpp"
+#include "Core/Application.hpp"
 
 LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	State(stateStack, context),
@@ -40,7 +45,7 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	cube->updateNode(sf::Time());
 	Renderer::registerNode(*cube);
 
-	Light *	light1 = new Light(Light::Point, Vec3(1.f, 1.f, 1.f));
+	Light *	light1 = new Light(Light::LightType::Point, Vec3(1.f, 1.f, 1.f));
 	light1->transform.position = { 0, 0, 0 };
 	light1->updateNode(sf::Time());
 	Renderer::registerNode(*light1);
@@ -51,6 +56,11 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	cube->model->texture = &TextureManager::load("ok", "texture.jpg");
 	cube->updateNode(sf::Time());
 	Renderer::registerNode(*cube);
+
+	TextNode::Ptr	text(new TextNode("Salut les mecs", context.app._statsFont));
+	text->transform.position = { 50, 50, 50 };
+	Renderer::registerNode(*text);
+	rootNode->attachChild(std::move(text));
 }
 
 void	LevelState::render()
