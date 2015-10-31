@@ -152,9 +152,9 @@ void	ShaderProgram::loadUniform(const std::string & name, const Light & light, i
 	loadUniform(fullName + ".attenuation", light.attenuation);
 
 	if (light.type == Light::LightType::Point)
-		loadUniform(fullName + ".position", light.transform.position);
+		loadUniform(fullName + ".position", light.absoluteTransform.position);
 	else if (light.type == Light::LightType::Directional)
-		loadUniform(fullName + ".position", light.transform.rotation.getEulerAngles());
+		loadUniform(fullName + ".position", light.absoluteTransform.rotation * Vec3(0.f, -1.f, 0.f));
 }
 
 void	ShaderProgram::loadNormalMatrixUniform(const std::string & name, const Matrix4 & matrix) const

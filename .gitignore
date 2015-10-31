@@ -41,3 +41,4 @@ glew
 SFML-*
 tol
 extlibs
+*.licenseheader

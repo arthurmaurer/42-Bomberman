@@ -41,7 +41,11 @@ void	setToLights()
 	for (int i = 0; i < LIGHT_COUNT; i++)
 	{
 		vec4	lightPosition = vec4(lights[i].position, 1.0) * viewMatrix;
-		outdata.toLight[i] = lightPosition.xyz - worldPosition.xyz;
+
+		if (lights[i].type == POINT_LIGHT)
+			outdata.toLight[i] = lightPosition.xyz - worldPosition.xyz;
+		else if (lights[i].type == DIRECTIONAL_LIGHT)
+			outdata.toLight[i] = -lights[i].position * normalMatrix;
 	}
 }
 

@@ -98,6 +98,17 @@ vec3	getPointLightColor(const Light light, const vec3 toLight)
 	return mergeLightColor(lightColor);
 }
 
+vec3	getDirectionalLightColor(const Light light, const vec3 toLight)
+{
+	LightColor		lightColor;
+
+	lightColor.diffuse = getDiffuseColor(light, toLight);
+	lightColor.specular = getSpecularColor(light, toLight);
+	lightColor.ambient = getAmbientColor(light);
+
+	return mergeLightColor(lightColor);
+}
+
 void	main()
 {
 	vec4	diffuse;
@@ -107,6 +118,8 @@ void	main()
 	{
 		if (lights[i].type == POINT_LIGHT)
 			lightIntensity += getPointLightColor(lights[i], indata.toLight[i]);
+		else if (lights[i].type == DIRECTIONAL_LIGHT)
+			lightIntensity += getDirectionalLightColor(lights[i], indata.toLight[i]);
 	}
 
 	diffuse = texture2D(diffuseSampler, indata.uv);

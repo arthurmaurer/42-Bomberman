@@ -40,11 +40,9 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	light1->transform.position = { 0, 0, 0 };
 	light1->updateNode(sf::Time());
 
-	cube = new CubeEntity();
-	cube->transform.position = light1->transform.position;
-	cube->transform.scale = { 0.2f, 0.2f, 0.2f };
-	cube->model->texture = &TextureManager::load("ok", "texture.jpg");
-	cube->updateNode(sf::Time());
+	light1 = new Light(Light::LightType::Directional, Vec3(1.f, 0, 1.f));
+	light1->transform.rotation.rotateZ(MathUtil::rad(-30.f));
+	light1->updateNode(sf::Time());
 
 	TextNode::Ptr	text(new TextNode("Salut les mecs", context.app._statsFont));
 	text->transform.position = { 50, 50, 50 };
