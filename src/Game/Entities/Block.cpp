@@ -1,9 +1,10 @@
 
+#include "Engine/Graphics/ImageBuffer.hpp"
+#include "Engine/Graphics/Model.hpp"
+#include "Engine/Tools/ModelGenerator.hpp"
+#include "Engine/Tools/TextureManager.hpp"
+
 #include "Game/Entities/Block.hpp"
-#include "Tools/ModelGenerator.hpp"
-#include "Tools/TextureManager.hpp"
-#include "Graphics/ImageBuffer.hpp"
-#include "Graphics/Model.hpp"
 
 Block::Block() :
 	ModelNode(ModelGenerator::generateCube(Vec3(1.f, 1.f, 1.f)))

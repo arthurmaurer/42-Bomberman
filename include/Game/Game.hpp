@@ -14,7 +14,7 @@
 #ifndef _GAME_HPP
 # define _GAME_HPP
 
-# include "Core/Application.hpp"
+# include "Engine/Core/Application.hpp"
 
 class Game : public Application
 {

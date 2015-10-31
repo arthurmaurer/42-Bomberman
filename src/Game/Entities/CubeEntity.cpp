@@ -1,9 +1,10 @@
 
+#include "Engine/Tools/MathUtil.hpp"
+#include "Engine/Tools/ModelManager.hpp"
+#include "Engine/Tools/TextureManager.hpp"
+#include "Engine/Tools/ModelGenerator.hpp"
+
 #include "Game/Entities/CubeEntity.hpp"
-#include "Tools/MathUtil.hpp"
-#include "Tools/ModelManager.hpp"
-#include "Tools/TextureManager.hpp"
-#include "Tools/ModelGenerator.hpp"
 
 #define ROTATION_SPEED 1.f
 

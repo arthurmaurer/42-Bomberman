@@ -4,7 +4,7 @@
 
 # include <memory>
 
-# include "Core/ModelNode.hpp"
+# include "Engine/Core/Nodes/ModelNode.hpp"
 
 class CubeEntity : public ModelNode
 {

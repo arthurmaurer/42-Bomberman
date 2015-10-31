@@ -1,7 +1,6 @@
 
 #include <iostream>
 
-#include "Tools/MathUtil.hpp"
 #include "Game/Game.hpp"
 
 int main()

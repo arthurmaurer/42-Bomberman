@@ -1,7 +1,8 @@
 
+#include "Engine/Graphics/Renderer.hpp"
+
 #include "Game/Level.hpp"
 #include "Game/Entities/Block.hpp"
-#include "Graphics/Renderer.hpp"
 
 Level::Level(const std::string & name, unsigned width, unsigned height) :
 	name(name),

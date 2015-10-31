@@ -1,8 +1,9 @@
 
+#include "Engine/Graphics/Model.hpp"
+#include "Engine/Tools/ModelGenerator.hpp"
+#include "Engine/Tools/TextureManager.hpp"
+
 #include "Game/Entities/DestructibleBlock.hpp"
-#include "Tools/ModelGenerator.hpp"
-#include "Tools/TextureManager.hpp"
-#include "Graphics/Model.hpp"
 
 DestructibleBlock::DestructibleBlock()
 {

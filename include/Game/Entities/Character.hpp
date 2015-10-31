@@ -4,7 +4,7 @@
 
 # include <string>
 
-# include "Core/ModelNode.hpp"
+# include "Engine/Core/Nodes/ModelNode.hpp"
 
 class Character : public ModelNode
 {

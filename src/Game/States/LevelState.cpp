@@ -13,22 +13,13 @@
 
 #include <memory>
 
+#include "Engine/Tools.hpp"
+#include "Engine/Graphics.hpp"
+#include "Engine/Core.hpp"
+
 #include "Game/States/LevelState.hpp"
 #include "Game/Entities/CubeEntity.hpp"
-#include "Graphics/Renderer.hpp"
-#include "Graphics/Light.hpp"
-#include "Graphics/Camera.hpp"
-#include "Tools//MathUtil.hpp"
-#include "Game/Entities/Character.hpp"
-#include "Tools/ModelGenerator.hpp"
-#include "Tools/TextureManager.hpp"
 #include "Game/Levels/Level00.hpp"
-#include "Core/ModelNode.hpp"
-#include "Graphics/Model.hpp"
-#include "Graphics/Texture.hpp"
-#include "Core/TextNode.hpp"
-#include "Core/SpriteNode.hpp"
-#include "Core/Application.hpp"
 
 LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	State(stateStack, context),

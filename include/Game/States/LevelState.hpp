@@ -2,8 +2,8 @@
 #ifndef _LEVEL_STATE_HPP
 # define _LEVEL_STATE_HPP
 
-# include "Core/SceneNode.hpp"
-# include "Core/State.hpp"
+# include "Engine/Core/Nodes/SceneNode.hpp"
+# include "Engine/Core/State.hpp"
 
 class Level;
 

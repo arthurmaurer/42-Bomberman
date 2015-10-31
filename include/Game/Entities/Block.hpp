@@ -2,7 +2,7 @@
 #ifndef _BLOCK_HPP
 # define _BLOCK_HPP
 
-# include "Core/ModelNode.hpp"
+# include "Engine/Core/Nodes/ModelNode.hpp"
 
 class Block : public ModelNode
 {

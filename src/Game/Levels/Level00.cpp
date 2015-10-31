@@ -1,8 +1,9 @@
 
+#include "Engine/Graphics/Renderer.hpp"
+
 #include "Game/Levels/Level00.hpp"
 #include "Game/Entities/Block.hpp"
 #include "Game/Entities/DestructibleBlock.hpp"
-#include "Graphics/Renderer.hpp"
 
 Level00::Level00() :
 	Level("Level 00", 5, 5)
