@@ -29,8 +29,8 @@ using namespace Fothon;
 
 const sf::Time	Application::timePerFrame = sf::seconds(1.f / 60.f);
 
-Application::Application() :
-	window(640, 480, "Bomberman"),
+Application::Application(unsigned x, unsigned y, std::string name) :
+	window(x, y, name.c_str()),
 	stateStack(State::Context(window, *this))
 {
 	_initStats();

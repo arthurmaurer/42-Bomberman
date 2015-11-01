@@ -17,7 +17,7 @@
 using namespace Fothon;
 
 Game::Game() :
-	Application()
+	Application(640, 480, "Bomberman")
 {}
 
 void	Game::init()
