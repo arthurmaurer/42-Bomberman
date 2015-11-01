@@ -8,7 +8,6 @@
 # include "Engine/Tools/ModelGenerator.hpp"
 # include "Engine/Tools/ModelManager.hpp"
 # include "Engine/Tools/Resource.hpp"
-# include "Engine/Tools/ResourceManager.hpp"
 # include "Engine/Tools/TextureManager.hpp"
 
 #endif /* _ENGINE_TOOLS_HPP */
