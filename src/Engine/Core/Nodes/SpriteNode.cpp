@@ -5,7 +5,8 @@
 
 using namespace Fothon;
 
-SpriteNode::SpriteNode(const sf::Texture & texture) :
+SpriteNode::SpriteNode(const sf::Texture & texture, bool autoRegister) :
+	SFMLNode(autoRegister),
 	texture(&texture)
 {}
 

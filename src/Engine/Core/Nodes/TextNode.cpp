@@ -3,7 +3,8 @@
 
 using namespace Fothon;
 
-TextNode::TextNode(const std::string & text, const sf::Font & font, unsigned characterSize) :
+TextNode::TextNode(const std::string & text, const sf::Font & font, unsigned characterSize, bool autoRegister) :
+	SFMLNode(autoRegister),
 	text(text),
 	font(&font),
 	characterSize(characterSize)

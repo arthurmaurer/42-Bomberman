@@ -15,7 +15,7 @@ namespace Fothon
 						public Renderable
 	{
 	public:
-		SFMLNode();
+		SFMLNode(bool autoRegister = true);
 
 		void		render(Window & window);
 	};

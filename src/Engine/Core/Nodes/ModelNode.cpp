@@ -23,10 +23,11 @@
 
 using namespace Fothon;
 
-ModelNode::ModelNode(Model & model) :
+ModelNode::ModelNode(Model & model, bool autoRegister) :
 	model(&model)
 {
-	Renderer::registerNode(*this);
+	if (autoRegister)
+		Renderer::registerNode(*this);
 }
 
 void	ModelNode::_uploadUniforms(const Window & window) const

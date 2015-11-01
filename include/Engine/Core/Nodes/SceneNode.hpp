@@ -28,8 +28,8 @@ namespace Fothon
 {
 	struct Command;
 
-	class SceneNode : public Transformable,
-		private NonCopyable
+	class SceneNode :	public Transformable,
+						private NonCopyable
 	{
 	public:
 		typedef std::unique_ptr<SceneNode>	Ptr;

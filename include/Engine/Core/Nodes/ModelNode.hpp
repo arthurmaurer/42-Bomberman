@@ -33,7 +33,7 @@ namespace Fothon
 		Model *		model = nullptr;
 
 		ModelNode() = default;
-		ModelNode(Model & model);
+		ModelNode(Model & model, bool autoRegister = true);
 
 		void		render(Window & window);
 	};

@@ -4,9 +4,10 @@
 
 using namespace Fothon;
 
-SFMLNode::SFMLNode()
+SFMLNode::SFMLNode(bool autoRegister)
 {
-	Renderer::registerNode(*this);
+	if (autoRegister)
+		Renderer::registerNode(*this);
 }
 
 void	SFMLNode::render(Window &)

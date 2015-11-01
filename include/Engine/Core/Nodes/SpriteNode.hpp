@@ -16,7 +16,7 @@ namespace Fothon
 	public:
 		const sf::Texture *		texture = nullptr;
 
-		SpriteNode(const sf::Texture & texture);
+		SpriteNode(const sf::Texture & texture, bool autoRegister = true);
 
 		void	render(Window & window);
 	};
