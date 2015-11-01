@@ -4,12 +4,15 @@
 
 # include "Engine/Graphics/ShaderProgram.hpp"
 
-class DefaultProgram : public ShaderProgram
+namespace Fothon
 {
-public:
-	DefaultProgram();
+	class DefaultProgram : public ShaderProgram
+	{
+	public:
+		DefaultProgram();
 
-	void	getUniformLocations();
-};
+		void	getUniformLocations();
+	};
+}
 
 #endif /* _DEFAULT_PROGRAM_HPP */

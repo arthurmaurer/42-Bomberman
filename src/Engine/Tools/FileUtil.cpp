@@ -9,6 +9,8 @@
 #	include <unistd.h>
 #endif
 
+using namespace Fothon;
+
 std::string	FileUtil::previousWorkingDirectory = "";
 
 void		FileUtil::chdir(const std::string & path)

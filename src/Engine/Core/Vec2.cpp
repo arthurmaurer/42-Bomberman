@@ -3,6 +3,8 @@
 
 #include "Engine/Core/Vec2.hpp"
 
+using namespace Fothon;
+
 Vec2	Vec2::zero = Vec2(0, 0);
 Vec2	Vec2::up = Vec2(0, 1.0f);
 Vec2	Vec2::down = Vec2(0, -1.0f);
@@ -22,8 +24,7 @@ Vec2::Vec2(const Vec2 & src)
 Vec2::Vec2(float xVal, float yVal) :
 	x(xVal),
 	y(yVal)
-{
-}
+{}
 
 Vec2 &	Vec2::operator=(const Vec2 & rhs)
 {

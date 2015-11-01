@@ -4,6 +4,8 @@
 #include "Game/Level.hpp"
 #include "Game/Entities/Block.hpp"
 
+using namespace Fothon;
+
 Level::Level(const std::string & name, unsigned width, unsigned height) :
 	name(name),
 	width(width),

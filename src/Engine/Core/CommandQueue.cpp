@@ -14,6 +14,8 @@
 #include "Engine/Core/CommandQueue.hpp"
 #include "Engine/Core/Nodes/SceneNode.hpp"
 
+using namespace Fothon;
+
 void CommandQueue::push(const Command & command)
 {
 	_queue.push(command);

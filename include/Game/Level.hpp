@@ -4,8 +4,6 @@
 
 # include <string>
 
-# include "Engine/Core/Vec2.hpp"
-
 class Block;
 
 class Level

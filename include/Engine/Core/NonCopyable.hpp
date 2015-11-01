@@ -14,15 +14,18 @@
 #ifndef _NON_COPYABLE_HPP
 # define _NON_COPYABLE_HPP
 
-class NonCopyable
+namespace Fothon
 {
-protected:
-	NonCopyable() = default;
+	class NonCopyable
+	{
+	protected:
+		NonCopyable() = default;
 
-private:
-	NonCopyable(const NonCopyable &);
+	private:
+		NonCopyable(const NonCopyable &);
 
-	NonCopyable &	operator=(const NonCopyable &);
-};
+		NonCopyable &	operator=(const NonCopyable &);
+	};
+}
 
 #endif /* _NON_COPYABLE_HPP */

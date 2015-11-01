@@ -24,6 +24,8 @@
 #include "Engine/Tools/Resource.hpp"
 #include "Engine/Tools/FontManager.hpp"
 
+using namespace Fothon;
+
 const sf::Time	Application::timePerFrame = sf::seconds(1.f / 60.f);
 
 Application::Application() :

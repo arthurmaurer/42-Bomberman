@@ -5,6 +5,8 @@
 
 #include "Engine/Core/Matrix4.hpp"
 
+using namespace Fothon;
+
 Matrix4		Matrix4::zero(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 Matrix4::Matrix4()
@@ -276,7 +278,7 @@ Matrix4		Matrix4::inverse() const
 
 	for (unsigned i = 0; i < 16; i++)
 		out.data[i] = inversed.data[i] * determinant;
-	
+
 	return out;
 }
 

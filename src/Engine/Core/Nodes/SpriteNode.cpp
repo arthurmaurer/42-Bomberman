@@ -3,6 +3,8 @@
 #include "Engine/Graphics/Renderer.hpp"
 #include "Engine/Tools/MathUtil.hpp"
 
+using namespace Fothon;
+
 SpriteNode::SpriteNode(const sf::Texture & texture) :
 	texture(&texture)
 {}

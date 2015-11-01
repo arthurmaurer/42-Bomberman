@@ -16,6 +16,8 @@
 #include "Engine/Core/Command.hpp"
 #include "Game/Category.hpp"
 
+using namespace Fothon;
+
 Command::Command() :
 	action(),
 	category(Category::None)

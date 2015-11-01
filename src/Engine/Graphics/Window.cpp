@@ -2,6 +2,8 @@
 #include "Engine/Graphics/Window.hpp"
 #include "Engine/Tools/MiscUtil.hpp"
 
+using namespace Fothon;
+
 Window::Window(size_t width, size_t height, const std::string & title) :
 	width(width),
 	height(height)

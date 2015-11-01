@@ -6,22 +6,25 @@
 
 # include <GL/glew.h>
 
-class Shader
+namespace Fothon
 {
-	Shader(const Shader & src);
+	class Shader
+	{
+		Shader(const Shader & src);
 
-	Shader &	operator=(const Shader & rhs);
+		Shader &	operator=(const Shader & rhs);
 
-	void	_compile();
+		void	_compile();
 
-public:
-	GLuint			id = 0;
+	public:
+		GLuint			id = 0;
 
-	Shader();
-	Shader(const std::string & path, GLenum type);
-	~Shader();
+		Shader();
+		Shader(const std::string & path, GLenum type);
+		~Shader();
 
-	void	load(const std::string & path, GLenum type);
-};
+		void	load(const std::string & path, GLenum type);
+	};
+}
 
 #endif /* _SHADER_HPP */

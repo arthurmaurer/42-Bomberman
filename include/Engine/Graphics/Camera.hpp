@@ -4,15 +4,18 @@
 
 # include "Engine/Core/Transform.hpp"
 
-class Camera
+namespace Fothon
 {
-public:
-	float		fovY;
-	float		nearPlane;
-	float		farPlane;
-	Transform	transform;
+	class Camera
+	{
+	public:
+		float		fovY;
+		float		nearPlane;
+		float		farPlane;
+		Transform	transform;
 
-	Camera(float fovY);
-};
+		Camera(float fovY);
+	};
+}
 
 #endif /* _CAMERA_HPP */

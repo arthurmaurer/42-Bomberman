@@ -20,20 +20,23 @@
 # include "Engine/Tools/TextureManager.hpp"
 # include "Engine/Tools/FontManager.hpp"
 
-class Resource
+namespace Fothon
 {
-	typedef std::tuple<TextureManager, FontManager>	ResourceTuple;
+	class Resource
+	{
+		typedef std::tuple<TextureManager, FontManager>	ResourceTuple;
 
-	static ResourceTuple	_tuple;
+		static ResourceTuple	_tuple;
 
-public:
-	template<typename ResourceHolder, typename... Args>
-	static typename ResourceHolder::ResourceType &	load(const typename ResourceHolder::KeyType &, Args... args);
+	public:
+		template<typename ResourceHolder, typename... Args>
+		static typename ResourceHolder::ResourceType &	load(const typename ResourceHolder::KeyType &, Args... args);
 
-	template<typename ResourceHolder, typename... Args>
-	void	unload(const typename ResourceHolder::KeyType &, Args... args);
-};
+		template<typename ResourceHolder, typename... Args>
+		void	unload(const typename ResourceHolder::KeyType &, Args... args);
+	};
+}
 
-# include "Resource.inl"
+# include "Engine/Tools/Resource.inl"
 
 #endif /* _RESOURCE_HPP */

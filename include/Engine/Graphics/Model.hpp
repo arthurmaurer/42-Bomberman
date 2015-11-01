@@ -7,20 +7,23 @@
 
 # include <GL/glew.h>
 
-class Texture;
-
-class Model
+namespace Fothon
 {
-public:
-	typedef std::unique_ptr<Model>	Ptr;
+	class Texture;
 
-	GLuint			indexCount = 0;
-	GLuint			vboID = 0;
-	GLuint			vaoID = 0;
-	GLuint			iboID = 0;
-	const Texture *	texture = NULL;
+	class Model
+	{
+	public:
+		typedef std::unique_ptr<Model>	Ptr;
 
-	Model();
-};
+		GLuint			indexCount = 0;
+		GLuint			vboID = 0;
+		GLuint			vaoID = 0;
+		GLuint			iboID = 0;
+		const Texture *	texture = NULL;
+
+		Model();
+	};
+}
 
 #endif /* _MODEL_HPP */

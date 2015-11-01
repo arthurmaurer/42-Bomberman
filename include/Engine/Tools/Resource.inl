@@ -16,16 +16,19 @@
 
 # include "Engine/Tools/Resource.hpp"
 
-template<typename ResourceHolder, typename... Args>
-typename ResourceHolder::ResourceType &	Resource::load(const typename ResourceHolder::KeyType & key, Args... args)
+namespace Fothon
 {
-	return std::get<ResourceHolder>(_tuple).load(key, args...);
-}
+	template<typename ResourceHolder, typename... Args>
+	typename ResourceHolder::ResourceType &	Resource::load(const typename ResourceHolder::KeyType & key, Args... args)
+	{
+		return std::get<ResourceHolder>(_tuple).load(key, args...);
+	}
 
-template<typename ResourceHolder, typename... Args>
-void	Resource::unload(const typename ResourceHolder::KeyType & key, Args... args)
-{
-	return std::get<ResourceHolder>(_tuple).unload(key, args...);
+	template<typename ResourceHolder, typename... Args>
+	void	Resource::unload(const typename ResourceHolder::KeyType & key, Args... args)
+	{
+		return std::get<ResourceHolder>(_tuple).unload(key, args...);
+	}
 }
 
 #endif /* _RESOURCE_INL	 */

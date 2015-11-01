@@ -7,13 +7,13 @@
 
 class Level;
 
-class LevelState : public State
+class LevelState : public Fothon::State
 {
 public:
-	SceneNode::Ptr	rootNode;
+	Fothon::SceneNode::Ptr	rootNode;
 	Level *			level = nullptr;
 
-	LevelState(StateStack & stateStack, State::Context & context);
+	LevelState(Fothon::StateStack & stateStack, Fothon::State::Context & context);
 
 	void	render();
 	bool	update(sf::Time dt);

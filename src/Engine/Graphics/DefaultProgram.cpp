@@ -3,6 +3,8 @@
 
 #include "Engine/Graphics/DefaultProgram.hpp"
 
+using namespace Fothon;
+
 DefaultProgram::DefaultProgram() :
 	ShaderProgram("shader/per_pixel.vertex.glsl", "shader/per_pixel.fragment.glsl")
 {

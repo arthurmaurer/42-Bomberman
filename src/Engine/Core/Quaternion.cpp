@@ -4,6 +4,8 @@
 #include "Engine/Core/Quaternion.hpp"
 #include "Engine/Tools/MathUtil.hpp"
 
+using namespace Fothon;
+
 Quaternion	Quaternion::identity = Quaternion(0, 0, 0, 1.f);
 
 Quaternion::Quaternion() :

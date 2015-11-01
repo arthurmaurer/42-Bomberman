@@ -18,17 +18,20 @@
 # include <ostream>
 # include <unordered_map>
 
-template<typename Key, typename Resource>
-class ResourceHolder
+namespace Fothon
 {
-public:
-	ResourceHolder() = default;
+	template<typename Key, typename Resource>
+	class ResourceHolder
+	{
+	public:
+		ResourceHolder() = default;
 
-	typedef Resource	ResourceType;
-	typedef Key			KeyType;
+		typedef Resource	ResourceType;
+		typedef Key			KeyType;
 
-protected:
-	std::unordered_map<Key, std::unique_ptr<Resource>>	_resources;
-};
+	protected:
+		std::unordered_map<Key, std::unique_ptr<Resource>>	_resources;
+	};
+}
 
 #endif /* _RESOURCE_HOLDER_HPP */

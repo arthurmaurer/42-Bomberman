@@ -6,7 +6,7 @@
 
 # include "Engine/Core/Nodes/ModelNode.hpp"
 
-class CubeEntity : public ModelNode
+class CubeEntity : public Fothon::ModelNode
 {
 public:
 	typedef std::unique_ptr<CubeEntity>	Ptr;

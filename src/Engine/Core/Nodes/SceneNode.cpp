@@ -20,6 +20,8 @@
 #include "Game/Category.hpp"
 // TODO: Include from Game in Engine ?
 
+using namespace Fothon;
+
 SceneNode::SceneNode() :
 	children(),
 	parent(nullptr)

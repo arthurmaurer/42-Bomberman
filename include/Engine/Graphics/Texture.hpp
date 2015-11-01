@@ -6,13 +6,16 @@
 
 # include <GL/glew.h>
 
-class Texture
+namespace Fothon
 {
-public:
-	const GLuint	id = 0;
+	class Texture
+	{
+	public:
+		const GLuint	id = 0;
 
-	Texture(GLuint id);
-	~Texture();
-};
+		Texture(GLuint id);
+		~Texture();
+	};
+}
 
 #endif /* _TEXTURE_HPP */

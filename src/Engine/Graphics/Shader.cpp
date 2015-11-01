@@ -4,6 +4,8 @@
 
 #include "Engine/Graphics/Shader.hpp"
 
+using namespace Fothon;
+
 Shader::Shader(const std::string & path, GLenum type)
 {
 	load(path, type);

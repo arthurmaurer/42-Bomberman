@@ -19,15 +19,18 @@
 
 # include "Engine/Core/Command.hpp"
 
-class				CommandQueue
+namespace Fothon
 {
-public:
-	void			push(const Command &);
-	Command			pop();
-	bool			isEmpty() const;
+	class				CommandQueue
+	{
+	public:
+		void			push(const Command &);
+		Command			pop();
+		bool			isEmpty() const;
 
-private:
-	std::queue<Command>	_queue;
-};
+	private:
+		std::queue<Command>	_queue;
+	};
+}
 
 #endif /* _COMMAND_QUEUE_HPP */

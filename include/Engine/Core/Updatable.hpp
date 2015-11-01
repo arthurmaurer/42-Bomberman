@@ -2,10 +2,13 @@
 #ifndef _UPDATABLE_H
 # define _UPDATABLE_H
 
-class Updatable
+namespace Fothon
 {
-public:
-	virtual void	update();
-};
+	class Updatable
+	{
+	public:
+		virtual void	update();
+	};
+}
 
 #endif

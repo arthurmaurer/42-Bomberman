@@ -1,6 +1,8 @@
 
 #include "Engine/Core/Nodes/TextNode.hpp"
 
+using namespace Fothon;
+
 TextNode::TextNode(const std::string & text, const sf::Font & font, unsigned characterSize) :
 	text(text),
 	font(&font),

@@ -4,6 +4,8 @@
 #include "Engine/Tools/ModelGenerator.hpp"
 #include "Engine/Tools/ModelManager.hpp"
 
+using namespace Fothon;
+
 Model &		ModelGenerator::generatePlane(const Vec2 & size)
 {
 	RawModelData	modelData;

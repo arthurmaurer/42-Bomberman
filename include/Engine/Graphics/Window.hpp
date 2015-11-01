@@ -6,23 +6,26 @@
 # include <SFML/Graphics/RenderWindow.hpp>
 # include <SFML/OpenGL.hpp>
 
-class Window
+namespace Fothon
 {
-	sf::ContextSettings	_getContextSettings() const;
-	void				_setContext() const;
+	class Window
+	{
+		sf::ContextSettings	_getContextSettings() const;
+		void				_setContext() const;
 
-public:
-	size_t		width;
-	size_t		height;
-	sf::RenderWindow	window;
+	public:
+		size_t		width;
+		size_t		height;
+		sf::RenderWindow	window;
 
-	Window(size_t width, size_t height, const std::string & title);
-	~Window();
+		Window(size_t width, size_t height, const std::string & title);
+		~Window();
 
-	void		close();
-	void		setTitle(std::string title);
-	bool		isOpen() const;
-	void		display();
-};
+		void		close();
+		void		setTitle(std::string title);
+		bool		isOpen() const;
+		void		display();
+	};
+}
 
 #endif /* _WINDOW_HPP */

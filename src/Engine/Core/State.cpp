@@ -16,6 +16,8 @@
 #include "Engine/Core/State.hpp"
 #include "Engine/Core/StateStack.hpp"
 
+using namespace Fothon;
+
 State::Context::Context(Window & window, Application & app) :
 	window(&window),
 	app(app)

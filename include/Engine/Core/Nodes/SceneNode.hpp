@@ -24,30 +24,33 @@
 # include "Engine/Core/NonCopyable.hpp"
 # include "Engine/Graphics/Window.hpp"
 
-struct Command;
-
-class SceneNode :	public Transformable,
-					private NonCopyable
+namespace Fothon
 {
-public:
-	typedef std::unique_ptr<SceneNode>	Ptr;
+	struct Command;
 
-	std::vector<Ptr>	children;
-	SceneNode *			parent = nullptr;
+	class SceneNode : public Transformable,
+		private NonCopyable
+	{
+	public:
+		typedef std::unique_ptr<SceneNode>	Ptr;
 
-	SceneNode();
+		std::vector<Ptr>	children;
+		SceneNode *			parent = nullptr;
 
-	void				attachChild(Ptr node);
-	Ptr					detachChild(const SceneNode & node);
-	void				updateNode(sf::Time dt);
+		SceneNode();
 
-	void				onCommand(const Command & command, sf::Time dt);
-	virtual unsigned	getCategory() const;
+		void				attachChild(Ptr node);
+		Ptr					detachChild(const SceneNode & node);
+		void				updateNode(sf::Time dt);
 
-	virtual void		update(sf::Time dt);
+		void				onCommand(const Command & command, sf::Time dt);
+		virtual unsigned	getCategory() const;
 
-private:
-	void				_updateChildren(sf::Time dt);
-};
+		virtual void		update(sf::Time dt);
+
+	private:
+		void				_updateChildren(sf::Time dt);
+	};
+}
 
 #endif /* _SCENE_NODE_HPP */

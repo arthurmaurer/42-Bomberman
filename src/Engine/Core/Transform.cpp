@@ -3,6 +3,8 @@
 
 #include "Engine/Core/Transform.hpp"
 
+using namespace Fothon;
+
 Transform::Transform() :
 	scale(Vec3(1.f, 1.f, 1.f))
 {

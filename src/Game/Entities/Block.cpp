@@ -5,6 +5,8 @@
 
 #include "Game/Entities/Block.hpp"
 
+using namespace Fothon;
+
 Block::Block() :
 	ModelNode(ModelGenerator::generateCube(Vec3(1.f, 1.f, 1.f)))
 {

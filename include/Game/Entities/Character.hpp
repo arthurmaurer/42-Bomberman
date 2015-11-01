@@ -6,7 +6,7 @@
 
 # include "Engine/Core/Nodes/ModelNode.hpp"
 
-class Character : public ModelNode
+class Character : public Fothon::ModelNode
 {
 public:
 	const std::string	name;
@@ -14,7 +14,7 @@ public:
 	unsigned			hp = 1;
 	unsigned			lives = 3;
 	unsigned			blastDistance = 1;
-	Vec3				acceleration;
+	Fothon::Vec3			acceleration;
 	float				moveSpeed = 1.f;
 	bool				immortal = false;
 	bool				fly = false;

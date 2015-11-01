@@ -8,12 +8,12 @@
 
 #include "Game/Entities/CubeEntity.hpp"
 
+using namespace Fothon;
+
 #define ROTATION_SPEED 1.f
 
 CubeEntity::CubeEntity() :
-	//ModelNode(ModelManager::loadFromOBJ("companion_cube.obj"))
 	ModelNode(ModelManager::loadFromOBJ("sphere.obj"))
-	//ModelNode(ModelGenerator::generateCube({ 1, 1, 1 }))
 {
 	model->texture = &Resource::load<TextureManager>("Cube1", "texture.jpg");
 }

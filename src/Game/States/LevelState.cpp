@@ -21,6 +21,8 @@
 #include "Game/Entities/CubeEntity.hpp"
 #include "Game/Levels/Level00.hpp"
 
+using namespace Fothon;
+
 LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	State(stateStack, context),
 	rootNode(new SceneNode())

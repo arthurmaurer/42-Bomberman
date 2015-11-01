@@ -4,6 +4,8 @@
 
 #include "Game/Entities/DestructibleBlock.hpp"
 
+using namespace Fothon;
+
 DestructibleBlock::DestructibleBlock()
 {
 	model->texture = &Resource::load<TextureManager>("character", "cube.jpg");

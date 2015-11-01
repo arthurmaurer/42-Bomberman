@@ -6,6 +6,8 @@
 #include "Engine/Core/Vec3.hpp"
 #include "Engine/Tools/MathUtil.hpp"
 
+using namespace Fothon;
+
 bool	MathUtil::randSeedSet = false;
 
 float	MathUtil::rad(float deg)

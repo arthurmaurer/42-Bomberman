@@ -13,6 +13,8 @@
 #include "Engine/Graphics/Camera.hpp"
 #include "Engine/Tools/MathUtil.hpp"
 
+using namespace Fothon;
+
 std::vector<SFMLNode *>		Renderer::sfmlNodes;
 std::vector<ModelNode *>	Renderer::modelNodes;
 std::vector<Light *>		Renderer::lightNodes;

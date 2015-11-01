@@ -19,21 +19,24 @@
 # include "Engine/Core/Nodes/SceneNode.hpp"
 # include "Engine/Graphics/Renderable.hpp"
 
-class Model;
-
-class ModelNode :	public SceneNode,
-					public Renderable
+namespace Fothon
 {
-private:
-	void		_uploadUniforms(const Window & window) const;
+	class Model;
 
-public:
-	Model *		model = nullptr;
+	class ModelNode : public SceneNode,
+		public Renderable
+	{
+	private:
+		void		_uploadUniforms(const Window & window) const;
 
-	ModelNode() = default;
-	ModelNode(Model & model);
+	public:
+		Model *		model = nullptr;
 
-	void		render(Window & window);
-};
+		ModelNode() = default;
+		ModelNode(Model & model);
+
+		void		render(Window & window);
+	};
+}
 
 #endif /* _MODEL_NODE_HPP */

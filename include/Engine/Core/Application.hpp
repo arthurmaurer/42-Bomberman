@@ -8,30 +8,33 @@
 # include "Engine/Graphics/Window.hpp"
 # include "Engine/Core/StateStack.hpp"
 
-class Application
+namespace Fothon
 {
-public:
-	static const sf::Time	timePerFrame;
+	class Application
+	{
+	public:
+		static const sf::Time	timePerFrame;
 
-	Window		window;
-	StateStack	stateStack;
+		Window		window;
+		StateStack	stateStack;
 
-	Application();
+		Application();
 
-	void			drawFPS();
-	void			run();
-	void			processInput();
-	void			update(sf::Time dt);
-	void			render();
-	void			init();
+		void			drawFPS();
+		void			run();
+		void			processInput();
+		void			update(sf::Time dt);
+		void			render();
+		void			init();
 
-private:
-	sf::Text		_statsString;
-	sf::Time		_statsUpdateTime;
-	size_t			_statsFrameCount;
+	private:
+		sf::Text		_statsString;
+		sf::Time		_statsUpdateTime;
+		size_t			_statsFrameCount;
 
-	void			_updateStats(sf::Time dt);
-	void			_initStats();
-};
+		void			_updateStats(sf::Time dt);
+		void			_initStats();
+	};
+}
 
 #endif /* _APPLICATION_HPP */

@@ -16,7 +16,7 @@
 
 # include "Engine/Core/Application.hpp"
 
-class Game : public Application
+class Game : public Fothon::Application
 {
 public:
 	Game();
@@ -24,7 +24,7 @@ public:
 	void	init();
 
 private:
-	void			_registerStates();
+	void	_registerStates();
 };
 
 #endif /* _GAME_HPP */

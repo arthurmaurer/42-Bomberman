@@ -21,6 +21,8 @@
 #include "Engine/Graphics/Texture.hpp"
 #include "Engine/Tools/MathUtil.hpp"
 
+using namespace Fothon;
+
 ModelNode::ModelNode(Model & model) :
 	model(&model)
 {
@@ -57,7 +59,7 @@ void	ModelNode::render(Window & window)
 
 	glBindVertexArray(model->vaoID);
 	glBindBuffer(GL_ARRAY_BUFFER, model->vboID);
-	
+
 	if (model->texture != nullptr)
 	{
 		glActiveTexture(GL_TEXTURE0);

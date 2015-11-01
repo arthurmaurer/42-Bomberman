@@ -3,6 +3,8 @@
 
 #include "Engine/Core/Vec4.hpp"
 
+using namespace Fothon;
+
 Vec4::Vec4() :
 	w(0),
 	x(0),
@@ -20,8 +22,7 @@ Vec4::Vec4(float wVal, float xVal, float yVal, float zVal) :
 	x(xVal),
 	y(yVal),
 	z(zVal)
-{
-}
+{}
 
 Vec4 &	Vec4::operator=(const Vec4 & rhs)
 {

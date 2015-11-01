@@ -14,6 +14,8 @@
 #include "Game/Game.hpp"
 #include "Game/States/LevelState.hpp"
 
+using namespace Fothon;
+
 Game::Game() :
 	Application()
 {}

@@ -19,13 +19,16 @@
 
 # include "Engine/Tools/ResourceHolder.hpp"
 
-class		FontManager : public ResourceHolder<std::string, sf::Font>
+namespace Fothon
 {
-public:
-	sf::Font &	load(const std::string & key, const std::string & fontPath = "");
-	void		unload(const std::string & key);
+	class		FontManager : public ResourceHolder<std::string, sf::Font>
+	{
+	public:
+		sf::Font &	load(const std::string & key, const std::string & fontPath = "");
+		void		unload(const std::string & key);
 
-private:
-};
+	private:
+	};
+}
 
 #endif /* _FONT_MANAGER_HPP */

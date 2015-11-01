@@ -15,6 +15,8 @@
 
 #include "Engine/Core/StateStack.hpp"
 
+using namespace Fothon;
+
 StateStack::StateStack(State::Context context) :
 	_context(context)
 {

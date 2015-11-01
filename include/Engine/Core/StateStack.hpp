@@ -19,55 +19,58 @@
 
 # include "Engine/Core/State.hpp"
 
-class		StateStack
+namespace Fothon
 {
-public:
-	enum	Action
+	class		StateStack
 	{
-		Pop,
-		Push,
-		Clear
+	public:
+		enum	Action
+		{
+			Pop,
+			Push,
+			Clear
+		};
+
+		explicit	StateStack(State::Context context);
+
+		template<typename T>
+		void		registerState(States::ID stateID);
+
+		void		update(sf::Time dt);
+		void		render();
+		void		handleEvent(const sf::Event & event);
+
+		void		pushState(States::ID stateID);
+		void		popState();
+		void		clearStates();
+
+		bool		isEmpty() const;
+
+	private:
+		struct			PendingChange
+		{
+			explicit	PendingChange(Action action, States::ID stateID = States::None);
+			Action		action;
+			States::ID	stateID;
+		};
+
+		State::Ptr	createState(States::ID stateID);
+		void		applyPendingChanges();
+
+		std::vector<State::Ptr>								_stack;
+		std::vector<PendingChange>							_pendingList;
+		State::Context										_context;
+		std::map<States::ID, std::function<State::Ptr()>>	_factories;
 	};
 
-	explicit	StateStack(State::Context context);
-
-	template<typename T>
-	void		registerState(States::ID stateID);
-
-	void		update(sf::Time dt);
-	void		render();
-	void		handleEvent(const sf::Event & event);
-
-	void		pushState(States::ID stateID);
-	void		popState();
-	void		clearStates();
-
-	bool		isEmpty() const;
-
-private:
-	struct			PendingChange
+	template <typename T>
+	void StateStack::registerState(States::ID stateID)
 	{
-		explicit	PendingChange(Action action, States::ID stateID = States::None);
-		Action		action;
-		States::ID	stateID;
-	};
-
-	State::Ptr	createState(States::ID stateID);
-	void		applyPendingChanges();
-
-	std::vector<State::Ptr>								_stack;
-	std::vector<PendingChange>							_pendingList;
-	State::Context										_context;
-	std::map<States::ID, std::function<State::Ptr()>>	_factories;
-};
-
-template <typename T>
-void StateStack::registerState(States::ID stateID)
-{
-	_factories[stateID] = [this] ()
-	{
-		return State::Ptr(new T(*this, _context));
-	};
+		_factories[stateID] = [this]()
+		{
+			return State::Ptr(new T(*this, _context));
+		};
+	}
 }
 
 #endif /* _STATE_STACK_HPP */

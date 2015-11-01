@@ -21,6 +21,8 @@
 #include "Engine/Tools/FileUtil.hpp"
 #include "Engine/Tools/MiscUtil.hpp"
 
+using namespace Fothon;
+
 TextureManager::TextureManager() :
 	_texturesID(),
 	_cachedImages()

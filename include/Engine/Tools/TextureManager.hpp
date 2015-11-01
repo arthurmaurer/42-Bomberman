@@ -21,23 +21,25 @@
 # include "Engine/Graphics/ImageBuffer.hpp"
 # include "Engine/Tools/ResourceHolder.hpp"
 
-class TextureManager : public ResourceHolder<std::string, Texture>
+namespace Fothon
 {
-	std::vector<GLuint>										_texturesID;
-	std::map<std::string, std::unique_ptr<ImageBuffer>>		_cachedImages;
+	class TextureManager : public ResourceHolder<std::string, Texture>
+	{
+		std::vector<GLuint>										_texturesID;
+		std::map<std::string, std::unique_ptr<ImageBuffer>>		_cachedImages;
 
-	GLuint			_loadGLTexture(const ImageBuffer & imageBuffer);
-	void			_unloadGLTexture(const Texture & value);
-	ImageBuffer &	_loadImage(const std::string & path);
+		GLuint			_loadGLTexture(const ImageBuffer & imageBuffer);
+		void			_unloadGLTexture(const Texture & value);
+		ImageBuffer &	_loadImage(const std::string & path);
 
-public:
-	TextureManager();
+	public:
+		TextureManager();
 
-	void			unload(const std::string & key);
-	Texture &		load(const std::string & key, const std::string & param = "");
-	void			clearCache();
-	void			cleanUp();
-};
-
+		void			unload(const std::string & key);
+		Texture &		load(const std::string & key, const std::string & param = "");
+		void			clearCache();
+		void			cleanUp();
+	};
+}
 
 #endif /* _TEXTURE_MANAGER_HPP */

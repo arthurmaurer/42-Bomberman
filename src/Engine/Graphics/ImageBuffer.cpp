@@ -1,6 +1,8 @@
 
 #include "Engine/Graphics/ImageBuffer.hpp"
 
+using namespace Fothon;
+
 ImageBuffer::ImageBuffer(size_t width, size_t height) :
 	width(width),
 	height(height),

@@ -18,6 +18,8 @@
 #include "Engine/Tools/FontManager.hpp"
 #include "Engine/Tools/FileUtil.hpp"
 
+using namespace Fothon;
+
 sf::Font &	FontManager::load(const std::string & key, const std::string & fontPath)
 {
 	try

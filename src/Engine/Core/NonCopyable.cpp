@@ -13,6 +13,8 @@
 
 #include "Engine/Core/NonCopyable.hpp"
 
+using namespace Fothon;
+
 NonCopyable::NonCopyable(const NonCopyable &)
 {}
 

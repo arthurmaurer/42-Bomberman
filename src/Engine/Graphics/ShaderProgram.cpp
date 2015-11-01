@@ -12,6 +12,8 @@
 #include "Engine/Graphics/Renderer.hpp"
 #include "Engine/Graphics/Light.hpp"
 
+using namespace Fothon;
+
 ShaderProgram::ShaderProgram()
 {}
 

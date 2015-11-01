@@ -7,16 +7,19 @@
 # include "Engine/Core/Nodes/SFMLNode.hpp"
 # include "Engine/Graphics/Renderable.hpp"
 
-class SpriteNode :	public SFMLNode
+namespace Fothon
 {
-	sf::Sprite	_sprite;
+	class SpriteNode : public SFMLNode
+	{
+		sf::Sprite	_sprite;
 
-public:
-	const sf::Texture *		texture = nullptr;
+	public:
+		const sf::Texture *		texture = nullptr;
 
-	SpriteNode(const sf::Texture & texture);
+		SpriteNode(const sf::Texture & texture);
 
-	void	render(Window & window);
-};
+		void	render(Window & window);
+	};
+}
 
 #endif /* _SPRITE_NODE_HPP */

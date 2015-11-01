@@ -3,6 +3,8 @@
 #include "Engine/Graphics/Light.hpp"
 #include "Engine/Graphics/Renderer.hpp"
 
+using namespace Fothon;
+
 Light::Light(LightType type) :
 	type(type),
 	ambient(Vec3(1.f, 1.f, 1.f)),

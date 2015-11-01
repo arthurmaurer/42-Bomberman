@@ -20,24 +20,27 @@
 
 # include <SFML/System/Time.hpp>
 
-class SceneNode;
-
-struct		Command
+namespace Fothon
 {
-	Command();
+	class SceneNode;
 
-	std::function<void(SceneNode & node, sf::Time de)>	action;
-	unsigned int										category;
-};
-
-template <typename GameObject, typename Function>
-std::function<void(SceneNode &, sf::Time)> derivedAction(Function fn)
-{
-	return [=] (SceneNode & node, sf::Time dt)
+	struct		Command
 	{
-		assert(dynamic_cast<GameObject *>(&node) != nullptr);
-		fn(static_cast<GameObject &>(node), dt);
+		Command();
+
+		std::function<void(SceneNode & node, sf::Time de)>	action;
+		unsigned int										category;
 	};
+
+	template <typename GameObject, typename Function>
+	std::function<void(SceneNode &, sf::Time)> derivedAction(Function fn)
+	{
+		return [=](SceneNode & node, sf::Time dt)
+		{
+			assert(dynamic_cast<GameObject *>(&node) != nullptr);
+			fn(static_cast<GameObject &>(node), dt);
+		};
+	}
 }
 
 #endif /* _COMMAND_HPP */

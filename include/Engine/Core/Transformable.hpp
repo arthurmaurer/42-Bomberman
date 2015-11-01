@@ -16,11 +16,14 @@
 
 # include "Engine/Core/Transform.hpp"
 
-class Transformable
+namespace Fothon
 {
-public:
-	Transform	transform;
-	Transform	absoluteTransform;
-};
+	class Transformable
+	{
+	public:
+		Transform	transform;
+		Transform	absoluteTransform;
+	};
+}
 
 #endif /* _TRANSFORMABLE_HPP */

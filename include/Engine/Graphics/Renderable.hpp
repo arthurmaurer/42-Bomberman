@@ -14,14 +14,17 @@
 #ifndef _RENDERABLE_HPP
 # define _RENDERABLE_HPP
 
-class Window;
-
-class Renderable
+namespace Fothon
 {
-public:
-	bool			visible = true;
+	class Window;
 
-	virtual void	render(Window & window) = 0;
-};
+	class Renderable
+	{
+	public:
+		bool			visible = true;
+
+		virtual void	render(Window & window) = 0;
+	};
+}
 
 #endif /* _RENDERABLE_HPP */

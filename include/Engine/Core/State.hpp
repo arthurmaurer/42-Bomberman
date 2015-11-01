@@ -20,36 +20,39 @@
 # include "Game/States/StateIdentifiers.hpp"
 // TODO: Importing a header from Game to Core ?..
 
-class StateStack;
-class Application;
-
-class State
+namespace Fothon
 {
-public:
-	typedef	std::unique_ptr<State>	Ptr;
+	class StateStack;
+	class Application;
 
-	struct	Context
+	class State
 	{
-		Context(Window & window, Application & app);
+	public:
+		typedef	std::unique_ptr<State>	Ptr;
 
-		Window *		window = NULL;
-		Application &	app;
+		struct	Context
+		{
+			Context(Window & window, Application & app);
+
+			Window *		window = NULL;
+			Application &	app;
+		};
+
+		StateStack *	stack;
+		Context			context;
+
+		State(StateStack & stateStack, Context context);
+		virtual	~State();
+
+		virtual void	render() = 0;
+		virtual bool	update(sf::Time dt) = 0;
+		virtual bool	handleEvent(const sf::Event & event) = 0;
+
+	protected:
+		void			requestStackPush(States::ID stateID);
+		void			requestStackPop();
+		void			requestStateClear();
 	};
-
-	StateStack *	stack;
-	Context			context;
-
-	State(StateStack & stateStack, Context context);
-	virtual	~State();
-
-	virtual void	render() = 0;
-	virtual bool	update(sf::Time dt) = 0;
-	virtual bool	handleEvent(const sf::Event & event) = 0;
-
-protected:
-	void			requestStackPush(States::ID stateID);
-	void			requestStackPop();
-	void			requestStateClear();
-};
+}
 
 #endif /* _STATE_HPP */

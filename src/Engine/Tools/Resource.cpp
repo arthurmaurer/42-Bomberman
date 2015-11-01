@@ -14,4 +14,6 @@
 #include <ostream>
 #include "Engine/Tools/Resource.hpp"
 
-Resource::ResourceTuple	Resource::_tuple;
+using namespace Fothon;
+
+Resource::ResourceTuple		Resource::_tuple;

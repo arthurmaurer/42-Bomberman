@@ -4,13 +4,13 @@
 
 # include "Engine/Core/Nodes/ModelNode.hpp"
 
-class Block : public ModelNode
+class Block : public Fothon::ModelNode
 {
 public:
 	bool	walkable = false;
 
 	Block();
-	Block(Model & model);
+	Block(Fothon::Model & model);
 };
 
 #endif /* _BLOCK_HPP */

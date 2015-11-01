@@ -9,6 +9,8 @@
 #include "Engine/Tools/MathUtil.hpp"
 #include "Engine/Tools/FileUtil.hpp"
 
+using namespace Fothon;
+
 std::map<std::string, obj_t *>	ModelManager::_cachedOBJs;
 std::vector<GLuint>				ModelManager::_vbos;
 std::vector<GLuint>				ModelManager::_vaos;
