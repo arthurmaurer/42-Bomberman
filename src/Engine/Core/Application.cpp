@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-11-01 11:25:40
+//         :      _/|      :  Last Edit  : 2015-11-02 00:02:29
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -29,8 +29,8 @@ using namespace Fothon;
 
 const sf::Time	Application::timePerFrame = sf::seconds(1.f / 60.f);
 
-Application::Application(unsigned x, unsigned y, std::string name) :
-	window(x, y, name.c_str()),
+Application::Application(unsigned windowW, unsigned windowH, const std::string & name) :
+	window(windowW, windowH, name),
 	stateStack(State::Context(window, *this))
 {
 	_initStats();

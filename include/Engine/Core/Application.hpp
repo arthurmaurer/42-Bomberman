@@ -18,7 +18,7 @@ namespace Fothon
 		Window		window;
 		StateStack	stateStack;
 
-		Application(unsigned x, unsigned y, std::string name);
+		Application(unsigned windowW, unsigned windowH, const std::string & name);
 
 		void			drawFPS();
 		void			run();
