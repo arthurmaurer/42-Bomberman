@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-10-31 23:58:45
+//         :      _/|      :  Last Edit  : 2015-11-01 02:16:38
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -21,8 +21,8 @@
 #include "Engine/Graphics/DefaultProgram.hpp"
 #include "Engine/Graphics/Camera.hpp"
 #include "Engine/Tools/MathUtil.hpp"
-#include "Engine/Tools/TextureManager.hpp"
-#include "Engine/Tools/ModelManager.hpp"
+#include "Engine/Tools/Resource.hpp"
+#include "Engine/Tools/FontManager.hpp"
 
 const sf::Time	Application::timePerFrame = sf::seconds(1.f / 60.f);
 
@@ -80,10 +80,8 @@ void	Application::drawFPS()
 
 void	Application::render()
 {
-
 	stateStack.render();
 	drawFPS();
-
 	window.window.display();
 }
 
@@ -148,7 +146,6 @@ void	Application::_updateStats(sf::Time dt)
 
 	if (_statsUpdateTime >= sf::seconds(1.0f))
 	{
-		_statsString.setFont(_statsFont);
 		_statsString.setString("FPS: " + std::to_string(_statsFrameCount));
 		_statsUpdateTime -= sf::seconds(1.0f);
 		_statsFrameCount = 0;
@@ -157,10 +154,7 @@ void	Application::_updateStats(sf::Time dt)
 
 void	Application::_initStats()
 {
-	if (!_statsFont.loadFromFile("Sansation.ttf"))
-		throw std::runtime_error("Error loading statistics font");
-
-	_statsString.setFont(_statsFont);
+	_statsString.setFont(Resource::load<FontManager>("Main", "Sansation.ttf"));
 	_statsString.setPosition(5.f, 5.f);
 	_statsString.setCharacterSize(10);
 }

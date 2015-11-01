@@ -25,9 +25,6 @@ public:
 	void			render();
 	void			init();
 
-	// TODO: clean this shit
-	sf::Font		_statsFont;
-
 private:
 	sf::Text		_statsString;
 	sf::Time		_statsUpdateTime;

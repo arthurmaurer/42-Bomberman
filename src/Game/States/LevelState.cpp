@@ -1,8 +1,8 @@
 //             .-'''''-.
 //           .'         `.
-//          :             :   File       : TestState.cpp
+//          :             :   File       : LevelState.cpp
 //         :               :  Creation   : 2015-10-17 07:50:58
-//         :      _/|      :  Last Edit  : 2015-10-23 22:15:57
+//         :      _/|      :  Last Edit  : 2015-11-01 02:27:06
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -26,7 +26,7 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	rootNode(new SceneNode())
 {
 	CubeEntity *	cube;
-	
+
 	cube = new CubeEntity();
 	cube->transform.position.x = -3.f;
 	cube->updateNode(sf::Time());
@@ -44,7 +44,7 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	light1->transform.rotation.rotateZ(MathUtil::rad(-30.f));
 	light1->updateNode(sf::Time());
 
-	TextNode::Ptr	text(new TextNode("Salut les mecs", context.app._statsFont));
+	TextNode::Ptr	text(new TextNode("Salut les mecs", Resource::load<FontManager>("Main")));
 	text->transform.position = { 50, 50, 50 };
 	rootNode->attachChild(std::move(text));
 

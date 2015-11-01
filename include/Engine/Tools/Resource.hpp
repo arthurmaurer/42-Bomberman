@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Resource.hpp
 //         :               :  Creation   : 2015-10-31 23:38:44
-//         :      _/|      :  Last Edit  : 2015-11-01 00:09:30
+//         :      _/|      :  Last Edit  : 2015-11-01 02:11:43
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -18,10 +18,11 @@
 # include <ostream>
 
 # include "Engine/Tools/TextureManager.hpp"
+# include "Engine/Tools/FontManager.hpp"
 
 class Resource
 {
-	typedef std::tuple<TextureManager>	ResourceTuple;
+	typedef std::tuple<TextureManager, FontManager>	ResourceTuple;
 
 	static ResourceTuple	_tuple;
 
