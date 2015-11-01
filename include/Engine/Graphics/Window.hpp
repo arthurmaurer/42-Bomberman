@@ -25,6 +25,8 @@ namespace Fothon
 		void		setTitle(std::string title);
 		bool		isOpen() const;
 		void		display();
+		void		resetGLState();
+		void		restoreGLState();
 	};
 }
 

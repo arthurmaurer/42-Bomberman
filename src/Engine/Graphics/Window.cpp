@@ -68,3 +68,15 @@ void	Window::display()
 {
 	window.display();
 }
+
+void	Window::resetGLState()
+{
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	window.pushGLStates();
+}
+
+void	Window::restoreGLState()
+{
+	window.popGLStates();
+}

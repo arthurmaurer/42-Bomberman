@@ -38,8 +38,6 @@ Application::Application() :
 void		Application::init()
 {
 	Renderer::shaderProgram = new DefaultProgram();
-	Renderer::activeCamera = new Camera(45.f);
-	Renderer::activeCamera->transform.position.z = 10.f;
 }
 
 void		Application::run()

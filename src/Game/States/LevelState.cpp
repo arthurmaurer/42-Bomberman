@@ -27,6 +27,9 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	State(stateStack, context),
 	rootNode(new SceneNode())
 {
+	Renderer::activeCamera = new Camera(45.f);
+	Renderer::activeCamera->transform.position.z = 10.f;
+
 	CubeEntity *	cube;
 
 	cube = new CubeEntity();

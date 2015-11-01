@@ -3,6 +3,7 @@
 # define _RENDERER_HPP
 
 # include <vector>
+# include <functional>
 
 namespace Fothon
 {
@@ -17,13 +18,15 @@ namespace Fothon
 
 	class Renderer
 	{
-		static void			renderModelNodes(Window & window);
-		static void			renderSFMLNodes(Window & window);
+		static void			_noCamera(Window & window);
+		static void			_renderModelNodes(Window & window);
+		static void			_renderSFMLNodes(Window & window);
 
 	public:
-		static std::vector<SFMLNode *>		sfmlNodes;
-		static std::vector<ModelNode *>		modelNodes;
-		static std::vector<Light *>			lightNodes;
+		static std::function<void(Window &)>	noCameraHandler;
+		static std::vector<SFMLNode *>			sfmlNodes;
+		static std::vector<ModelNode *>			modelNodes;
+		static std::vector<Light *>				lightNodes;
 
 		static const ShaderProgram *		shaderProgram;
 		static Camera *						activeCamera;

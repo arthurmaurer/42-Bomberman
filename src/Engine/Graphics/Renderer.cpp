@@ -1,11 +1,14 @@
 
-# include <stdio.h>
-# include <iostream>
+#include <stdio.h>
+#include <iostream>
+
+#include <SFML/Graphics/Texture.hpp>
 
 #include "Engine/Core/Matrix4.hpp"
 #include "Engine/Core/Nodes/ModelNode.hpp"
 #include "Engine/Core/Nodes/SFMLNode.hpp"
 #include "Engine/Core/Nodes/SceneNode.hpp"
+#include "Engine/Core/Nodes/SpriteNode.hpp"
 #include "Engine/Graphics/ShaderProgram.hpp"
 #include "Engine/Graphics/Renderer.hpp"
 #include "Engine/Graphics/Light.hpp"
@@ -15,14 +18,15 @@
 
 using namespace Fothon;
 
-std::vector<SFMLNode *>		Renderer::sfmlNodes;
-std::vector<ModelNode *>	Renderer::modelNodes;
-std::vector<Light *>		Renderer::lightNodes;
+std::function<void(Window &)>	Renderer::noCameraHandler = Renderer::_noCamera;
+std::vector<SFMLNode *>			Renderer::sfmlNodes;
+std::vector<ModelNode *>		Renderer::modelNodes;
+std::vector<Light *>			Renderer::lightNodes;
 
-const ShaderProgram *		Renderer::shaderProgram = nullptr;
-Camera *					Renderer::activeCamera = nullptr;
-Matrix4						Renderer::projectionMatrix;
-bool						Renderer::updateProjectionMatrix = true;
+const ShaderProgram *			Renderer::shaderProgram = nullptr;
+Camera *						Renderer::activeCamera = nullptr;
+Matrix4							Renderer::projectionMatrix;
+bool							Renderer::updateProjectionMatrix = true;
 
 void		Renderer::clear(Window &)
 {
@@ -34,8 +38,26 @@ void		Renderer::display(Window & window)
 	window.display();
 }
 
-void		Renderer::renderModelNodes(Window & window)
+void		Renderer::_noCamera(Window & window)
 {
+	sf::Texture	texture;
+	SpriteNode	spriteNode(texture, false);
+
+	window.resetGLState();
+
+	texture.loadFromFile("resources/nocamera.png");
+	spriteNode.absoluteTransform.scale.x = (float)window.window.getSize().x / texture.getSize().x;
+	spriteNode.absoluteTransform.scale.y = (float)window.window.getSize().y / texture.getSize().y;
+	spriteNode.render(window);
+
+	window.restoreGLState();
+}
+
+void		Renderer::_renderModelNodes(Window & window)
+{
+	if (activeCamera == nullptr)
+		return noCameraHandler(window);
+
 	shaderProgram->enable();
 
 	for (ModelNode * node : modelNodes)
@@ -50,11 +72,9 @@ void		Renderer::renderModelNodes(Window & window)
 	shaderProgram->disable();
 }
 
-void		Renderer::renderSFMLNodes(Window & window)
+void		Renderer::_renderSFMLNodes(Window & window)
 {
-	sf::RenderWindow &	win = window.window;
-
-	win.pushGLStates();
+	window.resetGLState();
 
 	for (SFMLNode * node : sfmlNodes)
 	{
@@ -62,15 +82,15 @@ void		Renderer::renderSFMLNodes(Window & window)
 			node->render(window);
 	}
 
-	win.popGLStates();
+	window.restoreGLState();
 }
 
 void		Renderer::render(Window & window)
 {
 	clear(window);
 
-	renderModelNodes(window);
-	renderSFMLNodes(window);
+	_renderModelNodes(window);
+	_renderSFMLNodes(window);
 }
 
 void		Renderer::registerNode(Light & node)
