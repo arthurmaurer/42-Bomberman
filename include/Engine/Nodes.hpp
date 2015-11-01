@@ -7,5 +7,6 @@
 # include "Engine/Core/Nodes/SFMLNode.hpp"
 # include "Engine/Core/Nodes/TextNode.hpp"
 # include "Engine/Core/Nodes/SpriteNode.hpp"
+# include "Engine/Core/Nodes/CameraNode.hpp"
 
 #endif /* _ENGINE_NODES_HPP */

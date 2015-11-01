@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : LevelState.cpp
 //         :               :  Creation   : 2015-10-17 07:50:58
-//         :      _/|      :  Last Edit  : 2015-11-01 02:27:06
+//         :      _/|      :  Last Edit  : 2015-11-01 09:48:47
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -27,15 +27,14 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	State(stateStack, context),
 	rootNode(new SceneNode())
 {
-	Renderer::activeCamera = new Camera(45.f);
-	Renderer::activeCamera->transform.position.z = 10.f;
+	//Renderer::activeCamera = new Camera(45.f);
+	//Renderer::activeCamera->transform.position.z = 10.f;
 
 	CubeEntity *	cube;
 
 	cube = new CubeEntity();
 	cube->transform.position.x = -3.f;
 	cube->updateNode(sf::Time());
-	Renderer::registerNode(*cube);
 
 	cube = new CubeEntity();
 	cube->transform.position.x = 3.f;
@@ -48,6 +47,10 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	light1 = new Light(Light::LightType::Directional, Vec3(1.f, 0, 1.f));
 	light1->transform.rotation.rotateZ(MathUtil::rad(-30.f));
 	light1->updateNode(sf::Time());
+
+	CameraNode::Ptr	camera(new CameraNode(45.f));
+	camera->transform.position.z = 10.f;
+	rootNode->attachChild(std::move(camera));
 
 	TextNode::Ptr	text(new TextNode("Salut les mecs", Resource::load<FontManager>("Main")));
 	text->transform.position = { 50, 50, 50 };

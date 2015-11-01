@@ -2,17 +2,16 @@
 #ifndef _CAMERA_HPP
 # define _CAMERA_HPP
 
-# include "Engine/Core/Transform.hpp"
+# include "Engine/Core/Transformable.hpp"
 
 namespace Fothon
 {
-	class Camera
+	class Camera : public virtual Transformable
 	{
 	public:
 		float		fovY;
 		float		nearPlane;
 		float		farPlane;
-		Transform	transform;
 
 		Camera(float fovY);
 	};

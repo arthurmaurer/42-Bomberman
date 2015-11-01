@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : SceneNode.cpp
 //         :               :  Creation   : 2015-09-10 10:46:49
-//         :      _/|      :  Last Edit  : 2015-10-18 04:28:10
+//         :      _/|      :  Last Edit  : 2015-11-01 10:17:45
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -16,9 +16,6 @@
 
 #include "Engine/Core/Nodes/SceneNode.hpp"
 #include "Engine/Core/Command.hpp"
-
-#include "Game/Category.hpp"
-// TODO: Include from Game in Engine ?
 
 using namespace Fothon;
 
@@ -60,16 +57,11 @@ void	SceneNode::updateNode(sf::Time dt)
 
 void			SceneNode::onCommand(const Command & command, sf::Time dt)
 {
-	if (command.category & getCategory())
+	if (command.category & category)
 		command.action(*this, dt);
 
 	for (Ptr & child : children)
 		child->onCommand(command, dt);
-}
-
-unsigned int	SceneNode::getCategory() const
-{
-	return Category::Scene;
 }
 
 void	SceneNode::update(sf::Time)

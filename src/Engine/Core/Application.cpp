@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-11-01 02:16:38
+//         :      _/|      :  Last Edit  : 2015-11-01 09:56:26
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -85,9 +85,6 @@ void	Application::render()
 	window.window.display();
 }
 
-#define MOVE_SPEED	0.1f
-#define LOOK_SPEED	0.01f
-
 void	Application::processInput()
 {
 	sf::Event event;
@@ -104,34 +101,8 @@ void	Application::processInput()
 			window.close();
 	}
 
-	Camera &	camera = *Renderer::activeCamera;
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		window.close();
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-		camera.transform.position -= camera.transform.rotation * (Vec3::forward * MOVE_SPEED);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		camera.transform.position -= camera.transform.rotation * (Vec3::back * MOVE_SPEED);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-		camera.transform.position += camera.transform.rotation * (Vec3::left * MOVE_SPEED);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		camera.transform.position += camera.transform.rotation * (Vec3::right * MOVE_SPEED);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		camera.transform.rotation.rotateX(LOOK_SPEED);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		camera.transform.rotation.rotateX(-LOOK_SPEED);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		camera.transform.rotation.rotateY(-LOOK_SPEED);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		camera.transform.rotation.rotateY(LOOK_SPEED);
 }
 
 void	Application::update(sf::Time dt)

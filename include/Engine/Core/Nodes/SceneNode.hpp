@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : SceneNode.hpp
 //         :               :  Creation   : 2015-09-10 10:46:31
-//         :      _/|      :  Last Edit  : 2015-10-18 04:27:47
+//         :      _/|      :  Last Edit  : 2015-11-01 10:15:16
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -19,6 +19,7 @@
 # include <memory>
 
 # include <SFML/System/Time.hpp>
+# include <SFML/Window/Event.hpp>
 
 # include "Engine/Core/Transformable.hpp"
 # include "Engine/Core/NonCopyable.hpp"
@@ -28,7 +29,7 @@ namespace Fothon
 {
 	struct Command;
 
-	class SceneNode :	public Transformable,
+	class SceneNode :	public virtual Transformable,
 						private NonCopyable
 	{
 	public:
@@ -36,6 +37,7 @@ namespace Fothon
 
 		std::vector<Ptr>	children;
 		SceneNode *			parent = nullptr;
+		unsigned long long	category;
 
 		SceneNode();
 
@@ -44,7 +46,6 @@ namespace Fothon
 		void				updateNode(sf::Time dt);
 
 		void				onCommand(const Command & command, sf::Time dt);
-		virtual unsigned	getCategory() const;
 
 		virtual void		update(sf::Time dt);
 
