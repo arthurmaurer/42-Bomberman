@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : Application.cpp
 //         :               :  Creation   : 2015-10-17 05:00:19
-//         :      _/|      :  Last Edit  : 2015-11-01 09:56:26
+//         :      _/|      :  Last Edit  : 2015-11-01 11:25:40
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -16,6 +16,7 @@
 
 #include <SFML/Window/Event.hpp>
 
+#include "Engine/Core/Keyboard.hpp"
 #include "Engine/Core/Application.hpp"
 #include "Engine/Graphics/Renderer.hpp"
 #include "Engine/Graphics/DefaultProgram.hpp"
@@ -57,6 +58,9 @@ void		Application::run()
 			processInput();
 			update(timePerFrame);
 
+			// TODO: Extend Fothon input managing to more than keyboard (mouse, joystick...)
+			Keyboard::dehydrate();
+
 			if (stateStack.isEmpty())
 				window.close();
 		}
@@ -96,6 +100,8 @@ void	Application::processInput()
 	while (window.window.pollEvent(event))
 	{
 		stateStack.handleEvent(event);
+
+		Keyboard::hydrate(event);
 
 		if (event.type == sf::Event::Closed)
 			window.close();

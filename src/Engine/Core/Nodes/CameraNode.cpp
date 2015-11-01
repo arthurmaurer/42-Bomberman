@@ -2,7 +2,7 @@
 //           .'         `.
 //          :             :   File       : CameraNode.cpp
 //         :               :  Creation   : 2015-11-01 08:43:28
-//         :      _/|      :  Last Edit  : 2015-11-01 10:03:45
+//         :      _/|      :  Last Edit  : 2015-11-01 11:24:09
 //          :   =/_/      :   Author     : nsierra-
 //           `._/ |     .'    Mail       : nsierra-@student.42.fr
 //         (   /  ,|...-'
@@ -16,6 +16,7 @@
 #include "Game/Category.hpp"
 
 #include "Engine/Graphics/Renderer.hpp"
+#include "Engine/Core/Keyboard.hpp"
 #include "Engine/Core/Nodes/CameraNode.hpp"
 
 using namespace Fothon;
@@ -34,34 +35,34 @@ void	CameraNode::update(sf::Time)
 	if (!isActive())
 		return ;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	if (Keyboard::isKeyHold(Keyboard::Z))
 		transform.position -= transform.rotation * (Vec3::forward * moveSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (Keyboard::isKeyHold(Keyboard::S))
 		transform.position -= transform.rotation * (Vec3::back * moveSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	if (Keyboard::isKeyHold(Keyboard::Q))
 		transform.position += transform.rotation * (Vec3::left * moveSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (Keyboard::isKeyHold(Keyboard::D))
 		transform.position += transform.rotation * (Vec3::right * moveSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	if (Keyboard::isKeyHold(Keyboard::Up))
 		transform.rotation.rotateX(lookSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	if (Keyboard::isKeyHold(Keyboard::Down))
 		transform.rotation.rotateX(-lookSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	if (Keyboard::isKeyHold(Keyboard::Right))
 		transform.rotation.rotateY(-lookSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (Keyboard::isKeyHold(Keyboard::Left))
 		transform.rotation.rotateY(lookSpeed);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::N))
+	if (Keyboard::isKeyHold(Keyboard::N))
 		setActive(false);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
+	if (Keyboard::isKeyHold(Keyboard::B))
 		setActive(true);
 }
 
