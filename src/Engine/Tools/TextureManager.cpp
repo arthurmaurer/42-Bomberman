@@ -23,11 +23,6 @@
 
 using namespace Fothon;
 
-TextureManager::TextureManager() :
-	_texturesID(),
-	_cachedImages()
-{}
-
 ImageBuffer &	TextureManager::_loadImage(const std::string & path)
 {
 	bool			success = false;

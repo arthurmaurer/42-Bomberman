@@ -53,9 +53,7 @@ LevelState::LevelState(StateStack & stateStack, State::Context & context) :
 	text->transform.position = { 50, 50, 50 };
 	rootNode->attachChild(std::move(text));
 
-	sf::Texture *	texture = new sf::Texture();
-	texture->loadFromFile("resources/dude.jpg");
-	SpriteNode::Ptr	sprite(new SpriteNode(*texture));
+	SpriteNode::Ptr	sprite(new SpriteNode(Resource::load<SFMLTextureManager>("Dude", "dude.jpg")));
 	sprite->transform.position = { 20, 100, 0 };
 	sprite->transform.scale = { 0.2f, 0.2f, 1.f };
 	sprite->transform.rotation.rotateZ(MathUtil::rad(45.f));

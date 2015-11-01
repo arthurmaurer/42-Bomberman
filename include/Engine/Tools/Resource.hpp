@@ -19,12 +19,13 @@
 
 # include "Engine/Tools/TextureManager.hpp"
 # include "Engine/Tools/FontManager.hpp"
+# include "Engine/Tools/SFMLTextureManager.hpp"
 
 namespace Fothon
 {
 	class Resource
 	{
-		typedef std::tuple<TextureManager, FontManager>	ResourceTuple;
+		typedef std::tuple<TextureManager, FontManager, SFMLTextureManager>	ResourceTuple;
 
 		static ResourceTuple	_tuple;
 

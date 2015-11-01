@@ -9,5 +9,6 @@
 # include "Engine/Tools/ModelManager.hpp"
 # include "Engine/Tools/Resource.hpp"
 # include "Engine/Tools/TextureManager.hpp"
+# include "Engine/Tools/SFMLTextureManager.hpp"
 
 #endif /* _ENGINE_TOOLS_HPP */

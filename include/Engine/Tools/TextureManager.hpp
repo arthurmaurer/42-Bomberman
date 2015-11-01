@@ -33,8 +33,6 @@ namespace Fothon
 		ImageBuffer &	_loadImage(const std::string & path);
 
 	public:
-		TextureManager();
-
 		void			unload(const std::string & key);
 		Texture &		load(const std::string & key, const std::string & param = "");
 		void			clearCache();
